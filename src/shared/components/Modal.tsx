@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
+import { createPortal } from "react-dom";
 
 interface ModalProps {
   children: ReactNode;
 }
 
 const Modal = ({ children }: ModalProps) => {
-  return (
+  return createPortal(
     <>
       <div className="modal fade show d-block" tabIndex={-1} role="dialog">
         <div className="modal-dialog modal-dialog-centered">
@@ -14,7 +15,8 @@ const Modal = ({ children }: ModalProps) => {
       </div>
 
       <div className="modal-backdrop fade show" />
-    </>
+    </>,
+    document.body,
   );
 };
 
