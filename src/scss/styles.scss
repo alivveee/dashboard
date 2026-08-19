@@ -1,0 +1,118 @@
+//Themes
+
+//Brand v
+$primary: #eab308;
+$primary-light: #fac93e;
+
+//Component v
+$component-active-color: #1a1a1a;
+$border-radius: 0.5rem;
+
+//Font v
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+$font-family-sans-serif: "Inter", sans-serif;
+
+@import "bootstrap/scss/bootstrap";
+
+.sidebar {
+  flex-shrink: 0;
+  width: 220px;
+  overflow: hidden;
+  transition: width 0.2s ease-in-out;
+}
+
+.sidebar-closed {
+  width: 4.5rem;
+}
+
+.sidebar-closed .sidebar-label {
+  display: none;
+}
+
+.sidebar-brand-short {
+  display: none;
+}
+
+.sidebar-closed .sidebar-brand-short {
+  display: inline;
+}
+
+.sidebar-closed .sidebar-brand {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.sidebar-closed .nav-link {
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  margin-inline: auto;
+}
+
+.sidebar-closed .sidebar-nav {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.sidebar-closed .sidebar-submenu {
+  padding-left: 0;
+  margin-top: 0.375rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--bs-border-color);
+}
+
+.sidebar .nav-link {
+  border-radius: $border-radius;
+  transition:
+    background-color 0.15s ease-in-out,
+    color 0.15s ease-in-out;
+}
+
+.nav-tabs .nav-link:not(.active) {
+  color: var(--bs-emphasis-color);
+}
+
+.sidebar-toggle-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.sidebar .nav-link:hover {
+  background-color: var(--bs-secondary-bg);
+  color: var(--bs-emphasis-color);
+}
+
+.sidebar .nav-link.active:hover {
+  background-color: $primary-light;
+  color: $component-active-color;
+}
+
+.sidebar-submenu {
+  padding-left: 1.75rem;
+  margin-top: 0.5rem;
+}
+
+.sidebar-chevron {
+  transition: transform 0.15s ease-in-out;
+}
+
+.sidebar button[aria-expanded="true"] .sidebar-chevron {
+  transform: rotate(180deg);
+}
+
+.btn-sidebar-toggle {
+  border: 0;
+  background: transparent;
+  color: var(--bs-body-color);
+  border-radius: $border-radius;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.btn-sidebar-toggle:hover,
+.btn-sidebar-toggle:focus {
+  background-color: var(--bs-secondary-bg);
+  color: var(--bs-body-color);
+}
