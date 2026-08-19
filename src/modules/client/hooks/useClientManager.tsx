@@ -1,7 +1,7 @@
 import { useState } from "react";
-import useCrud from "./useCrud";
-import useModal from "./useModal";
-import { showAlert } from "../helpers/alert";
+import useCrud from "../../../shared/hooks/useCrud";
+import useModal from "../../../shared/hooks/useModal";
+import { showAlert } from "../../../shared/helpers/alert";
 
 interface UseClientManagerConfig<TItem extends { id: string }> {
   clientLabel: string;

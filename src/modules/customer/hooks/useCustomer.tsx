@@ -4,7 +4,7 @@ import {
   CustomerFormData,
   StatusOption,
 } from "../../client/types/Client.types";
-import useClientManager from "../../../shared/hooks/useClientManager";
+import useClientManager from "../../client/hooks/useClientManager";
 
 const initialCustomers: Customer[] = [
   {

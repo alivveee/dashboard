@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { IconChevronDown } from "../components/icons/Icons";
-import { isRouteActive } from "../helpers/routes.helper";
+import { isRouteActive } from "../../routes/routes.helper";
 import { RouteConfig } from "../types/Route.types";
 
 interface SidebarMenuItemProps {

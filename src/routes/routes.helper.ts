@@ -1,5 +1,5 @@
 import { ComponentType, ReactNode } from "react";
-import { RouteConfig } from "../types/Route.types";
+import { RouteConfig } from "../shared/types/Route.types";
 
 export const createRoute = (
   path: string,
@@ -57,25 +57,6 @@ export interface PageUrlOption {
   path: string;
   label: string;
 }
-
-export const flattenRoutePages = (
-  items: RouteConfig[],
-  parentLabel = "",
-): PageUrlOption[] =>
-  items.flatMap((route) => {
-    const label = parentLabel ? `${parentLabel} > ${route.label}` : route.label;
-
-    if (route.children?.length) {
-      return flattenRoutePages(route.children, label);
-    }
-
-    return [
-      {
-        path: route.path,
-        label: `${label} (${route.path})`,
-      },
-    ];
-  });
 
 export const filterRoutesByPermission = (
   items: RouteConfig[],

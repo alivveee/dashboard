@@ -3,7 +3,7 @@ import useSidebar from "../hooks/useSidebar";
 import useTheme from "../hooks/useTheme";
 import useAuth from "../../modules/auth/hooks/useAuth";
 import { IconMenu, IconMoon, IconSun } from "../components/icons/Icons";
-import { findActiveRoute } from "../helpers/routes.helper";
+import { findActiveRoute } from "../../routes/routes.helper";
 import { routes } from "../../routes/routes.config";
 import UserMenu from "./UserMenu";
 

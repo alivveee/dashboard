@@ -1,4 +1,4 @@
-import useClientManager from "../../../shared/hooks/useClientManager";
+import useClientManager from "../../client/hooks/useClientManager";
 import { PackageOption } from "../types/Package.types";
 
 export const PACKAGES_KEY = "gx-packages";

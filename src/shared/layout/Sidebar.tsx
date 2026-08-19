@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { filterRoutesByPermission } from "../helpers/routes.helper";
+import { filterRoutesByPermission } from "../../routes/routes.helper";
 import useAuth from "../../modules/auth/hooks/useAuth";
 import useSidebar from "../hooks/useSidebar";
 import { routes } from "../../routes/routes.config";

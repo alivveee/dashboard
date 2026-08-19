@@ -9,7 +9,7 @@ import {
   IconUser,
   IconUsers,
 } from "../shared/components/icons/Icons";
-import { createRoute } from "../shared/helpers/routes.helper";
+import { createRoute } from "./routes.helper";
 
 import DashboardPage from "../modules/dashboard/pages/DashboardPage";
 import CustomerPage from "../modules/customer/pages/CustomerPage";
@@ -44,12 +44,7 @@ export const routes = [
   createRoute(path.settings.root, "Settings", IconSettings, <Outlet />, [
     createRoute(path.settings.users, "Users", IconUsers, <UsersPage />),
 
-    createRoute(
-      path.settings.profile,
-      "Profile",
-      IconUser,
-      <ProfilePage />,
-    ),
+    createRoute(path.settings.profile, "Profile", IconUser, <ProfilePage />),
 
     createRoute(
       path.settings.package,

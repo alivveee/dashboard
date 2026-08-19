@@ -1,4 +1,4 @@
-import useClientManager from "../../../shared/hooks/useClientManager";
+import useClientManager from "../../client/hooks/useClientManager";
 import usePermission from "../../permissions/hooks/usePermission";
 import { Role } from "../types/Role.types";
 import {

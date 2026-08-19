@@ -1,5 +1,9 @@
-import { StatusOption, Prospect, ProspectFormData } from "../../client/types/Client.types";
-import useClientManager from "../../../shared/hooks/useClientManager";
+import {
+  StatusOption,
+  Prospect,
+  ProspectFormData,
+} from "../../client/types/Client.types";
+import useClientManager from "../../client/hooks/useClientManager";
 import { INITIAL_PACKAGES } from "../../package/hooks/usePackage";
 
 const initialProspects: Prospect[] = [

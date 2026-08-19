@@ -1,4 +1,4 @@
-import useClientManager from "../../../shared/hooks/useClientManager";
+import useClientManager from "../../client/hooks/useClientManager";
 import { User } from "../types/User.types";
 
 export const USERS_KEY = "gx-users";
