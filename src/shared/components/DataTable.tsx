@@ -127,7 +127,7 @@ function DataTable<T extends { id: string }>({
       {/* Table */}
       <div className="card-body p-0 table-responsive">
         <table className="table align-middle mb-0">
-          <thead className="table-light">
+          <thead>
             <tr>
               <th scope="col">#</th>
 
@@ -233,7 +233,7 @@ function DataTable<T extends { id: string }>({
 
       {/* Pagination */}
       {totalItems > 0 && (
-        <div className="card-footer bg-white d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div className="card-footer d-flex flex-wrap justify-content-between align-items-center gap-2">
           {/* Page Size */}
           <div className="d-flex align-items-center gap-2">
             <span className="text-muted small">Baris per halaman</span>
