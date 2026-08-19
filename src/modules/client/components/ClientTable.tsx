@@ -50,11 +50,13 @@ function ClientTable<TItem extends ClientWithStatus>({
       canDelete={canDelete}
       getItemLabel={() => clientLabelLower}
       columns={[
-        { header: "Nama", render: (item) => item.name },
-        { header: "Email", render: (item) => item.email },
-        { header: "Telepon", render: (item) => item.phone },
+        { header: "Nama", key: "name", sortable: true },
+        { header: "Email", key: "email", sortable: true },
+        { header: "Telepon", key: "phone", sortable: true },
         {
           header: "Paket",
+          sortable: true,
+          sortValue: (item) => packageById.get(item.packageId)?.name ?? "",
           render: (item) => {
             const pkg = packageById.get(item.packageId);
             return pkg ? `${pkg.name} ${pkg.speed}` : "-";
@@ -62,6 +64,8 @@ function ClientTable<TItem extends ClientWithStatus>({
         },
         {
           header: "Harga",
+          sortable: true,
+          sortValue: (item) => packageById.get(item.packageId)?.price ?? 0,
           render: (item) => {
             const pkg = packageById.get(item.packageId);
             return pkg ? formatCurrency(pkg.price) : "-";
@@ -69,6 +73,8 @@ function ClientTable<TItem extends ClientWithStatus>({
         },
         {
           header: "Status",
+          key: "status",
+          sortable: true,
           render: (item) => {
             const status = statusByValue.get(item.status);
             return (

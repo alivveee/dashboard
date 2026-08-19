@@ -22,6 +22,11 @@ import {
   Pencil,
   Trash2,
   X,
+  ArrowUp,
+  ArrowDown,
+  ArrowUpDown,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 interface IconProps {
@@ -118,4 +123,24 @@ export const IconTrash = ({ className }: IconProps) => (
 
 export const IconClose = ({ className }: IconProps) => (
   <X size={18} className={className} />
+);
+
+export const IconSortAsc = ({ className }: IconProps) => (
+  <ArrowUp size={14} className={className} />
+);
+
+export const IconSortDesc = ({ className }: IconProps) => (
+  <ArrowDown size={14} className={className} />
+);
+
+export const IconSort = ({ className }: IconProps) => (
+  <ArrowUpDown size={14} className={className} />
+);
+
+export const IconChevronLeft = ({ className }: IconProps) => (
+  <ChevronLeft size={16} className={className} />
+);
+
+export const IconChevronRight = ({ className }: IconProps) => (
+  <ChevronRight size={16} className={className} />
 );

@@ -26,10 +26,12 @@ const PackagesTable = ({
     canDelete={canDelete}
     getItemLabel={(item) => item.name}
     columns={[
-      { header: "Nama Paket", render: (item) => item.name },
-      { header: "Kecepatan", render: (item) => item.speed },
+      { header: "Nama Paket", key: "name", sortable: true },
+      { header: "Kecepatan", key: "speed", sortable: true },
       {
         header: "Harga/Bulan",
+        key: "price",
+        sortable: true,
         render: (item) => formatCurrency(item.price),
       },
     ]}

@@ -25,10 +25,12 @@ const RolesTable = ({
     canDelete={canDelete}
     getItemLabel={(role) => role.name}
     columns={[
-      { header: "Nama Role", render: (role) => role.name },
-      { header: "Deskripsi", render: (role) => role.description },
+      { header: "Nama Role", key: "name", sortable: true },
+      { header: "Deskripsi", key: "description", sortable: true },
       {
         header: "Permission",
+        sortable: true,
+        sortValue: (role) => Object.keys(role.grants).length,
         render: (role) => (
           <span className="badge text-bg-secondary">
             {Object.keys(role.grants).length} module

@@ -35,11 +35,14 @@ const UsersTable = ({
       canDelete={canDelete}
       getItemLabel={(user) => user.name}
       columns={[
-        { header: "Nama", render: (user) => user.name },
-        { header: "Email", render: (user) => user.email },
-        { header: "Alamat", render: (user) => user.address },
+        { header: "Nama", key: "name", sortable: true },
+        { header: "Email", key: "email", sortable: true },
+        { header: "Alamat", key: "address", sortable: true },
         {
           header: "Role",
+          sortable: true,
+          sortValue: (user) =>
+            roles.find((role) => role.id === user.role)?.name ?? user.role,
           render: (user) =>
             roles.find((role) => role.id === user.role)?.name ?? user.role,
         },
