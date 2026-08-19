@@ -1,6 +1,6 @@
 import useCrud from "../../../shared/hooks/useCrud";
 import { Permission } from "../../../shared/types/Permission.types";
-import { path } from "../../../routes/routes.config";
+import { path } from "../../../routes/routes.paths";
 import {
   CRUD_ACTIONS,
   PERMISSION_ID,

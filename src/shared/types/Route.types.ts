@@ -1,9 +1,9 @@
-import { ComponentType, ReactNode } from "react";
+import { ComponentType } from "react";
 
 export interface RouteConfig {
   path: string;
   label: string;
   icon: ComponentType<{ className?: string }>;
-  component: ReactNode;
+  component: ComponentType;
   children?: RouteConfig[];
 }

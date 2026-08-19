@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { path } from "../../routes/routes.config";
+import { path } from "../../routes/routes.paths";
 
 const NotFoundPage = () => (
   <div className="text-center py-5">

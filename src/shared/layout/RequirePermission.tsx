@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import useAuth from "../../modules/auth/hooks/useAuth";
-import { path } from "../../routes/routes.config";
+import { path } from "../../routes/routes.paths";
 
 interface RequirePermissionProps {
   permission?: string;

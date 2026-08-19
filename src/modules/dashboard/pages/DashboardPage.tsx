@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../auth/hooks/useAuth";
 import useAnalytics from "../../analytics/hooks/useAnalytics";
-import { path } from "../../../routes/routes.config";
+import { path } from "../../../routes/routes.paths";
 import { IconAnalytics } from "../../../shared/components/icons/Icons";
 
 const formatPercentage = (value: number) => `${value.toFixed(1)}%`;

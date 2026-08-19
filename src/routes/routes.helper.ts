@@ -1,11 +1,11 @@
-import { ComponentType, ReactNode } from "react";
+import { ComponentType } from "react";
 import { RouteConfig } from "../shared/types/Route.types";
 
 export const createRoute = (
   path: string,
   label: string,
   icon: ComponentType,
-  component: ReactNode,
+  component: ComponentType,
   children?: RouteConfig[],
 ): RouteConfig => ({
   path,
