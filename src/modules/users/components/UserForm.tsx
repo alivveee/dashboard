@@ -7,8 +7,8 @@ import FormSelect from "../../../shared/components/form/FormSelect";
 import PasswordInput from "../../../shared/components/form/PasswordInput";
 
 const genderOptions = [
-  { value: "L", label: "Laki-laki" },
-  { value: "P", label: "Perempuan" },
+  { value: "L", label: "Male" },
+  { value: "P", label: "Female" },
 ];
 
 interface UserFormProps {
@@ -40,13 +40,13 @@ const UserForm = ({
     <form onSubmit={handleSubmit}>
       <div className="modal-header">
         <h5 className="modal-title">
-          {isEditing ? "Edit User" : "Tambah User"}
+          {isEditing ? "Edit User" : "Add User"}
         </h5>
 
         <button
           type="button"
           className="btn-close"
-          aria-label="Tutup"
+          aria-label="Close"
           onClick={onCancel}
         />
       </div>
@@ -54,8 +54,8 @@ const UserForm = ({
       <div className="modal-body">
         <FormInput
           id="user-name"
-          label="Nama"
-          placeholder="Tulis nama user disini"
+          label="Name"
+          placeholder="Enter user name here"
           value={values.name}
           onChange={(value) => handleChange("name", value)}
           required
@@ -65,7 +65,7 @@ const UserForm = ({
           id="user-email"
           label="Email"
           type="email"
-          placeholder="nama@email.com"
+          placeholder="name@email.com"
           value={values.email}
           onChange={(value) => handleChange("email", value)}
           required
@@ -73,8 +73,8 @@ const UserForm = ({
 
         <FormInput
           id="user-address"
-          label="Alamat"
-          placeholder="Tulis alamat disini"
+          label="Address"
+          placeholder="Enter address here"
           value={values.address}
           onChange={(value) => handleChange("address", value)}
           required
@@ -82,7 +82,7 @@ const UserForm = ({
 
         <FormInput
           id="user-birthday"
-          label="Tanggal Lahir"
+          label="Date of Birth"
           type="date"
           value={values.birthday}
           onChange={(value) => handleChange("birthday", value)}
@@ -91,8 +91,8 @@ const UserForm = ({
 
         <FormSelect
           id="user-gender"
-          label="Jenis Kelamin"
-          placeholder="Pilih jenis kelamin"
+          label="Gender"
+          placeholder="Select gender"
           value={values.gender}
           onChange={(value) => handleChange("gender", value)}
           options={genderOptions}
@@ -107,7 +107,7 @@ const UserForm = ({
         <FormSelect
           id="user-role"
           label="Role"
-          placeholder="Pilih role"
+          placeholder="Select role"
           value={values.role}
           onChange={(value) => handleChange("role", value)}
           options={roleOptions}
@@ -122,11 +122,11 @@ const UserForm = ({
           onClick={onCancel}
           disabled={loading}
         >
-          Batal
+          Cancel
         </button>
 
         <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? "Menyimpan..." : isEditing ? "Simpan Perubahan" : "Tambah"}
+          {loading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
         </button>
       </div>
     </form>

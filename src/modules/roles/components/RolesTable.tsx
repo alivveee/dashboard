@@ -18,15 +18,15 @@ const RolesTable = ({
 }: RolesTableProps) => (
   <DataTable
     items={roles}
-    emptyMessage="Belum ada data role."
+    emptyMessage="No role data yet."
     onEdit={onEdit}
     onDelete={onDelete}
     canEdit={canEdit}
     canDelete={canDelete}
     getItemLabel={(role) => role.name}
     columns={[
-      { header: "Nama Role", key: "name", sortable: true },
-      { header: "Deskripsi", key: "description", sortable: true },
+      { header: "Role Name", key: "name", sortable: true },
+      { header: "Description", key: "description", sortable: true },
       {
         header: "Permission",
         sortable: true,

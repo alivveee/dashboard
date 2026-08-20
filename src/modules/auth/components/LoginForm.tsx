@@ -28,7 +28,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
     const success = onSubmit(values.email.trim(), values.password);
 
     if (!success) {
-      setError("Email atau password salah.");
+      setError("Invalid email or password.");
       return;
     }
 
@@ -47,7 +47,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
         id="email"
         label="Email"
         type="email"
-        placeholder="nama@email.com"
+        placeholder="name@email.com"
         value={values.email}
         onChange={(value) => handleChange("email", value)}
         icon={<IconUser />}
@@ -60,7 +60,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
       />
 
       <button type="submit" className="btn btn-primary w-100 mt-2">
-        Masuk
+        Sign In
       </button>
     </form>
   );

@@ -26,7 +26,7 @@ const LoginPage = () => {
             <h1 className="h3 fw-semibold mb-1">GX App</h1>
 
             <p className="text-muted mb-0">
-              Masuk ke akun Anda untuk melanjutkan
+              Sign in to your account to continue
             </p>
           </div>
 

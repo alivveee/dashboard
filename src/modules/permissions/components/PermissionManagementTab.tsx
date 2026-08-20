@@ -42,7 +42,7 @@ const PermissionManagementTab = () => {
   return (
     <div>
       <PageHeader
-        title="Daftar permission"
+        title="Permission List"
         action={
           !isEditing && canManage
             ? { label: "Edit", icon: <IconEdit />, onClick: handleEdit }
@@ -57,7 +57,7 @@ const PermissionManagementTab = () => {
                 onClick={handleCancel}
                 disabled={loading}
               >
-                Batal
+                Cancel
               </button>
 
               <button
@@ -66,7 +66,7 @@ const PermissionManagementTab = () => {
                 onClick={handleSave}
                 disabled={loading}
               >
-                {loading ? "Menyimpan..." : "Simpan Perubahan"}
+                {loading ? "Saving..." : "Save Changes"}
               </button>
             </div>
           ) : undefined

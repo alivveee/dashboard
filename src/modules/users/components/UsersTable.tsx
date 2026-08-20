@@ -26,7 +26,7 @@ const UsersTable = ({
   return (
     <DataTable
       items={users}
-      emptyMessage="Belum ada data user."
+      emptyMessage="No user data yet."
       onView={onView}
       onEdit={onEdit}
       onDelete={onDelete}
@@ -35,9 +35,9 @@ const UsersTable = ({
       canDelete={canDelete}
       getItemLabel={(user) => user.name}
       columns={[
-        { header: "Nama", key: "name", sortable: true },
+        { header: "Name", key: "name", sortable: true },
         { header: "Email", key: "email", sortable: true },
-        { header: "Alamat", key: "address", sortable: true },
+        { header: "Address", key: "address", sortable: true },
         {
           header: "Role",
           sortable: true,

@@ -27,7 +27,7 @@ export const showAlert = (
   const closeBtn = document.createElement("button");
   closeBtn.type = "button";
   closeBtn.className = "btn-close";
-  closeBtn.setAttribute("aria-label", "Tutup");
+  closeBtn.setAttribute("aria-label", "Close");
   closeBtn.onclick = () => alertEl.remove();
 
   alertEl.append(closeBtn);

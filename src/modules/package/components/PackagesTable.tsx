@@ -19,17 +19,17 @@ const PackagesTable = ({
 }: PackagesTableProps) => (
   <DataTable
     items={packages}
-    emptyMessage="Belum ada data paket."
+    emptyMessage="No package data yet."
     onEdit={onEdit}
     onDelete={onDelete}
     canEdit={canEdit}
     canDelete={canDelete}
     getItemLabel={(item) => item.name}
     columns={[
-      { header: "Nama Paket", key: "name", sortable: true },
-      { header: "Kecepatan", key: "speed", sortable: true },
+      { header: "Package Name", key: "name", sortable: true },
+      { header: "Speed", key: "speed", sortable: true },
       {
-        header: "Harga/Bulan",
+        header: "Price/Month",
         key: "price",
         sortable: true,
         render: (item) => formatCurrency(item.price),

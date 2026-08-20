@@ -58,7 +58,7 @@ const useProfile = () => {
         role: updated.role,
       });
 
-      showAlert("Profil berhasil diperbarui.");
+      showAlert("Profile updated successfully.");
     },
     [currentUser, update, updateSession],
   );

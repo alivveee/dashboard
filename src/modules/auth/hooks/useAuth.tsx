@@ -10,7 +10,6 @@ import { INITIAL_USERS, USERS_KEY } from "../../users/hooks/useUser";
 import { INITIAL_ROLES, ROLES_KEY } from "../../roles/hooks/useRole";
 import {
   INITIAL_PERMISSIONS,
-  normalizePermissions,
   PERMISSIONS_KEY,
 } from "../../permissions/hooks/usePermission";
 import { isActionActive } from "../../../shared/constants/permissions";
@@ -46,14 +45,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useLocalStorage<Session | null>(AUTH_KEY, null);
   const [users] = useLocalStorage<User[]>(USERS_KEY, INITIAL_USERS);
   const [roles] = useLocalStorage<Role[]>(ROLES_KEY, INITIAL_ROLES);
-  const [rawPermissions] = useLocalStorage<Permission[]>(
+  const [permissions] = useLocalStorage<Permission[]>(
     PERMISSIONS_KEY,
     INITIAL_PERMISSIONS,
-  );
-
-  const permissions = useMemo(
-    () => normalizePermissions(rawPermissions),
-    [rawPermissions],
   );
 
   const permissionsById = useMemo(

@@ -38,13 +38,13 @@ const PackageForm = ({
     <form onSubmit={handleSubmit}>
       <div className="modal-header">
         <h5 className="modal-title">
-          {isEditing ? "Edit Paket" : "Tambah Paket"}
+          {isEditing ? "Edit Package" : "Add Package"}
         </h5>
 
         <button
           type="button"
           className="btn-close"
-          aria-label="Tutup"
+          aria-label="Close"
           onClick={onCancel}
         />
       </div>
@@ -52,8 +52,8 @@ const PackageForm = ({
       <div className="modal-body">
         <FormInput
           id="package-name"
-          label="Nama Paket"
-          placeholder="Tulis nama paket disini"
+          label="Package Name"
+          placeholder="Enter package name here"
           value={values.name}
           onChange={(value) => handleChange("name", value)}
           required
@@ -61,8 +61,8 @@ const PackageForm = ({
 
         <FormInput
           id="package-speed"
-          label="Kecepatan"
-          placeholder="Contoh: 100Mbps"
+          label="Speed"
+          placeholder="Example: 100Mbps"
           value={values.speed}
           onChange={(value) => handleChange("speed", value)}
           required
@@ -70,9 +70,9 @@ const PackageForm = ({
 
         <FormInput
           id="package-price"
-          label="Harga per Bulan"
+          label="Price per Month"
           type="number"
-          placeholder="Contoh: 300000"
+          placeholder="Example: 300000"
           value={values.price}
           onChange={(value) => handleChange("price", value)}
           required
@@ -86,11 +86,11 @@ const PackageForm = ({
           onClick={onCancel}
           disabled={loading}
         >
-          Batal
+          Cancel
         </button>
 
         <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? "Menyimpan..." : isEditing ? "Simpan Perubahan" : "Tambah"}
+          {loading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
         </button>
       </div>
     </form>

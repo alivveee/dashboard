@@ -18,20 +18,20 @@ const ConfirmDeleteModal = ({
   return (
     <Modal>
       <div className="modal-header">
-        <h5 className="modal-title">Hapus {entityName}</h5>
+        <h5 className="modal-title">Delete {entityName}</h5>
 
         <button
           type="button"
           className="btn-close"
-          aria-label="Tutup"
+          aria-label="Close"
           onClick={onCancel}
         />
       </div>
 
       <div className="modal-body">
         <p className="mb-0">
-          Apakah Anda yakin ingin menghapus {entityName.toLowerCase()}{" "}
-          <strong>{itemName}</strong>? Tindakan ini tidak dapat dibatalkan.
+          Are you sure you want to delete this {entityName.toLowerCase()}{" "}
+          <strong>{itemName}</strong>? This action cannot be undone.
         </p>
       </div>
 
@@ -42,7 +42,7 @@ const ConfirmDeleteModal = ({
           onClick={onCancel}
           disabled={loading}
         >
-          Batal
+          Cancel
         </button>
 
         <button
@@ -51,7 +51,7 @@ const ConfirmDeleteModal = ({
           onClick={onConfirm}
           disabled={loading}
         >
-          {loading ? "Menghapus..." : "Hapus"}
+          {loading ? "Deleting..." : "Delete"}
         </button>
       </div>
     </Modal>

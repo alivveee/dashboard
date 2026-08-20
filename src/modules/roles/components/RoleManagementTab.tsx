@@ -35,11 +35,11 @@ const RoleManagementTab = () => {
   return (
     <div>
       <PageHeader
-        title="Daftar role"
+        title="Role List"
         action={
           canAdd
             ? {
-                label: "Tambah Role",
+                label: "Add Role",
                 icon: <IconPlus />,
                 onClick: openAdd,
               }

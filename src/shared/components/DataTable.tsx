@@ -154,7 +154,7 @@ function DataTable<T extends { id: string }>({
 
               {hasActions && (
                 <th scope="col" className="text-end">
-                  Aksi
+                  Actions
                 </th>
               )}
             </tr>
@@ -193,7 +193,7 @@ function DataTable<T extends { id: string }>({
                               type="button"
                               className="btn btn-sm btn-outline-secondary d-flex align-items-center"
                               onClick={() => onView(item)}
-                              aria-label={`Detail ${getItemLabel(item)}`}
+                              aria-label={`View ${getItemLabel(item)}`}
                             >
                               <IconEye />
                             </button>
@@ -215,7 +215,7 @@ function DataTable<T extends { id: string }>({
                               type="button"
                               className="btn btn-sm btn-outline-danger d-flex align-items-center"
                               onClick={() => onDelete(item)}
-                              aria-label={`Hapus ${getItemLabel(item)}`}
+                              aria-label={`Delete ${getItemLabel(item)}`}
                             >
                               <IconTrash />
                             </button>
@@ -236,7 +236,7 @@ function DataTable<T extends { id: string }>({
         <div className="card-footer d-flex flex-wrap justify-content-between align-items-center gap-2">
           {/* Page Size */}
           <div className="d-flex align-items-center gap-2">
-            <span className="text-muted small">Baris per halaman</span>
+            <span className="text-muted small">Rows per page</span>
 
             <select
               className="form-select form-select-sm w-auto"
@@ -254,12 +254,12 @@ function DataTable<T extends { id: string }>({
           {/* Pagination */}
           <div className="d-flex align-items-center gap-3">
             <span className="text-muted small">
-              Menampilkan {startIndex + 1}-
-              {Math.min(startIndex + pageSize, totalItems)} dari {totalItems}{" "}
-              data
+              Showing {startIndex + 1}-
+              {Math.min(startIndex + pageSize, totalItems)} of {totalItems}{" "}
+              entries
             </span>
 
-            <nav aria-label="Navigasi halaman">
+            <nav aria-label="Page navigation">
               <ul className="pagination pagination-sm mb-0">
                 {/* Previous */}
                 <li
@@ -270,7 +270,7 @@ function DataTable<T extends { id: string }>({
                     className="page-link"
                     onClick={handlePreviousPage}
                     disabled={currentPage <= 1}
-                    aria-label="Halaman sebelumnya"
+                    aria-label="Previous page"
                   >
                     &laquo;
                   </button>
@@ -315,7 +315,7 @@ function DataTable<T extends { id: string }>({
                     className="page-link"
                     onClick={handleNextPage}
                     disabled={currentPage >= totalPages}
-                    aria-label="Halaman berikutnya"
+                    aria-label="Next page"
                   >
                     &raquo;
                   </button>

@@ -15,13 +15,13 @@ const ProfileView = ({
   gender,
   roleLabel,
 }: ProfileViewProps) => {
-  const genderLabel = gender === "L" ? "Laki-laki" : gender === "P" ? "Perempuan" : gender;
+  const genderLabel = gender === "L" ? "Male" : gender === "P" ? "Female" : gender;
 
   return (
     <div className="card">
       <div className="card-body">
         <div className="mb-3">
-          <div className="form-label text-muted mb-1">Nama</div>
+          <div className="form-label text-muted mb-1">Name</div>
           <div>{name}</div>
         </div>
 
@@ -31,17 +31,17 @@ const ProfileView = ({
         </div>
 
         <div className="mb-3">
-          <div className="form-label text-muted mb-1">Alamat</div>
+          <div className="form-label text-muted mb-1">Address</div>
           <div>{address}</div>
         </div>
 
         <div className="mb-3">
-          <div className="form-label text-muted mb-1">Tanggal Lahir</div>
+          <div className="form-label text-muted mb-1">Date of Birth</div>
           <div>{birthday}</div>
         </div>
 
         <div className="mb-3">
-          <div className="form-label text-muted mb-1">Jenis Kelamin</div>
+          <div className="form-label text-muted mb-1">Gender</div>
           <div>{genderLabel}</div>
         </div>
 

@@ -6,8 +6,8 @@ import FormSelect from "../../../shared/components/form/FormSelect";
 import PasswordInput from "../../../shared/components/form/PasswordInput";
 
 const genderOptions = [
-  { value: "L", label: "Laki-laki" },
-  { value: "P", label: "Perempuan" },
+  { value: "L", label: "Male" },
+  { value: "P", label: "Female" },
 ];
 
 interface ProfileFormProps {
@@ -30,8 +30,8 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
       <div className="card-body">
         <FormInput
           id="profile-name"
-          label="Nama"
-          placeholder="Tulis nama Anda disini"
+          label="Name"
+          placeholder="Enter your name here"
           value={values.name}
           onChange={(value) => handleChange("name", value)}
           required
@@ -41,7 +41,7 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
           id="profile-email"
           label="Email"
           type="email"
-          placeholder="nama@email.com"
+          placeholder="name@email.com"
           value={values.email}
           onChange={(value) => handleChange("email", value)}
           required
@@ -49,8 +49,8 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
 
         <FormInput
           id="profile-address"
-          label="Alamat"
-          placeholder="Tulis alamat disini"
+          label="Address"
+          placeholder="Enter address here"
           value={values.address}
           onChange={(value) => handleChange("address", value)}
           required
@@ -58,7 +58,7 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
 
         <FormInput
           id="profile-birthday"
-          label="Tanggal Lahir"
+          label="Date of Birth"
           type="date"
           value={values.birthday}
           onChange={(value) => handleChange("birthday", value)}
@@ -67,8 +67,8 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
 
         <FormSelect
           id="profile-gender"
-          label="Jenis Kelamin"
-          placeholder="Pilih jenis kelamin"
+          label="Gender"
+          placeholder="Select gender"
           value={values.gender}
           onChange={(value) => handleChange("gender", value)}
           options={genderOptions}
@@ -78,8 +78,8 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
         <PasswordInput
           value={values.password}
           onChange={(value) => handleChange("password", value)}
-          label="Password Baru"
-          placeholder="Kosongkan jika tidak ingin mengubah password"
+          label="New Password"
+          placeholder="Leave blank to keep current password"
           required={false}
         />
 

@@ -24,7 +24,7 @@ const ProfilePage = () => {
   return (
     <div>
       <PageHeader
-        title="Profil saya"
+        title="My Profile"
         action={
           isEditing
             ? undefined
@@ -43,7 +43,7 @@ const ProfilePage = () => {
                 onClick={() => setIsEditing(false)}
                 disabled={loading}
               >
-                Batal
+                Cancel
               </button>
 
               <button
@@ -52,7 +52,7 @@ const ProfilePage = () => {
                 className="btn btn-primary"
                 disabled={loading}
               >
-                {loading ? "Menyimpan..." : "Simpan Perubahan"}
+                {loading ? "Saving..." : "Save Changes"}
               </button>
             </div>
           ) : undefined

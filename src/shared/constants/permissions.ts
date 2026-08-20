@@ -14,10 +14,10 @@ export const CRUD_ACTIONS: PermissionAction[] = ["view", "add", "edit", "delete"
 export const VIEW_ONLY_ACTIONS: PermissionAction[] = ["view"];
 
 export const PERMISSION_ACTION_LABEL: Record<PermissionAction, string> = {
-  view: "Lihat",
-  add: "Tambah",
-  edit: "Ubah",
-  delete: "Hapus",
+  view: "View",
+  add: "Add",
+  edit: "Edit",
+  delete: "Delete",
 };
 
 export const PERMISSION_ACTION_BADGE_CLASS: Record<PermissionAction, string> = {

@@ -4,9 +4,9 @@ import { path } from "../../routes/routes.paths";
 const NotFoundPage = () => (
   <div className="text-center py-5">
     <h1 className="display-4 fw-bold">404</h1>
-    <p className="text-muted mb-4">Halaman yang Anda cari tidak ditemukan.</p>
+    <p className="text-muted mb-4">The page you are looking for was not found.</p>
     <Link to={path.dashboard} className="btn btn-primary">
-      Kembali ke Dashboard
+      Back to Dashboard
     </Link>
   </div>
 );

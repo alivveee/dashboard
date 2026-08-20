@@ -61,10 +61,10 @@ const useClientManager = <TItem extends { id: string }>({
   const submitForm = async (data: Omit<TItem, "id">) => {
     if (selectedItem) {
       await update(selectedItem.id, data);
-      showAlert(`${clientLabel} berhasil diperbarui.`);
+      showAlert(`${clientLabel} updated successfully.`);
     } else {
       await add(data);
-      showAlert(`${clientLabel} berhasil ditambahkan.`);
+      showAlert(`${clientLabel} added successfully.`);
     }
 
     closeForm();

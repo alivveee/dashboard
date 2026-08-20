@@ -17,7 +17,7 @@ const emptyForm: Omit<PackageOption, "id"> = {
 
 const usePackage = () => {
   const manager = useClientManager<PackageOption>({
-    clientLabel: "Paket",
+    clientLabel: "Package",
     storageKey: PACKAGES_KEY,
     initialItems: INITIAL_PACKAGES,
     emptyFormData: emptyForm,

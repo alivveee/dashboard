@@ -43,18 +43,18 @@ function ClientTable<TItem extends ClientWithStatus>({
   return (
     <DataTable<TItem>
       items={items}
-      emptyMessage={`Belum ada data ${clientLabelLower}.`}
+      emptyMessage={`No ${clientLabelLower} data yet.`}
       onEdit={onEdit}
       onDelete={onDelete}
       canEdit={canEdit}
       canDelete={canDelete}
       getItemLabel={() => clientLabelLower}
       columns={[
-        { header: "Nama", key: "name", sortable: true },
+        { header: "Name", key: "name", sortable: true },
         { header: "Email", key: "email", sortable: true },
-        { header: "Telepon", key: "phone", sortable: true },
+        { header: "Phone", key: "phone", sortable: true },
         {
-          header: "Paket",
+          header: "Package",
           sortable: true,
           sortValue: (item) => packageById.get(item.packageId)?.name ?? "",
           render: (item) => {
@@ -63,7 +63,7 @@ function ClientTable<TItem extends ClientWithStatus>({
           },
         },
         {
-          header: "Harga",
+          header: "Price",
           sortable: true,
           sortValue: (item) => packageById.get(item.packageId)?.price ?? 0,
           render: (item) => {

@@ -13,7 +13,7 @@ const PasswordInput = ({
   value,
   onChange,
   label = "Password",
-  placeholder = "Masukkan password",
+  placeholder = "Enter password",
   required = true,
 }: PasswordInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -44,9 +44,7 @@ const PasswordInput = ({
           type="button"
           className="btn btn-outline-secondary"
           onClick={() => setShowPassword((prev) => !prev)}
-          aria-label={
-            showPassword ? "Sembunyikan password" : "Tampilkan password"
-          }
+          aria-label={showPassword ? "Hide password" : "Show password"}
         >
           {showPassword ? <IconEyeOff /> : <IconEye />}
         </button>

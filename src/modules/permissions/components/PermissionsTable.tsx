@@ -20,20 +20,20 @@ const PermissionsTable = ({
 }: PermissionsTableProps) => (
   <DataTable
     items={permissions}
-    emptyMessage="Belum ada data permission."
+    emptyMessage="No permission data yet."
     columns={[
-      { header: "Nama", render: (item) => item.name },
+      { header: "Name", render: (item) => item.name },
       {
-        header: "URL Halaman",
+        header: "Page URL",
         render: (item) => (
           <Link to={item.tab ? `${item.key}?tab=${item.tab}` : item.key}>
             <code>{item.key}</code>
           </Link>
         ),
       },
-      { header: "Deskripsi", render: (item) => item.description },
+      { header: "Description", render: (item) => item.description },
       {
-        header: "Aksi Tersedia",
+        header: "Available Actions",
         render: (item) =>
           canManage ? (
             <div className="d-flex flex-wrap gap-3">
@@ -52,7 +52,7 @@ const PermissionsTable = ({
                       disabled={isSelfLockRisk}
                       title={
                         isSelfLockRisk
-                          ? "Aksi ini tidak dapat dinonaktifkan agar akses ke Permission Management tidak hilang."
+                          ? "This action cannot be disabled so access to Permission Management is not lost."
                           : undefined
                       }
                       onChange={() => onToggleAction(item, action)}
@@ -78,7 +78,7 @@ const PermissionsTable = ({
                 ))}
 
               {item.activeActions.length === 0 && (
-                <span className="text-muted">Tidak ada aksi aktif</span>
+                <span className="text-muted">No active actions</span>
               )}
             </div>
           ),

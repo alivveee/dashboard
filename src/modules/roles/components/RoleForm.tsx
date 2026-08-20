@@ -45,12 +45,12 @@ const RoleForm = ({
   return (
     <form onSubmit={handleSubmit}>
       <div className="modal-header">
-        <h5 className="modal-title">{isEditing ? "Edit Role" : "Tambah Role"}</h5>
+        <h5 className="modal-title">{isEditing ? "Edit Role" : "Add Role"}</h5>
 
         <button
           type="button"
           className="btn-close"
-          aria-label="Tutup"
+          aria-label="Close"
           onClick={onCancel}
         />
       </div>
@@ -58,8 +58,8 @@ const RoleForm = ({
       <div className="modal-body">
         <FormInput
           id="role-name"
-          label="Nama Role"
-          placeholder="Tulis nama role disini"
+          label="Role Name"
+          placeholder="Enter role name here"
           value={values.name}
           onChange={(value) => handleChange("name", value)}
           required
@@ -67,8 +67,8 @@ const RoleForm = ({
 
         <FormTextarea
           id="role-description"
-          label="Deskripsi"
-          placeholder="Jelaskan role ini"
+          label="Description"
+          placeholder="Describe this role"
           value={values.description}
           onChange={(value) => handleChange("description", value)}
         />
@@ -97,7 +97,7 @@ const RoleForm = ({
                           disabled={isGloballyDisabled}
                           title={
                             isGloballyDisabled
-                              ? "Aksi ini dinonaktifkan secara global di Permission Management."
+                              ? "This action is globally disabled in Permission Management."
                               : undefined
                           }
                           onChange={() => toggleAction(permission.id, action)}
@@ -109,7 +109,7 @@ const RoleForm = ({
                           {PERMISSION_ACTION_LABEL[action]}
 
                           {isGloballyDisabled && (
-                            <span className="text-muted"> (nonaktif)</span>
+                            <span className="text-muted"> (disabled)</span>
                           )}
                         </label>
                       </div>
@@ -129,11 +129,11 @@ const RoleForm = ({
           onClick={onCancel}
           disabled={loading}
         >
-          Batal
+          Cancel
         </button>
 
         <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? "Menyimpan..." : isEditing ? "Simpan Perubahan" : "Tambah"}
+          {loading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
         </button>
       </div>
     </form>

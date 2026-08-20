@@ -36,11 +36,11 @@ const ProspectPage = () => {
   return (
     <div>
       <PageHeader
-        title="Daftar prospect"
+        title="Prospect List"
         action={
           canAdd
             ? {
-                label: "Tambah Prospect",
+                label: "Add Prospect",
                 icon: <IconPlus />,
                 onClick: openAdd,
               }

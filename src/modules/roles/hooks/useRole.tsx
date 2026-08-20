@@ -13,7 +13,7 @@ export const INITIAL_ROLES: Role[] = [
   {
     id: "1",
     name: "Super Admin",
-    description: "Akses penuh ke seluruh fitur sistem.",
+    description: "Full access to all system features.",
     grants: {
       [PERMISSION_ID.USERS]: CRUD_ACTIONS,
       [PERMISSION_ID.ROLES]: CRUD_ACTIONS,
@@ -27,7 +27,7 @@ export const INITIAL_ROLES: Role[] = [
   {
     id: "2",
     name: "Admin",
-    description: "Mengelola data operasional harian.",
+    description: "Manages daily operational data.",
     grants: {
       [PERMISSION_ID.PACKAGE]: CRUD_ACTIONS,
       [PERMISSION_ID.PROSPECT]: CRUD_ACTIONS,
@@ -38,7 +38,7 @@ export const INITIAL_ROLES: Role[] = [
   {
     id: "3",
     name: "User",
-    description: "Akses terbatas untuk melihat data.",
+    description: "Limited access for viewing data only.",
     grants: {
       [PERMISSION_ID.ANALYTICS]: VIEW_ONLY_ACTIONS,
     },

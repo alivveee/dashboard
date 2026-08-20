@@ -56,13 +56,13 @@ function ClientForm<TFormData extends ClientFormData>({
     <form onSubmit={handleSubmit}>
       <div className="modal-header">
         <h5 className="modal-title">
-          {isEditing ? `Edit ${clientLabel}` : `Tambah ${clientLabel}`}
+          {isEditing ? `Edit ${clientLabel}` : `Add ${clientLabel}`}
         </h5>
 
         <button
           type="button"
           className="btn-close"
-          aria-label="Tutup"
+          aria-label="Close"
           onClick={onCancel}
         />
       </div>
@@ -70,8 +70,8 @@ function ClientForm<TFormData extends ClientFormData>({
       <div className="modal-body">
         <FormInput
           id={`${namePrefix}-name`}
-          label="Nama"
-          placeholder={`Tulis nama ${namePrefix} disini`}
+          label="Name"
+          placeholder={`Enter ${namePrefix} name here`}
           value={values.name}
           onChange={(value) => setField("name", value)}
           required
@@ -81,7 +81,7 @@ function ClientForm<TFormData extends ClientFormData>({
           id={`${namePrefix}-email`}
           label="Email"
           type="email"
-          placeholder="nama@email.com"
+          placeholder="name@email.com"
           value={values.email}
           onChange={(value) => setField("email", value)}
           required
@@ -89,7 +89,7 @@ function ClientForm<TFormData extends ClientFormData>({
 
         <FormInput
           id={`${namePrefix}-phone`}
-          label="Telepon"
+          label="Phone"
           type="tel"
           placeholder="08xxxxxxxxxx"
           value={values.phone}
@@ -99,20 +99,20 @@ function ClientForm<TFormData extends ClientFormData>({
 
         <FormSelect
           id={`${namePrefix}-package`}
-          label="Paket"
-          placeholder="Pilih paket"
+          label="Package"
+          placeholder="Select package"
           value={values.packageId}
           onChange={(value) => setField("packageId", value)}
           options={packages.map((pkg) => ({
             value: pkg.id,
-            label: `${pkg.name} ${pkg.speed} - ${formatCurrency(pkg.price)}/bulan`,
+            label: `${pkg.name} ${pkg.speed} - ${formatCurrency(pkg.price)}/month`,
           }))}
         />
 
         <FormSelect
           id={`${namePrefix}-status`}
           label="Status"
-          placeholder="Pilih status"
+          placeholder="Select status"
           value={values.status}
           onChange={(value) => setField("status", value)}
           options={statusOptions}
@@ -126,11 +126,11 @@ function ClientForm<TFormData extends ClientFormData>({
           onClick={onCancel}
           disabled={loading}
         >
-          Batal
+          Cancel
         </button>
 
         <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? "Menyimpan..." : isEditing ? "Simpan Perubahan" : "Tambah"}
+          {loading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
         </button>
       </div>
     </form>

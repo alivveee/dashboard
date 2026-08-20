@@ -34,11 +34,11 @@ const PackagePage = () => {
   return (
     <div>
       <PageHeader
-        title="Manajemen paket"
+        title="Package Management"
         action={
           canAdd
             ? {
-                label: "Tambah Paket",
+                label: "Add Package",
                 icon: <IconPlus />,
                 onClick: openAdd,
               }
@@ -66,7 +66,7 @@ const PackagePage = () => {
 
       {isDeleteOpen && selectedItem && (
         <ConfirmDeleteModal
-          entityName="Paket"
+          entityName="Package"
           itemName={selectedItem.name}
           loading={loading}
           onConfirm={confirmDelete}

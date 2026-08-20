@@ -39,11 +39,11 @@ const UserListTab = () => {
   return (
     <div>
       <PageHeader
-        title="Daftar user"
+        title="User List"
         action={
           canAdd
             ? {
-                label: "Tambah User",
+                label: "Add User",
                 icon: <IconPlus />,
                 onClick: openAdd,
               }

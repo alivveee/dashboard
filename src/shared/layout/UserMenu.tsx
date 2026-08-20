@@ -33,7 +33,7 @@ const UserMenu = ({ session, onLogout }: UserMenuProps) => (
           onClick={onLogout}
         >
           <IconLogOut />
-          Keluar
+          Log out
         </button>
       </li>
     </ul>

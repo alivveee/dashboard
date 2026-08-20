@@ -15,7 +15,11 @@ const UsersPage = () => {
   const items: TabItem[] = [];
 
   if (canViewUsers) {
-    items.push({ key: "users", label: "Daftar User", content: <UserListTab /> });
+    items.push({
+      key: "users",
+      label: "User Management",
+      content: <UserListTab />,
+    });
   }
 
   if (canViewRoles) {

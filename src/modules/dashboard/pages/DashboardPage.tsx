@@ -17,10 +17,10 @@ const DashboardPage = () => {
       <div className="card border rounded-3 bg-body-tertiary mb-4">
         <div className="card-body">
           <h1 className="h4 mb-1">
-            Selamat datang kembali, {session?.name ?? "Pengguna"}
+            Welcome back, {session?.name ?? "User"}
           </h1>
           <p className="text-body-secondary mb-0">
-            Berikut ringkasan aktivitas GX App hari ini.
+            Here's a summary of GX App activity today.
           </p>
         </div>
       </div>
@@ -29,9 +29,9 @@ const DashboardPage = () => {
       <section>
         <div className="d-flex align-items-start justify-content-between mb-3">
           <div>
-            <h2 className="h5 mb-1">Ringkasan</h2>
+            <h2 className="h5 mb-1">Summary</h2>
             <p className="text-body-secondary small mb-0">
-              Statistik singkat prospect dan customer.
+              Quick stats on prospects and customers.
             </p>
           </div>
 
@@ -41,14 +41,14 @@ const DashboardPage = () => {
             onClick={() => navigate(path.analytics)}
           >
             <IconAnalytics />
-            Lihat Analytics
+            View Analytics
           </button>
         </div>
 
         <div className="row g-3">
           <StatCard title="Total Prospect" value={overview.totalProspects} />
           <StatCard title="Total Customer" value={overview.totalCustomers} />
-          <StatCard title="Customer Aktif" value={overview.activeCustomers} />
+          <StatCard title="Active Customers" value={overview.activeCustomers} />
           <StatCard
             title="Conversion Rate"
             value={formatPercentage(overview.conversionRate)}
