@@ -1,4 +1,4 @@
-import { IconSearch } from "./icons/Icons";
+import { IconSearch } from "../icons/Icons";
 
 interface TableSearchBoxProps {
   value: string;

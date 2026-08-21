@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { TableShellRow } from "../types/TableShell.types";
+import { TableShellRow } from "./types";
 
 export const PAGE_ELLIPSIS = "...";
 
