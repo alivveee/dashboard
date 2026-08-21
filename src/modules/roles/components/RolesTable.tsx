@@ -21,18 +21,23 @@ const RolesTable = ({
     emptyMessage="No role data yet."
     headers={[
       "#",
-      "Role Name",
-      "Description",
-      "Permission",
+      { content: "Role Name", sortable: true },
+      { content: "Description", sortable: true },
+      { content: "Permission", sortable: true },
       { className: "text-end", content: "Actions" },
     ]}
     rows={roles.map((role, index) => [
       index + 1,
       role.name,
       role.description,
-      <span className="badge text-bg-secondary">
-        {Object.keys(role.grants).length} module
-      </span>,
+      {
+        sortValue: Object.keys(role.grants).length,
+        content: (
+          <span className="badge text-bg-secondary">
+            {Object.keys(role.grants).length} module
+          </span>
+        ),
+      },
       {
         className: "text-end",
         content: (

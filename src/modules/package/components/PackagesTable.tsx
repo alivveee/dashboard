@@ -22,16 +22,16 @@ const PackagesTable = ({
     emptyMessage="No package data yet."
     headers={[
       "#",
-      "Package Name",
-      "Speed",
-      "Price/Month",
+      { content: "Package Name", sortable: true },
+      { content: "Speed", sortable: true },
+      { content: "Price/Month", sortable: true },
       { className: "text-end", content: "Actions" },
     ]}
     rows={packages.map((item, index) => [
       index + 1,
       item.name,
       item.speed,
-      formatCurrency(item.price),
+      { sortValue: item.price, content: formatCurrency(item.price) },
       {
         className: "text-end",
         content: (

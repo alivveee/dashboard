@@ -27,12 +27,13 @@ const UsersTable = ({
   return (
     <TableShell
       emptyMessage="No user data yet."
+      searchPlaceholder="search by name..."
       headers={[
         "#",
-        "Name",
-        "Email",
-        "Address",
-        "Role",
+        { content: "Name", sortable: true, searchable: true },
+        { content: "Email", sortable: true },
+        { content: "Address", sortable: true },
+        { content: "Role", sortable: true },
         { className: "text-end", content: "Actions" },
       ]}
       rows={users.map((user, index) => [

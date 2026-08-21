@@ -20,13 +20,24 @@ const PermissionsTable = ({
 }: PermissionsTableProps) => (
   <TableShell
     emptyMessage="No permission data yet."
-    headers={["#", "Name", "Page URL", "Description", "Available Actions"]}
+    headers={[
+      "#",
+      { content: "Name", sortable: true },
+      { content: "Page URL", sortable: true },
+      { content: "Description", sortable: true },
+      "Available Actions",
+    ]}
     rows={permissions.map((item, index) => [
       index + 1,
       item.name,
-      <Link to={item.tab ? `${item.key}?tab=${item.tab}` : item.key}>
-        <code>{item.key}</code>
-      </Link>,
+      {
+        sortValue: item.key,
+        content: (
+          <Link to={item.tab ? `${item.key}?tab=${item.tab}` : item.key}>
+            <code>{item.key}</code>
+          </Link>
+        ),
+      },
       item.description,
       canManage ? (
         <div className="d-flex flex-wrap gap-3">

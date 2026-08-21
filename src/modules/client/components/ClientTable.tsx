@@ -1,8 +1,5 @@
 import { formatCurrency } from "../../../shared/helpers/format";
-import {
-  INITIAL_PACKAGES,
-  PACKAGES_KEY,
-} from "../../package/hooks/usePackage";
+import { INITIAL_PACKAGES, PACKAGES_KEY } from "../../package/hooks/usePackage";
 import useLocalStorage from "../../../shared/hooks/useLocalStorage";
 import { BaseClient, StatusOption } from "../types/Client.types";
 import { PackageOption } from "../../package/types/Package.types";
@@ -44,11 +41,12 @@ function ClientTable<TItem extends ClientWithStatus>({
   return (
     <TableShell
       emptyMessage={`No ${clientLabelLower} data yet.`}
+      searchPlaceholder="Search by name..."
       headers={[
         "#",
-        "Personal Data",
-        "Package",
-        "Status",
+        { content: "Personal Data", sortable: true, searchable: true },
+        { content: "Package", sortable: true },
+        { content: "Status", sortable: true },
         { className: "text-end", content: "Actions" },
       ]}
       rows={items.map((item, index) => {
@@ -57,24 +55,37 @@ function ClientTable<TItem extends ClientWithStatus>({
 
         return [
           index + 1,
-          <div>
-            <div>{item.name}</div>
-            <div className="text-muted small"> {item.email}</div>
-            <div className="text-muted small">{item.phone}</div>
-          </div>,
-          <div>
-            <div>{pkg ? `${pkg.name} ${pkg.speed}` : "-"}</div>
-            {pkg && (
-              <div className="text-muted small">
-                {formatCurrency(pkg.price)}
-              </div>
-            )}
-          </div>,
-          status && (
-            <span className={`badge ${status.badgeClass}`}>
-              {status.label}
-            </span>
-          ),
+          {
+            sortValue: item.name,
+            content: (
+              <>
+                <div>{item.name}</div>
+                <div className="text-muted small"> {item.email}</div>
+                <div className="text-muted small">{item.phone}</div>
+              </>
+            ),
+          },
+          {
+            sortValue: pkg ? `${pkg.name}` : "",
+            content: (
+              <>
+                <div>{pkg ? `${pkg.name} ${pkg.speed}` : "-"}</div>
+                {pkg && (
+                  <div className="text-muted small">
+                    {formatCurrency(pkg.price)}
+                  </div>
+                )}
+              </>
+            ),
+          },
+          {
+            sortValue: status?.label ?? "",
+            content: status && (
+              <span className={`badge ${status.badgeClass}`}>
+                {status.label}
+              </span>
+            ),
+          },
           {
             className: "text-end",
             content: (

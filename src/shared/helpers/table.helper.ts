@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { TableShellRow } from "../types/TableShell.types";
 
 export const PAGE_ELLIPSIS = "...";
 
@@ -37,8 +38,41 @@ export function getPageNumbers(
   return result;
 }
 
+export function isHeaderConfig(value: unknown): value is {
+  className?: string;
+  content: ReactNode;
+  sortable?: boolean;
+  searchable?: boolean;
+} {
+  return typeof value === "object" && value !== null && "content" in value;
+}
+
 export function isCellConfig(
   value: unknown,
-): value is { className?: string; content: ReactNode } {
+): value is { className?: string; content: ReactNode; sortValue?: string | number } {
   return typeof value === "object" && value !== null && "content" in value;
+}
+
+export function getRowSortValue(row: TableShellRow, columnIndex: number): string | number {
+  const cell = row[columnIndex];
+
+  if (isCellConfig(cell)) {
+    if (cell.sortValue !== undefined) {
+      return cell.sortValue;
+    }
+
+    return typeof cell.content === "string" || typeof cell.content === "number"
+      ? cell.content
+      : "";
+  }
+
+  return typeof cell === "string" || typeof cell === "number" ? cell : "";
+}
+
+export function compareSortValues(a: string | number, b: string | number): number {
+  if (typeof a === "number" && typeof b === "number") {
+    return a - b;
+  }
+
+  return String(a).localeCompare(String(b));
 }

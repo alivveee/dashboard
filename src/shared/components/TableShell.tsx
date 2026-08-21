@@ -1,10 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
-import { TableShellHeader, TableShellRow } from "../types/TableShell.types";
 import {
+  TableShellHeader,
+  TableShellRow,
+  TableShellSortState,
+} from "../types/TableShell.types";
+import {
+  compareSortValues,
   getPageNumbers,
+  getRowSortValue,
   isCellConfig,
+  isHeaderConfig,
   PAGE_ELLIPSIS,
 } from "../helpers/table.helper";
+import { IconSort, IconSortAsc, IconSortDesc } from "./icons/Icons";
+import TableSearchBox from "./TableSearchBox";
 
 interface TableShellProps {
   headers: TableShellHeader[];
@@ -17,6 +26,8 @@ interface TableShellProps {
 
   pageSizeOptions?: number[];
   defaultPageSize?: number;
+
+  searchPlaceholder?: string;
 }
 
 function TableShell({
@@ -28,23 +39,72 @@ function TableShell({
 
   pageSizeOptions = [10, 25, 50],
   defaultPageSize = pageSizeOptions[0],
+
+  searchPlaceholder = "Search...",
 }: TableShellProps) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(defaultPageSize);
+  const [sort, setSort] = useState<TableShellSortState | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const totalItems = rows.length;
+  const searchableColumnIndexes = useMemo(
+    () =>
+      headers
+        .map((header, index) =>
+          isHeaderConfig(header) && header.searchable ? index : -1,
+        )
+        .filter((index) => index !== -1),
+    [headers],
+  );
+
+  const filteredRows = useMemo(() => {
+    const trimmedQuery = searchQuery.trim().toLowerCase();
+
+    if (!trimmedQuery || searchableColumnIndexes.length === 0) {
+      return rows;
+    }
+
+    return rows.filter((row) =>
+      searchableColumnIndexes.some((columnIndex) =>
+        String(getRowSortValue(row, columnIndex))
+          .toLowerCase()
+          .includes(trimmedQuery),
+      ),
+    );
+  }, [rows, searchQuery, searchableColumnIndexes]);
+
+  const sortedRows = useMemo(() => {
+    if (!sort) {
+      return filteredRows;
+    }
+
+    const factor = sort.direction === "asc" ? 1 : -1;
+
+    return [...filteredRows].sort(
+      (a, b) =>
+        compareSortValues(
+          getRowSortValue(a, sort.columnIndex),
+          getRowSortValue(b, sort.columnIndex),
+        ) * factor,
+    );
+  }, [filteredRows, sort]);
+
+  const totalItems = sortedRows.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
   const currentPage = Math.min(page, totalPages);
   const startIndex = (currentPage - 1) * pageSize;
 
   const pagedRows = useMemo(
-    () => rows.slice(startIndex, startIndex + pageSize),
-    [rows, startIndex, pageSize],
+    () => sortedRows.slice(startIndex, startIndex + pageSize),
+    [sortedRows, startIndex, pageSize],
   );
 
   useEffect(() => {
     setPage(1);
-  }, [rows, pageSize]);
+  }, [rows, pageSize, sort, searchQuery]);
+
+  const isSearching =
+    searchableColumnIndexes.length > 0 && searchQuery.trim() !== "";
 
   const colSpan = headers.length;
 
@@ -56,8 +116,41 @@ function TableShell({
     setPage((page) => Math.min(totalPages, page + 1));
   };
 
+  const handleSort = (columnIndex: number) => {
+    setSort((prev) => {
+      if (!prev || prev.columnIndex !== columnIndex) {
+        return { columnIndex, direction: "asc" };
+      }
+
+      if (prev.direction === "asc") {
+        return { columnIndex, direction: "desc" };
+      }
+
+      return null;
+    });
+  };
+
+  const renderSortIcon = (columnIndex: number) => {
+    if (!sort || sort.columnIndex !== columnIndex) {
+      return <IconSort className="text-muted" />;
+    }
+
+    return sort.direction === "asc" ? <IconSortAsc /> : <IconSortDesc />;
+  };
+
   return (
     <div className={`card border-0 shadow-sm ${className ?? ""}`.trim()}>
+      {/* Search */}
+      {searchableColumnIndexes.length > 0 && (
+        <div className="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+          <TableSearchBox
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder={searchPlaceholder}
+          />
+        </div>
+      )}
+
       {/* Table */}
       <div
         className="card-body p-0 table-responsive"
@@ -67,13 +160,24 @@ function TableShell({
           <thead className="sticky-top bg-body-tertiary">
             <tr>
               {headers.map((header, headerIndex) =>
-                isCellConfig(header) ? (
+                isHeaderConfig(header) ? (
                   <th
                     key={headerIndex}
                     scope="col"
                     className={header.className}
                   >
-                    {header.content}
+                    {header.sortable ? (
+                      <button
+                        type="button"
+                        className="btn btn-sm p-0 d-flex align-items-center gap-1 fw-semibold text-body"
+                        onClick={() => handleSort(headerIndex)}
+                      >
+                        {header.content}
+                        {renderSortIcon(headerIndex)}
+                      </button>
+                    ) : (
+                      header.content
+                    )}
                   </th>
                 ) : (
                   <th key={headerIndex} scope="col">
@@ -99,7 +203,9 @@ function TableShell({
             ) : pagedRows.length === 0 ? (
               <tr>
                 <td colSpan={colSpan} className="text-center text-muted py-4">
-                  {emptyMessage}
+                  {isSearching
+                    ? `No results found for "${searchQuery.trim()}".`
+                    : emptyMessage}
                 </td>
               </tr>
             ) : (

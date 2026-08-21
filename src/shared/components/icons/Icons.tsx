@@ -27,6 +27,7 @@ import {
   ArrowUpDown,
   ChevronLeft,
   ChevronRight,
+  Search,
 } from "lucide-react";
 
 interface IconProps {
@@ -139,6 +140,10 @@ export const IconSort = ({ className }: IconProps) => (
 
 export const IconChevronLeft = ({ className }: IconProps) => (
   <ChevronLeft size={16} className={className} />
+);
+
+export const IconSearch = ({ className }: IconProps) => (
+  <Search size={16} className={className} />
 );
 
 export const IconChevronRight = ({ className }: IconProps) => (
