@@ -37,7 +37,7 @@ const Tabs = ({ items, defaultActiveKey, paramName = "tab" }: TabsProps) => {
   };
 
   return (
-    <div>
+    <>
       <ul className="nav nav-tabs mb-3">
         {items.map((item) => (
           <li className="nav-item" key={item.key}>
@@ -56,7 +56,7 @@ const Tabs = ({ items, defaultActiveKey, paramName = "tab" }: TabsProps) => {
       </ul>
 
       <div>{activeItem?.content}</div>
-    </div>
+    </>
   );
 };
 

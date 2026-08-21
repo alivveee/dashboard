@@ -72,7 +72,7 @@ function TableShell({
       {/* Table */}
       <div
         className="card-body p-0 table-responsive"
-        style={{ maxHeight: "70vh", overflowY: "auto" }}
+        style={{ maxHeight: "65vh", overflowY: "auto" }}
       >
         <table className="table align-middle mb-0">
           <TableShellHead headers={headers} sort={sort} onSort={handleSort} />

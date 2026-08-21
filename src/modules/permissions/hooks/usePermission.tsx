@@ -1,5 +1,7 @@
+import { useState } from "react";
 import useCrud from "../../../shared/hooks/useCrud";
-import { Permission } from "../../../shared/types/Permission.types";
+import useModal from "../../../shared/hooks/useModal";
+import { Permission, PermissionAction } from "../../../shared/types/Permission.types";
 import { path } from "../../../routes/routes.paths";
 import {
   CRUD_ACTIONS,
@@ -72,11 +74,6 @@ export const INITIAL_PERMISSIONS: Permission[] = [
   },
 ];
 
-export const normalizePermissions = (items: Permission[]): Permission[] =>
-  items.map((item) =>
-    item.activeActions ? item : { ...item, activeActions: item.actions },
-  );
-
 const usePermission = () => {
   const {
     items: permissions,
@@ -84,29 +81,38 @@ const usePermission = () => {
     update,
   } = useCrud<Permission>(PERMISSIONS_KEY, INITIAL_PERMISSIONS);
 
-  const savePermissions = (draft: Permission[]) => {
-    const changed = draft.filter((item) => {
-      const original = permissions.find((p) => p.id === item.id);
+  const formModal = useModal();
+  const [selectedItem, setSelectedItem] = useState<Permission | null>(null);
 
-      return (
-        original &&
-        (original.activeActions.length !== item.activeActions.length ||
-          !original.activeActions.every((action) =>
-            item.activeActions.includes(action),
-          ))
-      );
-    });
-
-    return Promise.all(
-      changed.map((item) => {
-        const { id, ...rest } = item;
-
-        return update(id, rest);
-      }),
-    );
+  const openEdit = (item: Permission) => {
+    setSelectedItem(item);
+    formModal.open();
   };
 
-  return { permissions, loading, savePermissions };
+  const closeForm = () => {
+    formModal.close();
+    setSelectedItem(null);
+  };
+
+  const submitForm = async (activeActions: PermissionAction[]) => {
+    if (!selectedItem) return;
+
+    const { id, ...rest } = selectedItem;
+
+    await update(id, { ...rest, activeActions });
+    closeForm();
+  };
+
+  return {
+    permissions,
+    loading,
+
+    selectedItem,
+    isFormOpen: formModal.isOpen,
+    openEdit,
+    submitForm,
+    closeForm,
+  };
 };
 
 export default usePermission;

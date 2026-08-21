@@ -14,7 +14,7 @@ interface PageHeaderProps {
 
 const PageHeader = ({ title, action, actions }: PageHeaderProps) => {
   return (
-    <div className="d-flex align-items-center justify-content-between mb-3">
+    <div className="d-flex align-items-center justify-content-between mb-2">
       <h3 className="text-body h5">{title}</h3>
 
       {actions}

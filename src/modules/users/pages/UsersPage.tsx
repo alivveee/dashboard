@@ -39,9 +39,9 @@ const UsersPage = () => {
   }
 
   return (
-    <div>
+    <>
       <Tabs items={items} />
-    </div>
+    </>
   );
 };
 
