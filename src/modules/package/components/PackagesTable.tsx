@@ -1,6 +1,7 @@
 import { PackageOption } from "../types/Package.types";
 import { formatCurrency } from "../../../shared/helpers/format";
-import DataTable from "../../../shared/components/DataTable";
+import TableShell from "../../../shared/components/TableShell";
+import TableRowActions from "../../../shared/components/TableRowActions";
 
 interface PackagesTableProps {
   packages: PackageOption[];
@@ -17,24 +18,34 @@ const PackagesTable = ({
   canEdit,
   canDelete,
 }: PackagesTableProps) => (
-  <DataTable
-    items={packages}
+  <TableShell
     emptyMessage="No package data yet."
-    onEdit={onEdit}
-    onDelete={onDelete}
-    canEdit={canEdit}
-    canDelete={canDelete}
-    getItemLabel={(item) => item.name}
-    columns={[
-      { header: "Package Name", key: "name", sortable: true },
-      { header: "Speed", key: "speed", sortable: true },
-      {
-        header: "Price/Month",
-        key: "price",
-        sortable: true,
-        render: (item) => formatCurrency(item.price),
-      },
+    headers={[
+      "#",
+      "Package Name",
+      "Speed",
+      "Price/Month",
+      { className: "text-end", content: "Actions" },
     ]}
+    rows={packages.map((item, index) => [
+      index + 1,
+      item.name,
+      item.speed,
+      formatCurrency(item.price),
+      {
+        className: "text-end",
+        content: (
+          <TableRowActions
+            item={item}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            canEdit={canEdit}
+            canDelete={canDelete}
+            label={item.name}
+          />
+        ),
+      },
+    ])}
   />
 );
 

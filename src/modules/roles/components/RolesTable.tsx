@@ -1,5 +1,6 @@
 import { Role } from "../types/Role.types";
-import DataTable from "../../../shared/components/DataTable";
+import TableShell from "../../../shared/components/TableShell";
+import TableRowActions from "../../../shared/components/TableRowActions";
 
 interface RolesTableProps {
   roles: Role[];
@@ -16,28 +17,36 @@ const RolesTable = ({
   canEdit,
   canDelete,
 }: RolesTableProps) => (
-  <DataTable
-    items={roles}
+  <TableShell
     emptyMessage="No role data yet."
-    onEdit={onEdit}
-    onDelete={onDelete}
-    canEdit={canEdit}
-    canDelete={canDelete}
-    getItemLabel={(role) => role.name}
-    columns={[
-      { header: "Role Name", key: "name", sortable: true },
-      { header: "Description", key: "description", sortable: true },
+    headers={[
+      "#",
+      "Role Name",
+      "Description",
+      "Permission",
+      { className: "text-end", content: "Actions" },
+    ]}
+    rows={roles.map((role, index) => [
+      index + 1,
+      role.name,
+      role.description,
+      <span className="badge text-bg-secondary">
+        {Object.keys(role.grants).length} module
+      </span>,
       {
-        header: "Permission",
-        sortable: true,
-        sortValue: (role) => Object.keys(role.grants).length,
-        render: (role) => (
-          <span className="badge text-bg-secondary">
-            {Object.keys(role.grants).length} module
-          </span>
+        className: "text-end",
+        content: (
+          <TableRowActions
+            item={role}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            canEdit={canEdit}
+            canDelete={canDelete}
+            label={role.name}
+          />
         ),
       },
-    ]}
+    ])}
   />
 );
 

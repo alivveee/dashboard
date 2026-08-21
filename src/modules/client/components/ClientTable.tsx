@@ -6,7 +6,8 @@ import {
 import useLocalStorage from "../../../shared/hooks/useLocalStorage";
 import { BaseClient, StatusOption } from "../types/Client.types";
 import { PackageOption } from "../../package/types/Package.types";
-import DataTable from "../../../shared/components/DataTable";
+import TableShell from "../../../shared/components/TableShell";
+import TableRowActions from "../../../shared/components/TableRowActions";
 
 interface ClientWithStatus extends BaseClient {
   status: string;
@@ -41,52 +42,54 @@ function ClientTable<TItem extends ClientWithStatus>({
   const packageById = new Map(packages.map((pkg) => [pkg.id, pkg]));
 
   return (
-    <DataTable<TItem>
-      items={items}
+    <TableShell
       emptyMessage={`No ${clientLabelLower} data yet.`}
-      onEdit={onEdit}
-      onDelete={onDelete}
-      canEdit={canEdit}
-      canDelete={canDelete}
-      getItemLabel={() => clientLabelLower}
-      columns={[
-        { header: "Name", key: "name", sortable: true },
-        { header: "Email", key: "email", sortable: true },
-        { header: "Phone", key: "phone", sortable: true },
-        {
-          header: "Package",
-          sortable: true,
-          sortValue: (item) => packageById.get(item.packageId)?.name ?? "",
-          render: (item) => {
-            const pkg = packageById.get(item.packageId);
-            return pkg ? `${pkg.name} ${pkg.speed}` : "-";
-          },
-        },
-        {
-          header: "Price",
-          sortable: true,
-          sortValue: (item) => packageById.get(item.packageId)?.price ?? 0,
-          render: (item) => {
-            const pkg = packageById.get(item.packageId);
-            return pkg ? formatCurrency(pkg.price) : "-";
-          },
-        },
-        {
-          header: "Status",
-          key: "status",
-          sortable: true,
-          render: (item) => {
-            const status = statusByValue.get(item.status);
-            return (
-              status && (
-                <span className={`badge ${status.badgeClass}`}>
-                  {status.label}
-                </span>
-              )
-            );
-          },
-        },
+      headers={[
+        "#",
+        "Personal Data",
+        "Package",
+        "Status",
+        { className: "text-end", content: "Actions" },
       ]}
+      rows={items.map((item, index) => {
+        const pkg = packageById.get(item.packageId);
+        const status = statusByValue.get(item.status);
+
+        return [
+          index + 1,
+          <div>
+            <div>{item.name}</div>
+            <div className="text-muted small"> {item.email}</div>
+            <div className="text-muted small">{item.phone}</div>
+          </div>,
+          <div>
+            <div>{pkg ? `${pkg.name} ${pkg.speed}` : "-"}</div>
+            {pkg && (
+              <div className="text-muted small">
+                {formatCurrency(pkg.price)}
+              </div>
+            )}
+          </div>,
+          status && (
+            <span className={`badge ${status.badgeClass}`}>
+              {status.label}
+            </span>
+          ),
+          {
+            className: "text-end",
+            content: (
+              <TableRowActions
+                item={item}
+                onEdit={onEdit}
+                onDelete={onDelete}
+                canEdit={canEdit}
+                canDelete={canDelete}
+                label={clientLabelLower}
+              />
+            ),
+          },
+        ];
+      })}
     />
   );
 }

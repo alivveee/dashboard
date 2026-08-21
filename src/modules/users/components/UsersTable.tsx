@@ -1,6 +1,7 @@
 import { User } from "../types/User.types";
 import useRoles from "../../roles/hooks/useRoles";
-import DataTable from "../../../shared/components/DataTable";
+import TableShell from "../../../shared/components/TableShell";
+import TableRowActions from "../../../shared/components/TableRowActions";
 
 interface UserTableProps {
   users: User[];
@@ -24,29 +25,38 @@ const UsersTable = ({
   const roles = useRoles();
 
   return (
-    <DataTable
-      items={users}
+    <TableShell
       emptyMessage="No user data yet."
-      onView={onView}
-      onEdit={onEdit}
-      onDelete={onDelete}
-      canView={canView}
-      canEdit={canEdit}
-      canDelete={canDelete}
-      getItemLabel={(user) => user.name}
-      columns={[
-        { header: "Name", key: "name", sortable: true },
-        { header: "Email", key: "email", sortable: true },
-        { header: "Address", key: "address", sortable: true },
-        {
-          header: "Role",
-          sortable: true,
-          sortValue: (user) =>
-            roles.find((role) => role.id === user.role)?.name ?? user.role,
-          render: (user) =>
-            roles.find((role) => role.id === user.role)?.name ?? user.role,
-        },
+      headers={[
+        "#",
+        "Name",
+        "Email",
+        "Address",
+        "Role",
+        { className: "text-end", content: "Actions" },
       ]}
+      rows={users.map((user, index) => [
+        index + 1,
+        user.name,
+        user.email,
+        user.address,
+        roles.find((role) => role.id === user.role)?.name ?? user.role,
+        {
+          className: "text-end",
+          content: (
+            <TableRowActions
+              item={user}
+              onView={onView}
+              onEdit={onEdit}
+              onDelete={onDelete}
+              canView={canView}
+              canEdit={canEdit}
+              canDelete={canDelete}
+              label={user.name}
+            />
+          ),
+        },
+      ])}
     />
   );
 };
