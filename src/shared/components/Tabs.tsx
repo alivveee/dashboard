@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export interface TabItem {
   key: string;
@@ -10,30 +10,23 @@ export interface TabItem {
 
 interface TabsProps {
   items: TabItem[];
+  basePath: string;
   defaultActiveKey?: string;
-  paramName?: string;
 }
 
-const Tabs = ({ items, defaultActiveKey, paramName = "tab" }: TabsProps) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+const Tabs = ({ items, basePath, defaultActiveKey }: TabsProps) => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
-  const urlKey = searchParams.get(paramName);
   const fallbackKey = defaultActiveKey ?? items[0]?.key;
-  const activeKey = items.some((item) => item.key === urlKey)
-    ? (urlKey as string)
-    : fallbackKey;
+  const activeKey =
+    items.find((item) => pathname === `${basePath}/${item.key}`)?.key ??
+    fallbackKey;
 
   const activeItem = items.find((item) => item.key === activeKey);
 
   const selectTab = (key: string) => {
-    setSearchParams(
-      (prev) => {
-        const next = new URLSearchParams(prev);
-        next.set(paramName, key);
-        return next;
-      },
-      { replace: true },
-    );
+    navigate(`${basePath}/${key}`, { replace: true });
   };
 
   return (

@@ -12,6 +12,7 @@ import {
 } from "../shared/components/icons/Icons";
 import { createRoute } from "./routes.helper";
 import { path } from "./routes.paths";
+import { USERS_PAGE_TAB_KEYS } from "../modules/users/pages/UsersPage.constants";
 
 const DashboardPage = lazy(() => import("../modules/dashboard/pages/DashboardPage"));
 const CustomerPage = lazy(() => import("../modules/customer/pages/CustomerPage"));
@@ -31,7 +32,12 @@ export const routes = [
   createRoute(path.analytics, "Analytics", IconAnalytics, AnalyticsPage),
 
   createRoute(path.settings.root, "Settings", IconSettings, Outlet, [
-    createRoute(path.settings.users, "Users", IconUsers, UsersPage),
+    {
+      ...createRoute(path.settings.users, "Users", IconUsers, UsersPage),
+      aliasPaths: Object.values(USERS_PAGE_TAB_KEYS).map(
+        (tab) => `${path.settings.users}/${tab}`,
+      ),
+    },
 
     createRoute(path.settings.profile, "Profile", IconUser, ProfilePage),
 

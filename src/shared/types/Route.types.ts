@@ -6,4 +6,5 @@ export interface RouteConfig {
   icon: ComponentType<{ className?: string }>;
   component: ComponentType;
   children?: RouteConfig[];
+  aliasPaths?: string[];
 }

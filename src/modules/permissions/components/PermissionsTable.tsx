@@ -35,7 +35,7 @@ const PermissionsTable = ({
       {
         sortValue: item.key,
         content: (
-          <Link to={item.tab ? `${item.key}?tab=${item.tab}` : item.key}>
+          <Link to={item.tab ? `${item.key}/${item.tab}` : item.key}>
             <code>{item.key}</code>
           </Link>
         ),

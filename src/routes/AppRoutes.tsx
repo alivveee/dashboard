@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Fragment, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "../shared/layout/MainLayout";
 import ProtectedRoute from "../shared/layout/ProtectedRoute";
@@ -11,10 +11,12 @@ import { RouteConfig } from "../shared/types/Route.types";
 
 const renderRoutes = (items: RouteConfig[], basePath = "") =>
   items.map((route) => {
-    const relativePath = basePath
-      ? route.path.slice(basePath.length + 1)
-      : route.path.replace(/^\//, "");
+    const toRelativePath = (fullPath: string) =>
+      basePath
+        ? fullPath.slice(basePath.length + 1)
+        : fullPath.replace(/^\//, "");
 
+    const relativePath = toRelativePath(route.path);
     const Component = route.component;
 
     const element = (
@@ -33,10 +35,21 @@ const renderRoutes = (items: RouteConfig[], basePath = "") =>
       );
     }
 
-    return route.path === "/" ? (
-      <Route key={route.path} index element={element} />
-    ) : (
-      <Route key={route.path} path={relativePath} element={element} />
+    if (route.path === "/") {
+      return <Route key={route.path} index element={element} />;
+    }
+
+    return (
+      <Fragment key={route.path}>
+        <Route path={relativePath} element={element} />
+        {route.aliasPaths?.map((aliasPath) => (
+          <Route
+            key={aliasPath}
+            path={toRelativePath(aliasPath)}
+            element={element}
+          />
+        ))}
+      </Fragment>
     );
   });
 

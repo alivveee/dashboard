@@ -4,6 +4,8 @@ import RoleManagementTab from "../../roles/components/RoleManagementTab";
 import PermissionManagementTab from "../../permissions/components/PermissionManagementTab";
 import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
+import { path } from "../../../routes/routes.paths";
+import { USERS_PAGE_TAB_KEYS } from "./UsersPage.constants";
 
 const UsersPage = () => {
   const { canView: canViewUsers } = usePermissionFlags(PERMISSION_ID.USERS);
@@ -16,7 +18,7 @@ const UsersPage = () => {
 
   if (canViewUsers) {
     items.push({
-      key: "users",
+      key: USERS_PAGE_TAB_KEYS.users,
       label: "User Management",
       content: <UserListTab />,
     });
@@ -24,7 +26,7 @@ const UsersPage = () => {
 
   if (canViewRoles) {
     items.push({
-      key: "roles",
+      key: USERS_PAGE_TAB_KEYS.roles,
       label: "Role Management",
       content: <RoleManagementTab />,
     });
@@ -32,7 +34,7 @@ const UsersPage = () => {
 
   if (canViewPermissions) {
     items.push({
-      key: "permissions",
+      key: USERS_PAGE_TAB_KEYS.permissions,
       label: "Permission Management",
       content: <PermissionManagementTab />,
     });
@@ -40,7 +42,7 @@ const UsersPage = () => {
 
   return (
     <>
-      <Tabs items={items} />
+      <Tabs items={items} basePath={path.settings.users} />
     </>
   );
 };
