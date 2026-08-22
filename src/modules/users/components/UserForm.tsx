@@ -37,9 +37,9 @@ const UserForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="modal-header">
-        <h5 className="modal-title">
+    <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
+      <div className="offcanvas-header">
+        <h5 className="offcanvas-title">
           {isEditing ? "Edit User" : "Add User"}
         </h5>
 
@@ -51,7 +51,7 @@ const UserForm = ({
         />
       </div>
 
-      <div className="modal-body">
+      <div className="offcanvas-body">
         <FormInput
           id="user-name"
           label="Name"
@@ -115,7 +115,7 @@ const UserForm = ({
         />
       </div>
 
-      <div className="modal-footer">
+      <div className="d-flex justify-content-end gap-2 border-top p-3 mt-3">
         <button
           type="button"
           className="btn btn-outline-secondary"

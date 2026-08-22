@@ -1,9 +1,11 @@
+import type { RefObject } from "react";
 import { Role } from "../types/Role.types";
 import { Permission } from "../../../shared/types/Permission.types";
-import Modal from "../../../shared/components/Modal";
+import Offcanvas, { type OffcanvasHandle } from "../../../shared/components/Offcanvas";
 import RoleForm from "./RoleForm";
 
-interface RoleFormModalProps {
+interface RoleFormOffcanvasProps {
+  offcanvasRef: RefObject<OffcanvasHandle | null>;
   initialValues: Omit<Role, "id">;
   permissions: Permission[];
   isEditing: boolean;
@@ -12,16 +14,17 @@ interface RoleFormModalProps {
   onCancel: () => void;
 }
 
-const RoleFormModal = ({
+const RoleFormOffcanvas = ({
+  offcanvasRef,
   initialValues,
   permissions,
   isEditing,
   loading,
   onSubmit,
   onCancel,
-}: RoleFormModalProps) => {
+}: RoleFormOffcanvasProps) => {
   return (
-    <Modal>
+    <Offcanvas offcanvasRef={offcanvasRef} onClose={onCancel}>
       <RoleForm
         initialValues={initialValues}
         permissions={permissions}
@@ -30,8 +33,8 @@ const RoleFormModal = ({
         onSubmit={onSubmit}
         onCancel={onCancel}
       />
-    </Modal>
+    </Offcanvas>
   );
 };
 
-export default RoleFormModal;
+export default RoleFormOffcanvas;

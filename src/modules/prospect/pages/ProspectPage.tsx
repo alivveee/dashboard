@@ -5,7 +5,7 @@ import useProspect, {
   prospectStatusOptions,
 } from "../hooks/useProspect";
 import ClientTable from "../../client/components/ClientTable";
-import ClientFormModal from "../../client/components/ClientFormModal";
+import ClientFormOffcanvas from "../../client/components/ClientFormOffcanvas";
 import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
@@ -21,7 +21,7 @@ const ProspectPage = () => {
     selectedItem: selectedProspect,
 
     formInitialValues,
-    isFormOpen,
+    formOffcanvasRef,
     openAdd,
     openEdit,
     submitForm,
@@ -58,18 +58,17 @@ const ProspectPage = () => {
         canDelete={canDelete}
       />
 
-      {isFormOpen && (
-        <ClientFormModal
-          initialValues={formInitialValues}
-          clientLabel="Prospect"
-          namePrefix="prospect"
-          statusOptions={prospectStatusOptions}
-          isEditing={!!selectedProspect}
-          loading={loading}
-          onSubmit={submitForm}
-          onCancel={closeForm}
-        />
-      )}
+      <ClientFormOffcanvas
+        offcanvasRef={formOffcanvasRef}
+        initialValues={formInitialValues}
+        clientLabel="Prospect"
+        namePrefix="prospect"
+        statusOptions={prospectStatusOptions}
+        isEditing={!!selectedProspect}
+        loading={loading}
+        onSubmit={submitForm}
+        onCancel={closeForm}
+      />
 
       {isDeleteOpen && selectedProspect && (
         <ConfirmDeleteModal

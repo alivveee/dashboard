@@ -1,8 +1,10 @@
+import type { RefObject } from "react";
 import { User } from "../types/User.types";
-import Modal from "../../../shared/components/Modal";
+import Offcanvas, { type OffcanvasHandle } from "../../../shared/components/Offcanvas";
 import UserForm from "./UserForm";
 
-interface UserFormModalProps {
+interface UserFormOffcanvasProps {
+  offcanvasRef: RefObject<OffcanvasHandle | null>;
   initialValues: Omit<User, "id">;
   isEditing: boolean;
   loading: boolean;
@@ -10,15 +12,16 @@ interface UserFormModalProps {
   onCancel: () => void;
 }
 
-const UserFormModal = ({
+const UserFormOffcanvas = ({
+  offcanvasRef,
   initialValues,
   isEditing,
   loading,
   onSubmit,
   onCancel,
-}: UserFormModalProps) => {
+}: UserFormOffcanvasProps) => {
   return (
-    <Modal>
+    <Offcanvas offcanvasRef={offcanvasRef} onClose={onCancel}>
       <UserForm
         initialValues={initialValues}
         isEditing={isEditing}
@@ -26,8 +29,8 @@ const UserFormModal = ({
         onSubmit={onSubmit}
         onCancel={onCancel}
       />
-    </Modal>
+    </Offcanvas>
   );
 };
 
-export default UserFormModal;
+export default UserFormOffcanvas;

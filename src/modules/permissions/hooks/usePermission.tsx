@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useCrud from "../../../shared/hooks/useCrud";
-import useModal from "../../../shared/hooks/useModal";
+import { createOffcanvasControls } from "../../../shared/helpers/offcanvas";
+import type { OffcanvasHandle } from "../../../shared/components/Offcanvas";
 import { Permission, PermissionAction } from "../../../shared/types/Permission.types";
 import { path } from "../../../routes/routes.paths";
 import {
@@ -81,16 +82,16 @@ const usePermission = () => {
     update,
   } = useCrud<Permission>(PERMISSIONS_KEY, INITIAL_PERMISSIONS);
 
-  const formModal = useModal();
+  const formOffcanvas = createOffcanvasControls(useRef<OffcanvasHandle>(null));
   const [selectedItem, setSelectedItem] = useState<Permission | null>(null);
 
   const openEdit = (item: Permission) => {
     setSelectedItem(item);
-    formModal.open();
+    formOffcanvas.open();
   };
 
   const closeForm = () => {
-    formModal.close();
+    formOffcanvas.close();
     setSelectedItem(null);
   };
 
@@ -108,7 +109,7 @@ const usePermission = () => {
     loading,
 
     selectedItem,
-    isFormOpen: formModal.isOpen,
+    formOffcanvasRef: formOffcanvas.ref,
     openEdit,
     submitForm,
     closeForm,

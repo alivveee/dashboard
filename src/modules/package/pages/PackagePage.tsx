@@ -2,7 +2,7 @@ import { IconPlus } from "../../../shared/components/icons/Icons";
 import PageHeader from "../../../shared/components/PageHeader";
 import ConfirmDeleteModal from "../../../shared/components/ConfirmDeleteModal";
 import PackagesTable from "../components/PackagesTable";
-import PackageFormModal from "../components/PackageFormModal";
+import PackageFormOffcanvas from "../components/PackageFormOffcanvas";
 import usePackage from "../hooks/usePackage";
 import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
@@ -19,7 +19,7 @@ const PackagePage = () => {
     selectedItem,
 
     formInitialValues,
-    isFormOpen,
+    formOffcanvasRef,
     openAdd,
     openEdit,
     submitForm,
@@ -54,15 +54,14 @@ const PackagePage = () => {
         canDelete={canDelete}
       />
 
-      {isFormOpen && (
-        <PackageFormModal
-          initialValues={formInitialValues}
-          isEditing={!!selectedItem}
-          loading={loading}
-          onSubmit={submitForm}
-          onCancel={closeForm}
-        />
-      )}
+      <PackageFormOffcanvas
+        offcanvasRef={formOffcanvasRef}
+        initialValues={formInitialValues}
+        isEditing={!!selectedItem}
+        loading={loading}
+        onSubmit={submitForm}
+        onCancel={closeForm}
+      />
 
       {isDeleteOpen && selectedItem && (
         <ConfirmDeleteModal

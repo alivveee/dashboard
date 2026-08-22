@@ -5,7 +5,7 @@ import useCustomer, {
   customerStatusOptions,
 } from "../hooks/useCustomer";
 import ClientTable from "../../client/components/ClientTable";
-import ClientFormModal from "../../client/components/ClientFormModal";
+import ClientFormOffcanvas from "../../client/components/ClientFormOffcanvas";
 import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
@@ -21,7 +21,7 @@ const CustomerPage = () => {
     selectedItem: selectedCustomer,
 
     formInitialValues,
-    isFormOpen,
+    formOffcanvasRef,
     openAdd,
     openEdit,
     submitForm,
@@ -58,18 +58,17 @@ const CustomerPage = () => {
         canDelete={canDelete}
       />
 
-      {isFormOpen && (
-        <ClientFormModal
-          initialValues={formInitialValues}
-          clientLabel="Customer"
-          namePrefix="customer"
-          statusOptions={customerStatusOptions}
-          isEditing={!!selectedCustomer}
-          loading={loading}
-          onSubmit={submitForm}
-          onCancel={closeForm}
-        />
-      )}
+      <ClientFormOffcanvas
+        offcanvasRef={formOffcanvasRef}
+        initialValues={formInitialValues}
+        clientLabel="Customer"
+        namePrefix="customer"
+        statusOptions={customerStatusOptions}
+        isEditing={!!selectedCustomer}
+        loading={loading}
+        onSubmit={submitForm}
+        onCancel={closeForm}
+      />
 
       {isDeleteOpen && selectedCustomer && (
         <ConfirmDeleteModal

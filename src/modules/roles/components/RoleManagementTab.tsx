@@ -2,7 +2,7 @@ import { IconPlus } from "../../../shared/components/icons/Icons";
 import PageHeader from "../../../shared/components/PageHeader";
 import ConfirmDeleteModal from "../../../shared/components/ConfirmDeleteModal";
 import RolesTable from "./RolesTable";
-import RoleFormModal from "./RoleFormModal";
+import RoleFormOffcanvas from "./RoleFormOffcanvas";
 import useRole from "../hooks/useRole";
 import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
@@ -20,7 +20,7 @@ const RoleManagementTab = () => {
     selectedItem,
 
     formInitialValues,
-    isFormOpen,
+    formOffcanvasRef,
     openAdd,
     openEdit,
     submitForm,
@@ -55,16 +55,15 @@ const RoleManagementTab = () => {
         canDelete={canDelete}
       />
 
-      {isFormOpen && (
-        <RoleFormModal
-          initialValues={formInitialValues}
-          permissions={permissions}
-          isEditing={!!selectedItem}
-          loading={loading}
-          onSubmit={submitForm}
-          onCancel={closeForm}
-        />
-      )}
+      <RoleFormOffcanvas
+        offcanvasRef={formOffcanvasRef}
+        initialValues={formInitialValues}
+        permissions={permissions}
+        isEditing={!!selectedItem}
+        loading={loading}
+        onSubmit={submitForm}
+        onCancel={closeForm}
+      />
 
       {isDeleteOpen && selectedItem && (
         <ConfirmDeleteModal

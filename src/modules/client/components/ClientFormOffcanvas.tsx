@@ -1,12 +1,14 @@
+import type { RefObject } from "react";
 import { StatusOption, BaseClient } from "../types/Client.types";
-import Modal from "../../../shared/components/Modal";
+import Offcanvas, { type OffcanvasHandle } from "../../../shared/components/Offcanvas";
 import ClientForm from "./ClientForm";
 
 interface ClientFormData extends Omit<BaseClient, "id"> {
   status: string;
 }
 
-interface ClientFormModalProps<TFormData extends ClientFormData> {
+interface ClientFormOffcanvasProps<TFormData extends ClientFormData> {
+  offcanvasRef: RefObject<OffcanvasHandle | null>;
   initialValues: TFormData;
   clientLabel: string;
   namePrefix: string;
@@ -17,7 +19,8 @@ interface ClientFormModalProps<TFormData extends ClientFormData> {
   onCancel: () => void;
 }
 
-function ClientFormModal<TFormData extends ClientFormData>({
+function ClientFormOffcanvas<TFormData extends ClientFormData>({
+  offcanvasRef,
   initialValues,
   clientLabel,
   namePrefix,
@@ -26,9 +29,9 @@ function ClientFormModal<TFormData extends ClientFormData>({
   loading,
   onSubmit,
   onCancel,
-}: ClientFormModalProps<TFormData>) {
+}: ClientFormOffcanvasProps<TFormData>) {
   return (
-    <Modal>
+    <Offcanvas offcanvasRef={offcanvasRef} onClose={onCancel}>
       <ClientForm
         initialValues={initialValues}
         clientLabel={clientLabel}
@@ -39,8 +42,8 @@ function ClientFormModal<TFormData extends ClientFormData>({
         isEditing={isEditing}
         loading={loading}
       />
-    </Modal>
+    </Offcanvas>
   );
 }
 
-export default ClientFormModal;
+export default ClientFormOffcanvas;

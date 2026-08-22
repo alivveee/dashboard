@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useCrud from "../../../shared/hooks/useCrud";
 import useModal from "../../../shared/hooks/useModal";
+import { createOffcanvasControls } from "../../../shared/helpers/offcanvas";
+import type { OffcanvasHandle } from "../../../shared/components/Offcanvas";
 import { showAlert } from "../../../shared/helpers/alert";
 
 interface UseClientManagerConfig<TItem extends { id: string }> {
@@ -30,31 +32,33 @@ const useClientManager = <TItem extends { id: string }>({
     initialItems,
   );
 
+  // Offcanvas
+  const formOffcanvas = createOffcanvasControls(useRef<OffcanvasHandle>(null));
+  const detailOffcanvas = createOffcanvasControls(useRef<OffcanvasHandle>(null));
+
   // Modal
-  const formModal = useModal();
   const deleteModal = useModal();
-  const detailModal = useModal();
 
   // Selected item
   const [selectedItem, setSelectedItem] = useState<TItem | null>(null);
 
   const openAdd = () => {
     setSelectedItem(null);
-    formModal.open();
+    formOffcanvas.open();
   };
 
   const openEdit = (item: TItem) => {
     setSelectedItem(item);
-    formModal.open();
+    formOffcanvas.open();
   };
 
   const openDetail = (item: TItem) => {
     setSelectedItem(item);
-    detailModal.open();
+    detailOffcanvas.open();
   };
 
   const closeDetail = () => {
-    detailModal.close();
+    detailOffcanvas.close();
     setSelectedItem(null);
   };
 
@@ -71,7 +75,7 @@ const useClientManager = <TItem extends { id: string }>({
   };
 
   const closeForm = () => {
-    formModal.close();
+    formOffcanvas.close();
     setSelectedItem(null);
   };
 
@@ -106,7 +110,7 @@ const useClientManager = <TItem extends { id: string }>({
 
     // Form
     formInitialValues,
-    isFormOpen: formModal.isOpen,
+    formOffcanvasRef: formOffcanvas.ref,
     openAdd,
     openEdit,
     submitForm,
@@ -119,7 +123,7 @@ const useClientManager = <TItem extends { id: string }>({
     closeDelete,
 
     // Detail
-    isDetailOpen: detailModal.isOpen,
+    detailOffcanvasRef: detailOffcanvas.ref,
     openDetail,
     closeDetail,
   };

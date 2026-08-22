@@ -1,8 +1,10 @@
+import type { RefObject } from "react";
 import { PackageOption } from "../types/Package.types";
-import Modal from "../../../shared/components/Modal";
+import Offcanvas, { type OffcanvasHandle } from "../../../shared/components/Offcanvas";
 import PackageForm from "./PackageForm";
 
-interface PackageFormModalProps {
+interface PackageFormOffcanvasProps {
+  offcanvasRef: RefObject<OffcanvasHandle | null>;
   initialValues: Omit<PackageOption, "id">;
   isEditing: boolean;
   loading: boolean;
@@ -10,15 +12,16 @@ interface PackageFormModalProps {
   onCancel: () => void;
 }
 
-const PackageFormModal = ({
+const PackageFormOffcanvas = ({
+  offcanvasRef,
   initialValues,
   isEditing,
   loading,
   onSubmit,
   onCancel,
-}: PackageFormModalProps) => {
+}: PackageFormOffcanvasProps) => {
   return (
-    <Modal>
+    <Offcanvas offcanvasRef={offcanvasRef} onClose={onCancel}>
       <PackageForm
         initialValues={initialValues}
         isEditing={isEditing}
@@ -26,8 +29,8 @@ const PackageFormModal = ({
         onSubmit={onSubmit}
         onCancel={onCancel}
       />
-    </Modal>
+    </Offcanvas>
   );
 };
 
-export default PackageFormModal;
+export default PackageFormOffcanvas;

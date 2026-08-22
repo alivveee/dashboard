@@ -1,6 +1,6 @@
 import PageHeader from "../../../shared/components/PageHeader";
 import PermissionsTable from "./PermissionsTable";
-import PermissionFormModal from "./PermissionFormModal";
+import PermissionFormOffcanvas from "./PermissionFormOffcanvas";
 import usePermission from "../hooks/usePermission";
 import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
@@ -13,7 +13,7 @@ const PermissionManagementTab = () => {
     loading,
 
     selectedItem,
-    isFormOpen,
+    formOffcanvasRef,
     openEdit,
     submitForm,
     closeForm,
@@ -29,14 +29,13 @@ const PermissionManagementTab = () => {
         onEdit={openEdit}
       />
 
-      {isFormOpen && selectedItem && (
-        <PermissionFormModal
-          permission={selectedItem}
-          loading={loading}
-          onSubmit={submitForm}
-          onCancel={closeForm}
-        />
-      )}
+      <PermissionFormOffcanvas
+        offcanvasRef={formOffcanvasRef}
+        permission={selectedItem}
+        loading={loading}
+        onSubmit={submitForm}
+        onCancel={closeForm}
+      />
     </div>
   );
 };

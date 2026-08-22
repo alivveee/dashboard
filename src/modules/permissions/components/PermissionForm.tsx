@@ -32,9 +32,9 @@ const PermissionForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="modal-header">
-        <h5 className="modal-title">Edit Permission</h5>
+    <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
+      <div className="offcanvas-header">
+        <h5 className="offcanvas-title">Edit Permission</h5>
 
         <button
           type="button"
@@ -44,7 +44,7 @@ const PermissionForm = ({
         />
       </div>
 
-      <div className="modal-body">
+      <div className="offcanvas-body">
         <div className="mb-3">
           <div className="fw-semibold">{permission.name}</div>
           <div className="text-muted small">{permission.description}</div>
@@ -92,7 +92,7 @@ const PermissionForm = ({
         </div>
       </div>
 
-      <div className="modal-footer">
+      <div className="d-flex justify-content-end gap-2 border-top p-3 mt-3">
         <button
           type="button"
           className="btn btn-outline-secondary"

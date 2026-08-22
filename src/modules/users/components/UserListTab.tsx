@@ -2,8 +2,8 @@ import { IconPlus } from "../../../shared/components/icons/Icons";
 import PageHeader from "../../../shared/components/PageHeader";
 import ConfirmDeleteModal from "../../../shared/components/ConfirmDeleteModal";
 import UsersTable from "./UsersTable";
-import UserFormModal from "./UserFormModal";
-import UserDetailModal from "./UserDetailModal";
+import UserFormOffcanvas from "./UserFormOffcanvas";
+import UserDetailOffcanvas from "./UserDetailOffcanvas";
 import useUser from "../hooks/useUser";
 import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
@@ -20,7 +20,7 @@ const UserListTab = () => {
     selectedItem: selectedUser,
 
     formInitialValues,
-    isFormOpen,
+    formOffcanvasRef,
     openAdd,
     openEdit,
     submitForm,
@@ -31,7 +31,7 @@ const UserListTab = () => {
     confirmDelete,
     closeDelete,
 
-    isDetailOpen,
+    detailOffcanvasRef,
     openDetail,
     closeDetail,
   } = useUser();
@@ -61,15 +61,14 @@ const UserListTab = () => {
         canDelete={canDelete}
       />
 
-      {isFormOpen && (
-        <UserFormModal
-          initialValues={formInitialValues}
-          isEditing={!!selectedUser}
-          loading={loading}
-          onSubmit={submitForm}
-          onCancel={closeForm}
-        />
-      )}
+      <UserFormOffcanvas
+        offcanvasRef={formOffcanvasRef}
+        initialValues={formInitialValues}
+        isEditing={!!selectedUser}
+        loading={loading}
+        onSubmit={submitForm}
+        onCancel={closeForm}
+      />
 
       {isDeleteOpen && selectedUser && (
         <ConfirmDeleteModal
@@ -81,9 +80,11 @@ const UserListTab = () => {
         />
       )}
 
-      {isDetailOpen && selectedUser && (
-        <UserDetailModal user={selectedUser} onClose={closeDetail} />
-      )}
+      <UserDetailOffcanvas
+        offcanvasRef={detailOffcanvasRef}
+        user={selectedUser}
+        onClose={closeDetail}
+      />
     </div>
   );
 };
