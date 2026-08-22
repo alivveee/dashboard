@@ -26,7 +26,7 @@ const RoleManagementTab = () => {
     submitForm,
     closeForm,
 
-    isDeleteOpen,
+    deleteModalRef,
     openDelete,
     confirmDelete,
     closeDelete,
@@ -65,15 +65,14 @@ const RoleManagementTab = () => {
         onCancel={closeForm}
       />
 
-      {isDeleteOpen && selectedItem && (
-        <ConfirmDeleteModal
-          entityName="Role"
-          itemName={selectedItem.name}
-          loading={loading}
-          onConfirm={confirmDelete}
-          onCancel={closeDelete}
-        />
-      )}
+      <ConfirmDeleteModal
+        modalRef={deleteModalRef}
+        entityName="Role"
+        itemName={selectedItem?.name ?? ""}
+        loading={loading}
+        onConfirm={confirmDelete}
+        onCancel={closeDelete}
+      />
     </div>
   );
 };

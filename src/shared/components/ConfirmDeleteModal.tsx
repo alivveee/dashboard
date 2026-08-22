@@ -1,6 +1,8 @@
-import Modal from "./Modal";
+import type { RefObject } from "react";
+import Modal, { type ModalHandle } from "./Modal";
 
 interface ConfirmDeleteModalProps {
+  modalRef: RefObject<ModalHandle | null>;
   entityName: string;
   itemName: string;
   loading: boolean;
@@ -9,6 +11,7 @@ interface ConfirmDeleteModalProps {
 }
 
 const ConfirmDeleteModal = ({
+  modalRef,
   entityName,
   itemName,
   loading,
@@ -16,7 +19,7 @@ const ConfirmDeleteModal = ({
   onCancel,
 }: ConfirmDeleteModalProps) => {
   return (
-    <Modal>
+    <Modal modalRef={modalRef} onClose={onCancel}>
       <div className="modal-header">
         <h5 className="modal-title">Delete {entityName}</h5>
 

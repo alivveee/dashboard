@@ -27,7 +27,7 @@ const ProspectPage = () => {
     submitForm,
     closeForm,
 
-    isDeleteOpen,
+    deleteModalRef,
     openDelete,
     confirmDelete,
     closeDelete,
@@ -70,15 +70,14 @@ const ProspectPage = () => {
         onCancel={closeForm}
       />
 
-      {isDeleteOpen && selectedProspect && (
-        <ConfirmDeleteModal
-          entityName="Prospect"
-          itemName={selectedProspect.name}
-          loading={loading}
-          onConfirm={confirmDelete}
-          onCancel={closeDelete}
-        />
-      )}
+      <ConfirmDeleteModal
+        modalRef={deleteModalRef}
+        entityName="Prospect"
+        itemName={selectedProspect?.name ?? ""}
+        loading={loading}
+        onConfirm={confirmDelete}
+        onCancel={closeDelete}
+      />
     </div>
   );
 };

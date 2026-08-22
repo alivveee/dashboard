@@ -27,7 +27,7 @@ const CustomerPage = () => {
     submitForm,
     closeForm,
 
-    isDeleteOpen,
+    deleteModalRef,
     openDelete,
     confirmDelete,
     closeDelete,
@@ -70,15 +70,14 @@ const CustomerPage = () => {
         onCancel={closeForm}
       />
 
-      {isDeleteOpen && selectedCustomer && (
-        <ConfirmDeleteModal
-          entityName="Customer"
-          itemName={selectedCustomer.name}
-          loading={loading}
-          onConfirm={confirmDelete}
-          onCancel={closeDelete}
-        />
-      )}
+      <ConfirmDeleteModal
+        modalRef={deleteModalRef}
+        entityName="Customer"
+        itemName={selectedCustomer?.name ?? ""}
+        loading={loading}
+        onConfirm={confirmDelete}
+        onCancel={closeDelete}
+      />
     </div>
   );
 };

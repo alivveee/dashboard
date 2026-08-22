@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import useCrud from "../../../shared/hooks/useCrud";
-import useModal from "../../../shared/hooks/useModal";
 import { createOffcanvasControls } from "../../../shared/helpers/offcanvas";
 import type { OffcanvasHandle } from "../../../shared/components/Offcanvas";
+import { createModalControls } from "../../../shared/helpers/modal";
+import type { ModalHandle } from "../../../shared/components/Modal";
 import { showAlert } from "../../../shared/helpers/alert";
 
 interface UseClientManagerConfig<TItem extends { id: string }> {
@@ -37,7 +38,7 @@ const useClientManager = <TItem extends { id: string }>({
   const detailOffcanvas = createOffcanvasControls(useRef<OffcanvasHandle>(null));
 
   // Modal
-  const deleteModal = useModal();
+  const deleteModal = createModalControls(useRef<ModalHandle>(null));
 
   // Selected item
   const [selectedItem, setSelectedItem] = useState<TItem | null>(null);
@@ -117,7 +118,7 @@ const useClientManager = <TItem extends { id: string }>({
     closeForm,
 
     // Delete
-    isDeleteOpen: deleteModal.isOpen,
+    deleteModalRef: deleteModal.ref,
     openDelete,
     confirmDelete,
     closeDelete,

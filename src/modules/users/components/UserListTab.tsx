@@ -26,7 +26,7 @@ const UserListTab = () => {
     submitForm,
     closeForm,
 
-    isDeleteOpen,
+    deleteModalRef,
     openDelete,
     confirmDelete,
     closeDelete,
@@ -70,15 +70,14 @@ const UserListTab = () => {
         onCancel={closeForm}
       />
 
-      {isDeleteOpen && selectedUser && (
-        <ConfirmDeleteModal
-          entityName="User"
-          itemName={selectedUser.name}
-          loading={loading}
-          onConfirm={confirmDelete}
-          onCancel={closeDelete}
-        />
-      )}
+      <ConfirmDeleteModal
+        modalRef={deleteModalRef}
+        entityName="User"
+        itemName={selectedUser?.name ?? ""}
+        loading={loading}
+        onConfirm={confirmDelete}
+        onCancel={closeDelete}
+      />
 
       <UserDetailOffcanvas
         offcanvasRef={detailOffcanvasRef}

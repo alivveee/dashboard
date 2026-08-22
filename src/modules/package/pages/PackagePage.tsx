@@ -25,7 +25,7 @@ const PackagePage = () => {
     submitForm,
     closeForm,
 
-    isDeleteOpen,
+    deleteModalRef,
     openDelete,
     confirmDelete,
     closeDelete,
@@ -63,15 +63,14 @@ const PackagePage = () => {
         onCancel={closeForm}
       />
 
-      {isDeleteOpen && selectedItem && (
-        <ConfirmDeleteModal
-          entityName="Package"
-          itemName={selectedItem.name}
-          loading={loading}
-          onConfirm={confirmDelete}
-          onCancel={closeDelete}
-        />
-      )}
+      <ConfirmDeleteModal
+        modalRef={deleteModalRef}
+        entityName="Package"
+        itemName={selectedItem?.name ?? ""}
+        loading={loading}
+        onConfirm={confirmDelete}
+        onCancel={closeDelete}
+      />
     </div>
   );
 };
