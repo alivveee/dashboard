@@ -26,7 +26,7 @@ export function useTableShellState({
     () =>
       headers
         .map((header, index) =>
-          isHeaderConfig(header) && header.searchable ? index : -1,
+          isHeaderConfig(header) && header.isSearchable ? index : -1,
         )
         .filter((index) => index !== -1),
     [headers],
@@ -119,7 +119,7 @@ export function useTableShellState({
     searchQuery,
     setSearchQuery,
     isSearching,
-    hasSearchableColumns: searchableColumnIndexes.length > 0,
+    isSearchableColumnsPresent: searchableColumnIndexes.length > 0,
 
     handlePreviousPage,
     handleNextPage,

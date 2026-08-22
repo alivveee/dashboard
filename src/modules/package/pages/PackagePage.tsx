@@ -8,13 +8,13 @@ import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
 const PackagePage = () => {
-  const { canAdd, canEdit, canDelete } = usePermissionFlags(
+  const { isAddAllowed, isEditAllowed, isDeleteAllowed } = usePermissionFlags(
     PERMISSION_ID.PACKAGE,
   );
 
   const {
     packages,
-    loading,
+    isLoading,
 
     selectedItem,
 
@@ -36,7 +36,7 @@ const PackagePage = () => {
       <PageHeader
         title="Package Management"
         action={
-          canAdd
+          isAddAllowed
             ? {
                 label: "Add Package",
                 icon: <IconPlus />,
@@ -50,15 +50,15 @@ const PackagePage = () => {
         packages={packages}
         onEdit={openEdit}
         onDelete={openDelete}
-        canEdit={canEdit}
-        canDelete={canDelete}
+        isEditAllowed={isEditAllowed}
+        isDeleteAllowed={isDeleteAllowed}
       />
 
       <PackageFormOffcanvas
         offcanvasRef={formOffcanvasRef}
         initialValues={formInitialValues}
         isEditing={!!selectedItem}
-        loading={loading}
+        isLoading={isLoading}
         onSubmit={submitForm}
         onCancel={closeForm}
       />
@@ -67,7 +67,7 @@ const PackagePage = () => {
         modalRef={deleteModalRef}
         entityName="Package"
         itemName={selectedItem?.name ?? ""}
-        loading={loading}
+        isLoading={isLoading}
         onConfirm={confirmDelete}
         onCancel={closeDelete}
       />

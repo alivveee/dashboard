@@ -8,15 +8,15 @@ import { path } from "../../../routes/routes.paths";
 import { USERS_PAGE_TAB_KEYS } from "./UsersPage.constants";
 
 const UsersPage = () => {
-  const { canView: canViewUsers } = usePermissionFlags(PERMISSION_ID.USERS);
-  const { canView: canViewRoles } = usePermissionFlags(PERMISSION_ID.ROLES);
-  const { canView: canViewPermissions } = usePermissionFlags(
+  const { isViewAllowed: isUsersViewAllowed } = usePermissionFlags(PERMISSION_ID.USERS);
+  const { isViewAllowed: isRolesViewAllowed } = usePermissionFlags(PERMISSION_ID.ROLES);
+  const { isViewAllowed: isPermissionsViewAllowed } = usePermissionFlags(
     PERMISSION_ID.PERMISSIONS,
   );
 
   const items: TabItem[] = [];
 
-  if (canViewUsers) {
+  if (isUsersViewAllowed) {
     items.push({
       key: USERS_PAGE_TAB_KEYS.users,
       label: "User Management",
@@ -24,7 +24,7 @@ const UsersPage = () => {
     });
   }
 
-  if (canViewRoles) {
+  if (isRolesViewAllowed) {
     items.push({
       key: USERS_PAGE_TAB_KEYS.roles,
       label: "Role Management",
@@ -32,7 +32,7 @@ const UsersPage = () => {
     });
   }
 
-  if (canViewPermissions) {
+  if (isPermissionsViewAllowed) {
     items.push({
       key: USERS_PAGE_TAB_KEYS.permissions,
       label: "Permission Management",

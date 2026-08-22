@@ -51,7 +51,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
         value={values.email}
         onChange={(value) => handleChange("email", value)}
         icon={<IconUser />}
-        required
+        isRequired
       />
 
       <PasswordInput

@@ -9,13 +9,13 @@ import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
 const UserListTab = () => {
-  const { canAdd, canView, canEdit, canDelete } = usePermissionFlags(
+  const { isAddAllowed, isViewAllowed, isEditAllowed, isDeleteAllowed } = usePermissionFlags(
     PERMISSION_ID.USERS,
   );
 
   const {
     users,
-    loading,
+    isLoading,
 
     selectedItem: selectedUser,
 
@@ -41,7 +41,7 @@ const UserListTab = () => {
       <PageHeader
         title="User List"
         action={
-          canAdd
+          isAddAllowed
             ? {
                 label: "Add User",
                 icon: <IconPlus />,
@@ -56,16 +56,16 @@ const UserListTab = () => {
         onView={openDetail}
         onEdit={openEdit}
         onDelete={openDelete}
-        canView={canView}
-        canEdit={canEdit}
-        canDelete={canDelete}
+        isViewAllowed={isViewAllowed}
+        isEditAllowed={isEditAllowed}
+        isDeleteAllowed={isDeleteAllowed}
       />
 
       <UserFormOffcanvas
         offcanvasRef={formOffcanvasRef}
         initialValues={formInitialValues}
         isEditing={!!selectedUser}
-        loading={loading}
+        isLoading={isLoading}
         onSubmit={submitForm}
         onCancel={closeForm}
       />
@@ -74,7 +74,7 @@ const UserListTab = () => {
         modalRef={deleteModalRef}
         entityName="User"
         itemName={selectedUser?.name ?? ""}
-        loading={loading}
+        isLoading={isLoading}
         onConfirm={confirmDelete}
         onCancel={closeDelete}
       />

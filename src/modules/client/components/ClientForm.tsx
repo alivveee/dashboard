@@ -23,7 +23,7 @@ interface ClientFormProps<TFormData extends ClientFormData> {
   onSubmit: (data: TFormData) => void;
   onCancel: () => void;
   isEditing: boolean;
-  loading: boolean;
+  isLoading: boolean;
 }
 
 function ClientForm<TFormData extends ClientFormData>({
@@ -34,7 +34,7 @@ function ClientForm<TFormData extends ClientFormData>({
   onSubmit,
   onCancel,
   isEditing,
-  loading,
+  isLoading,
 }: ClientFormProps<TFormData>) {
   const { values, handleChange } = useForm(initialValues);
   const [packages] = useLocalStorage<PackageOption[]>(
@@ -74,7 +74,7 @@ function ClientForm<TFormData extends ClientFormData>({
           placeholder={`Enter ${namePrefix} name here`}
           value={values.name}
           onChange={(value) => setField("name", value)}
-          required
+          isRequired
         />
 
         <FormInput
@@ -84,7 +84,7 @@ function ClientForm<TFormData extends ClientFormData>({
           placeholder="name@email.com"
           value={values.email}
           onChange={(value) => setField("email", value)}
-          required
+          isRequired
         />
 
         <FormInput
@@ -94,7 +94,7 @@ function ClientForm<TFormData extends ClientFormData>({
           placeholder="08xxxxxxxxxx"
           value={values.phone}
           onChange={(value) => setField("phone", value)}
-          required
+          isRequired
         />
 
         <FormSelect
@@ -124,13 +124,13 @@ function ClientForm<TFormData extends ClientFormData>({
           type="button"
           className="btn btn-outline-secondary"
           onClick={onCancel}
-          disabled={loading}
+          disabled={isLoading}
         >
           Cancel
         </button>
 
-        <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
+        <button type="submit" className="btn btn-primary" disabled={isLoading}>
+          {isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
         </button>
       </div>
     </form>

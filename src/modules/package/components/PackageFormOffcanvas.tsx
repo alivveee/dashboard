@@ -7,7 +7,7 @@ interface PackageFormOffcanvasProps {
   offcanvasRef: RefObject<OffcanvasHandle | null>;
   initialValues: Omit<PackageOption, "id">;
   isEditing: boolean;
-  loading: boolean;
+  isLoading: boolean;
   onSubmit: (data: Omit<PackageOption, "id">) => void;
   onCancel: () => void;
 }
@@ -16,7 +16,7 @@ const PackageFormOffcanvas = ({
   offcanvasRef,
   initialValues,
   isEditing,
-  loading,
+  isLoading,
   onSubmit,
   onCancel,
 }: PackageFormOffcanvasProps) => {
@@ -25,7 +25,7 @@ const PackageFormOffcanvas = ({
       <PackageForm
         initialValues={initialValues}
         isEditing={isEditing}
-        loading={loading}
+        isLoading={isLoading}
         onSubmit={onSubmit}
         onCancel={onCancel}
       />

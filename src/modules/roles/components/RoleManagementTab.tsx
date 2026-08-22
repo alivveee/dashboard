@@ -8,14 +8,14 @@ import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
 const RoleManagementTab = () => {
-  const { canAdd, canEdit, canDelete } = usePermissionFlags(
+  const { isAddAllowed, isEditAllowed, isDeleteAllowed } = usePermissionFlags(
     PERMISSION_ID.ROLES,
   );
 
   const {
     roles,
     permissions,
-    loading,
+    isLoading,
 
     selectedItem,
 
@@ -37,7 +37,7 @@ const RoleManagementTab = () => {
       <PageHeader
         title="Role List"
         action={
-          canAdd
+          isAddAllowed
             ? {
                 label: "Add Role",
                 icon: <IconPlus />,
@@ -51,8 +51,8 @@ const RoleManagementTab = () => {
         roles={roles}
         onEdit={openEdit}
         onDelete={openDelete}
-        canEdit={canEdit}
-        canDelete={canDelete}
+        isEditAllowed={isEditAllowed}
+        isDeleteAllowed={isDeleteAllowed}
       />
 
       <RoleFormOffcanvas
@@ -60,7 +60,7 @@ const RoleManagementTab = () => {
         initialValues={formInitialValues}
         permissions={permissions}
         isEditing={!!selectedItem}
-        loading={loading}
+        isLoading={isLoading}
         onSubmit={submitForm}
         onCancel={closeForm}
       />
@@ -69,7 +69,7 @@ const RoleManagementTab = () => {
         modalRef={deleteModalRef}
         entityName="Role"
         itemName={selectedItem?.name ?? ""}
-        loading={loading}
+        isLoading={isLoading}
         onConfirm={confirmDelete}
         onCancel={closeDelete}
       />

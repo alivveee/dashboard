@@ -6,11 +6,11 @@ import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
 const PermissionManagementTab = () => {
-  const { canEdit } = usePermissionFlags(PERMISSION_ID.PERMISSIONS);
+  const { isEditAllowed } = usePermissionFlags(PERMISSION_ID.PERMISSIONS);
 
   const {
     permissions,
-    loading,
+    isLoading,
 
     selectedItem,
     formOffcanvasRef,
@@ -25,14 +25,14 @@ const PermissionManagementTab = () => {
 
       <PermissionsTable
         permissions={permissions}
-        canEdit={canEdit}
+        isEditAllowed={isEditAllowed}
         onEdit={openEdit}
       />
 
       <PermissionFormOffcanvas
         offcanvasRef={formOffcanvasRef}
         permission={selectedItem}
-        loading={loading}
+        isLoading={isLoading}
         onSubmit={submitForm}
         onCancel={closeForm}
       />

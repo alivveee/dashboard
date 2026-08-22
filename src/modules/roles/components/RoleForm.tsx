@@ -14,7 +14,7 @@ interface RoleFormProps {
   initialValues: Omit<Role, "id">;
   permissions: Permission[];
   isEditing: boolean;
-  loading: boolean;
+  isLoading: boolean;
   onSubmit: (data: Omit<Role, "id">) => void;
   onCancel: () => void;
 }
@@ -23,7 +23,7 @@ const RoleForm = ({
   initialValues,
   permissions,
   isEditing,
-  loading,
+  isLoading,
   onSubmit,
   onCancel,
 }: RoleFormProps) => {
@@ -62,7 +62,7 @@ const RoleForm = ({
           placeholder="Enter role name here"
           value={values.name}
           onChange={(value) => handleChange("name", value)}
-          required
+          isRequired
         />
 
         <FormTextarea
@@ -127,13 +127,13 @@ const RoleForm = ({
           type="button"
           className="btn btn-outline-secondary"
           onClick={onCancel}
-          disabled={loading}
+          disabled={isLoading}
         >
           Cancel
         </button>
 
-        <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
+        <button type="submit" className="btn btn-primary" disabled={isLoading}>
+          {isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
         </button>
       </div>
     </form>

@@ -14,7 +14,7 @@ const genderOptions = [
 interface UserFormProps {
   initialValues: Omit<User, "id">;
   isEditing: boolean;
-  loading: boolean;
+  isLoading: boolean;
   onSubmit: (data: Omit<User, "id">) => void;
   onCancel: () => void;
 }
@@ -22,7 +22,7 @@ interface UserFormProps {
 const UserForm = ({
   initialValues,
   isEditing,
-  loading,
+  isLoading,
   onSubmit,
   onCancel,
 }: UserFormProps) => {
@@ -58,7 +58,7 @@ const UserForm = ({
           placeholder="Enter user name here"
           value={values.name}
           onChange={(value) => handleChange("name", value)}
-          required
+          isRequired
         />
 
         <FormInput
@@ -68,7 +68,7 @@ const UserForm = ({
           placeholder="name@email.com"
           value={values.email}
           onChange={(value) => handleChange("email", value)}
-          required
+          isRequired
         />
 
         <FormInput
@@ -77,7 +77,7 @@ const UserForm = ({
           placeholder="Enter address here"
           value={values.address}
           onChange={(value) => handleChange("address", value)}
-          required
+          isRequired
         />
 
         <FormInput
@@ -86,7 +86,7 @@ const UserForm = ({
           type="date"
           value={values.birthday}
           onChange={(value) => handleChange("birthday", value)}
-          required
+          isRequired
         />
 
         <FormSelect
@@ -96,7 +96,7 @@ const UserForm = ({
           value={values.gender}
           onChange={(value) => handleChange("gender", value)}
           options={genderOptions}
-          required
+          isRequired
         />
 
         <PasswordInput
@@ -111,7 +111,7 @@ const UserForm = ({
           value={values.role}
           onChange={(value) => handleChange("role", value)}
           options={roleOptions}
-          required
+          isRequired
         />
       </div>
 
@@ -120,13 +120,13 @@ const UserForm = ({
           type="button"
           className="btn btn-outline-secondary"
           onClick={onCancel}
-          disabled={loading}
+          disabled={isLoading}
         >
           Cancel
         </button>
 
-        <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
+        <button type="submit" className="btn btn-primary" disabled={isLoading}>
+          {isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
         </button>
       </div>
     </form>

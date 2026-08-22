@@ -9,7 +9,7 @@ interface RoleFormOffcanvasProps {
   initialValues: Omit<Role, "id">;
   permissions: Permission[];
   isEditing: boolean;
-  loading: boolean;
+  isLoading: boolean;
   onSubmit: (data: Omit<Role, "id">) => void;
   onCancel: () => void;
 }
@@ -19,7 +19,7 @@ const RoleFormOffcanvas = ({
   initialValues,
   permissions,
   isEditing,
-  loading,
+  isLoading,
   onSubmit,
   onCancel,
 }: RoleFormOffcanvasProps) => {
@@ -29,7 +29,7 @@ const RoleFormOffcanvas = ({
         initialValues={initialValues}
         permissions={permissions}
         isEditing={isEditing}
-        loading={loading}
+        isLoading={isLoading}
         onSubmit={onSubmit}
         onCancel={onCancel}
       />

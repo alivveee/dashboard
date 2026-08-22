@@ -6,7 +6,7 @@ interface PasswordInputProps {
   onChange: (value: string) => void;
   label?: string;
   placeholder?: string;
-  required?: boolean;
+  isRequired?: boolean;
 }
 
 const PasswordInput = ({
@@ -14,9 +14,9 @@ const PasswordInput = ({
   onChange,
   label = "Password",
   placeholder = "Enter password",
-  required = true,
+  isRequired = true,
 }: PasswordInputProps) => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
     <div className="mb-3">
@@ -31,22 +31,22 @@ const PasswordInput = ({
 
         <input
           id="password"
-          type={showPassword ? "text" : "password"}
+          type={isPasswordVisible ? "text" : "password"}
           className="form-control"
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           autoComplete="current-password"
-          required={required}
+          required={isRequired}
         />
 
         <button
           type="button"
           className="btn btn-outline-secondary"
-          onClick={() => setShowPassword((prev) => !prev)}
-          aria-label={showPassword ? "Hide password" : "Show password"}
+          onClick={() => setIsPasswordVisible((prev) => !prev)}
+          aria-label={isPasswordVisible ? "Hide password" : "Show password"}
         >
-          {showPassword ? <IconEyeOff /> : <IconEye />}
+          {isPasswordVisible ? <IconEyeOff /> : <IconEye />}
         </button>
       </div>
     </div>

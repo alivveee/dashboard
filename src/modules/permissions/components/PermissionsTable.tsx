@@ -10,22 +10,22 @@ import TableRowActions from "../../../shared/components/TableRowActions";
 
 interface PermissionsTableProps {
   permissions: Permission[];
-  canEdit: boolean;
+  isEditAllowed: boolean;
   onEdit: (item: Permission) => void;
 }
 
 const PermissionsTable = ({
   permissions,
-  canEdit,
+  isEditAllowed,
   onEdit,
 }: PermissionsTableProps) => (
   <TableShell
     emptyMessage="No permission data yet."
     headers={[
       "#",
-      { content: "Name", sortable: true },
-      { content: "Page URL", sortable: true },
-      { content: "Description", sortable: true },
+      { content: "Name", isSortable: true },
+      { content: "Page URL", isSortable: true },
+      { content: "Description", isSortable: true },
       "Available Actions",
       { className: "text-end", content: "Actions" },
     ]}
@@ -60,7 +60,7 @@ const PermissionsTable = ({
           <TableRowActions
             item={item}
             onEdit={onEdit}
-            canEdit={canEdit}
+            isEditAllowed={isEditAllowed}
             label={item.name}
           />
         ),

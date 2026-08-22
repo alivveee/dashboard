@@ -27,7 +27,7 @@ const useProfile = () => {
   const { session, role, updateSession } = useAuth();
   const {
     items: users,
-    loading,
+    isLoading,
     update,
   } = useCrud<User>(USERS_KEY, INITIAL_USERS);
 
@@ -77,7 +77,7 @@ const useProfile = () => {
   return {
     currentUser,
     roleLabel: role?.name ?? "",
-    loading,
+    isLoading,
 
     formInitialValues,
     updateProfile,

@@ -8,9 +8,9 @@ interface UserTableProps {
   onView: (user: User) => void;
   onEdit: (user: User) => void;
   onDelete: (user: User) => void;
-  canView: boolean;
-  canEdit: boolean;
-  canDelete: boolean;
+  isViewAllowed: boolean;
+  isEditAllowed: boolean;
+  isDeleteAllowed: boolean;
 }
 
 const UsersTable = ({
@@ -18,9 +18,9 @@ const UsersTable = ({
   onView,
   onEdit,
   onDelete,
-  canView,
-  canEdit,
-  canDelete,
+  isViewAllowed,
+  isEditAllowed,
+  isDeleteAllowed,
 }: UserTableProps) => {
   const roles = useRoles();
 
@@ -30,10 +30,10 @@ const UsersTable = ({
       searchPlaceholder="search by name..."
       headers={[
         "#",
-        { content: "Name", sortable: true, searchable: true },
-        { content: "Email", sortable: true },
-        { content: "Address", sortable: true },
-        { content: "Role", sortable: true },
+        { content: "Name", isSortable: true, isSearchable: true },
+        { content: "Email", isSortable: true },
+        { content: "Address", isSortable: true },
+        { content: "Role", isSortable: true },
         { className: "text-end", content: "Actions" },
       ]}
       rows={users.map((user, index) => [
@@ -50,9 +50,9 @@ const UsersTable = ({
               onView={onView}
               onEdit={onEdit}
               onDelete={onDelete}
-              canView={canView}
-              canEdit={canEdit}
-              canDelete={canDelete}
+              isViewAllowed={isViewAllowed}
+              isEditAllowed={isEditAllowed}
+              isDeleteAllowed={isDeleteAllowed}
               label={user.name}
             />
           ),

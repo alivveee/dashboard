@@ -16,8 +16,8 @@ interface ClientTableProps<TItem extends ClientWithStatus> {
   statusOptions: StatusOption[];
   onEdit: (item: TItem) => void;
   onDelete: (item: TItem) => void;
-  canEdit: boolean;
-  canDelete: boolean;
+  isEditAllowed: boolean;
+  isDeleteAllowed: boolean;
 }
 
 function ClientTable<TItem extends ClientWithStatus>({
@@ -26,8 +26,8 @@ function ClientTable<TItem extends ClientWithStatus>({
   statusOptions,
   onEdit,
   onDelete,
-  canEdit,
-  canDelete,
+  isEditAllowed,
+  isDeleteAllowed,
 }: ClientTableProps<TItem>) {
   const statusByValue = new Map(
     statusOptions.map((option) => [option.value, option]),
@@ -44,9 +44,9 @@ function ClientTable<TItem extends ClientWithStatus>({
       searchPlaceholder="Search by name..."
       headers={[
         "#",
-        { content: "Personal Data", sortable: true, searchable: true },
-        { content: "Package", sortable: true },
-        { content: "Status", sortable: true },
+        { content: "Personal Data", isSortable: true, isSearchable: true },
+        { content: "Package", isSortable: true},
+        { content: "Status", isSortable: true },
         { className: "text-end", content: "Actions" },
       ]}
       rows={items.map((item, index) => {
@@ -93,8 +93,8 @@ function ClientTable<TItem extends ClientWithStatus>({
                 item={item}
                 onEdit={onEdit}
                 onDelete={onDelete}
-                canEdit={canEdit}
-                canDelete={canDelete}
+                isEditAllowed={isEditAllowed}
+                isDeleteAllowed={isDeleteAllowed}
                 label={clientLabelLower}
               />
             ),

@@ -41,8 +41,8 @@ export function getPageNumbers(
 export function isHeaderConfig(value: unknown): value is {
   className?: string;
   content: ReactNode;
-  sortable?: boolean;
-  searchable?: boolean;
+  isSortable?: boolean;
+  isSearchable?: boolean;
 } {
   return typeof value === "object" && value !== null && "content" in value;
 }

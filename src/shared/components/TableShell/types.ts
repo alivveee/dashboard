@@ -5,8 +5,8 @@ export type TableShellHeader =
   | {
       className?: string;
       content: ReactNode;
-      sortable?: boolean;
-      searchable?: boolean;
+      isSortable?: boolean;
+      isSearchable?: boolean;
     };
 
 export type TableShellCell =

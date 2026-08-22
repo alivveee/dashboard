@@ -7,7 +7,7 @@ interface UserFormOffcanvasProps {
   offcanvasRef: RefObject<OffcanvasHandle | null>;
   initialValues: Omit<User, "id">;
   isEditing: boolean;
-  loading: boolean;
+  isLoading: boolean;
   onSubmit: (data: Omit<User, "id">) => void;
   onCancel: () => void;
 }
@@ -16,7 +16,7 @@ const UserFormOffcanvas = ({
   offcanvasRef,
   initialValues,
   isEditing,
-  loading,
+  isLoading,
   onSubmit,
   onCancel,
 }: UserFormOffcanvasProps) => {
@@ -25,7 +25,7 @@ const UserFormOffcanvas = ({
       <UserForm
         initialValues={initialValues}
         isEditing={isEditing}
-        loading={loading}
+        isLoading={isLoading}
         onSubmit={onSubmit}
         onCancel={onCancel}
       />

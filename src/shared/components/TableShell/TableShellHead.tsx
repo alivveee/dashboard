@@ -25,7 +25,7 @@ const TableShellHead = ({ headers, sort, onSort }: TableShellHeadProps) => (
       {headers.map((header, headerIndex) =>
         isHeaderConfig(header) ? (
           <th key={headerIndex} scope="col" className={header.className}>
-            {header.sortable ? (
+            {header.isSortable ? (
               <button
                 type="button"
                 className="btn btn-sm p-0 d-flex align-items-center gap-1 fw-semibold text-body"

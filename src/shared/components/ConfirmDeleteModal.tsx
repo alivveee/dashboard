@@ -5,7 +5,7 @@ interface ConfirmDeleteModalProps {
   modalRef: RefObject<ModalHandle | null>;
   entityName: string;
   itemName: string;
-  loading: boolean;
+  isLoading: boolean;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -14,7 +14,7 @@ const ConfirmDeleteModal = ({
   modalRef,
   entityName,
   itemName,
-  loading,
+  isLoading,
   onConfirm,
   onCancel,
 }: ConfirmDeleteModalProps) => {
@@ -43,7 +43,7 @@ const ConfirmDeleteModal = ({
           type="button"
           className="btn btn-outline-secondary"
           onClick={onCancel}
-          disabled={loading}
+          disabled={isLoading}
         >
           Cancel
         </button>
@@ -52,9 +52,9 @@ const ConfirmDeleteModal = ({
           type="button"
           className="btn btn-danger"
           onClick={onConfirm}
-          disabled={loading}
+          disabled={isLoading}
         >
-          {loading ? "Deleting..." : "Delete"}
+          {isLoading ? "Deleting..." : "Delete"}
         </button>
       </div>
     </Modal>

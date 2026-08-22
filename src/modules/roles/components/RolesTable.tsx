@@ -6,24 +6,24 @@ interface RolesTableProps {
   roles: Role[];
   onEdit: (item: Role) => void;
   onDelete: (item: Role) => void;
-  canEdit: boolean;
-  canDelete: boolean;
+  isEditAllowed: boolean;
+  isDeleteAllowed: boolean;
 }
 
 const RolesTable = ({
   roles,
   onEdit,
   onDelete,
-  canEdit,
-  canDelete,
+  isEditAllowed,
+  isDeleteAllowed,
 }: RolesTableProps) => (
   <TableShell
     emptyMessage="No role data yet."
     headers={[
       "#",
-      { content: "Role Name", sortable: true },
-      { content: "Description", sortable: true },
-      { content: "Permission", sortable: true },
+      { content: "Role Name", isSortable: true },
+      { content: "Description", isSortable: true },
+      { content: "Permission", isSortable: true },
       { className: "text-end", content: "Actions" },
     ]}
     rows={roles.map((role, index) => [
@@ -45,8 +45,8 @@ const RolesTable = ({
             item={role}
             onEdit={onEdit}
             onDelete={onDelete}
-            canEdit={canEdit}
-            canDelete={canDelete}
+            isEditAllowed={isEditAllowed}
+            isDeleteAllowed={isDeleteAllowed}
             label={role.name}
           />
         ),

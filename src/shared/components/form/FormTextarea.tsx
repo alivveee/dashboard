@@ -4,7 +4,7 @@ interface FormTextareaProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  required?: boolean;
+  isRequired?: boolean;
   rows?: number;
 }
 
@@ -14,7 +14,7 @@ const FormTextarea = ({
   value,
   onChange,
   placeholder,
-  required = false,
+  isRequired = false,
   rows = 3,
 }: FormTextareaProps) => {
   return (
@@ -30,7 +30,7 @@ const FormTextarea = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        required={required}
+        required={isRequired}
       />
     </div>
   );

@@ -7,24 +7,24 @@ interface PackagesTableProps {
   packages: PackageOption[];
   onEdit: (item: PackageOption) => void;
   onDelete: (item: PackageOption) => void;
-  canEdit: boolean;
-  canDelete: boolean;
+  isEditAllowed: boolean;
+  isDeleteAllowed: boolean;
 }
 
 const PackagesTable = ({
   packages,
   onEdit,
   onDelete,
-  canEdit,
-  canDelete,
+  isEditAllowed,
+  isDeleteAllowed,
 }: PackagesTableProps) => (
   <TableShell
     emptyMessage="No package data yet."
     headers={[
       "#",
-      { content: "Package Name", sortable: true },
-      { content: "Speed", sortable: true },
-      { content: "Price/Month", sortable: true },
+      { content: "Package Name", isSortable: true },
+      { content: "Speed", isSortable: true },
+      { content: "Price/Month", isSortable: true },
       { className: "text-end", content: "Actions" },
     ]}
     rows={packages.map((item, index) => [
@@ -39,8 +39,8 @@ const PackagesTable = ({
             item={item}
             onEdit={onEdit}
             onDelete={onDelete}
-            canEdit={canEdit}
-            canDelete={canDelete}
+            isEditAllowed={isEditAllowed}
+            isDeleteAllowed={isDeleteAllowed}
             label={item.name}
           />
         ),

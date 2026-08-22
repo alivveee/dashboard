@@ -6,14 +6,14 @@ import { toggleInArray } from "../../../shared/helpers/array.helper";
 
 interface PermissionFormProps {
   permission: Permission;
-  loading: boolean;
+  isLoading: boolean;
   onSubmit: (activeActions: PermissionAction[]) => void;
   onCancel: () => void;
 }
 
 const PermissionForm = ({
   permission,
-  loading,
+  isLoading,
   onSubmit,
   onCancel,
 }: PermissionFormProps) => {
@@ -97,13 +97,13 @@ const PermissionForm = ({
           type="button"
           className="btn btn-outline-secondary"
           onClick={onCancel}
-          disabled={loading}
+          disabled={isLoading}
         >
           Cancel
         </button>
 
-        <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? "Saving..." : "Save Changes"}
+        <button type="submit" className="btn btn-primary" disabled={isLoading}>
+          {isLoading ? "Saving..." : "Save Changes"}
         </button>
       </div>
     </form>

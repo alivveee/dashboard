@@ -6,7 +6,7 @@ import FormInput from "../../../shared/components/form/FormInput";
 interface PackageFormProps {
   initialValues: Omit<PackageOption, "id">;
   isEditing: boolean;
-  loading: boolean;
+  isLoading: boolean;
   onSubmit: (data: Omit<PackageOption, "id">) => void;
   onCancel: () => void;
 }
@@ -14,7 +14,7 @@ interface PackageFormProps {
 const PackageForm = ({
   initialValues,
   isEditing,
-  loading,
+  isLoading,
   onSubmit,
   onCancel,
 }: PackageFormProps) => {
@@ -56,7 +56,7 @@ const PackageForm = ({
           placeholder="Enter package name here"
           value={values.name}
           onChange={(value) => handleChange("name", value)}
-          required
+          isRequired
         />
 
         <FormInput
@@ -65,7 +65,7 @@ const PackageForm = ({
           placeholder="Example: 100Mbps"
           value={values.speed}
           onChange={(value) => handleChange("speed", value)}
-          required
+          isRequired
         />
 
         <FormInput
@@ -75,7 +75,7 @@ const PackageForm = ({
           placeholder="Example: 300000"
           value={values.price}
           onChange={(value) => handleChange("price", value)}
-          required
+          isRequired
         />
       </div>
 
@@ -84,13 +84,13 @@ const PackageForm = ({
           type="button"
           className="btn btn-outline-secondary"
           onClick={onCancel}
-          disabled={loading}
+          disabled={isLoading}
         >
           Cancel
         </button>
 
-        <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
+        <button type="submit" className="btn btn-primary" disabled={isLoading}>
+          {isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
         </button>
       </div>
     </form>

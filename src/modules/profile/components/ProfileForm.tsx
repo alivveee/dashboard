@@ -34,7 +34,7 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
           placeholder="Enter your name here"
           value={values.name}
           onChange={(value) => handleChange("name", value)}
-          required
+          isRequired
         />
 
         <FormInput
@@ -44,7 +44,7 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
           placeholder="name@email.com"
           value={values.email}
           onChange={(value) => handleChange("email", value)}
-          required
+          isRequired
         />
 
         <FormInput
@@ -53,7 +53,7 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
           placeholder="Enter address here"
           value={values.address}
           onChange={(value) => handleChange("address", value)}
-          required
+          isRequired
         />
 
         <FormInput
@@ -62,7 +62,7 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
           type="date"
           value={values.birthday}
           onChange={(value) => handleChange("birthday", value)}
-          required
+          isRequired
         />
 
         <FormSelect
@@ -72,7 +72,7 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
           value={values.gender}
           onChange={(value) => handleChange("gender", value)}
           options={genderOptions}
-          required
+          isRequired
         />
 
         <PasswordInput
@@ -80,7 +80,7 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
           onChange={(value) => handleChange("password", value)}
           label="New Password"
           placeholder="Leave blank to keep current password"
-          required={false}
+          isRequired={false}
         />
 
         <div className="mb-3">

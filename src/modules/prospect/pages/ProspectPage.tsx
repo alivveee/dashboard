@@ -10,13 +10,13 @@ import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
 const ProspectPage = () => {
-  const { canAdd, canEdit, canDelete } = usePermissionFlags(
+  const { isAddAllowed, isEditAllowed, isDeleteAllowed } = usePermissionFlags(
     PERMISSION_ID.PROSPECT,
   );
 
   const {
     items: prospects,
-    loading,
+    isLoading,
 
     selectedItem: selectedProspect,
 
@@ -38,7 +38,7 @@ const ProspectPage = () => {
       <PageHeader
         title="Prospect List"
         action={
-          canAdd
+          isAddAllowed
             ? {
                 label: "Add Prospect",
                 icon: <IconPlus />,
@@ -54,8 +54,8 @@ const ProspectPage = () => {
         statusOptions={prospectStatusOptions}
         onEdit={openEdit}
         onDelete={openDelete}
-        canEdit={canEdit}
-        canDelete={canDelete}
+        isEditAllowed={isEditAllowed}
+        isDeleteAllowed={isDeleteAllowed}
       />
 
       <ClientFormOffcanvas
@@ -65,7 +65,7 @@ const ProspectPage = () => {
         namePrefix="prospect"
         statusOptions={prospectStatusOptions}
         isEditing={!!selectedProspect}
-        loading={loading}
+        isLoading={isLoading}
         onSubmit={submitForm}
         onCancel={closeForm}
       />
@@ -74,7 +74,7 @@ const ProspectPage = () => {
         modalRef={deleteModalRef}
         entityName="Prospect"
         itemName={selectedProspect?.name ?? ""}
-        loading={loading}
+        isLoading={isLoading}
         onConfirm={confirmDelete}
         onCancel={closeDelete}
       />

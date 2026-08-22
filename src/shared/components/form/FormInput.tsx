@@ -8,7 +8,7 @@ interface FormInputProps {
   type?: "text" | "email" | "password" | "tel" | "number" | "date";
   placeholder?: string;
   icon?: ReactNode;
-  required?: boolean;
+  isRequired?: boolean;
 }
 
 const FormInput = ({
@@ -19,7 +19,7 @@ const FormInput = ({
   type = "text",
   placeholder,
   icon,
-  required = false,
+  isRequired = false,
 }: FormInputProps) => {
   return (
     <div className="mb-3">
@@ -37,7 +37,7 @@ const FormInput = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          required={required}
+          required={isRequired}
         />
       </div>
     </div>

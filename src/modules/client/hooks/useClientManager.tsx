@@ -28,7 +28,7 @@ const useClientManager = <TItem extends { id: string }>({
   emptyFormData,
 }: UseClientManagerConfig<TItem>) => {
   // Hooks CRUD
-  const { items, loading, add, update, remove } = useCrud<TItem>(
+  const { items, isLoading, add, update, remove } = useCrud<TItem>(
     storageKey,
     initialItems,
   );
@@ -104,7 +104,7 @@ const useClientManager = <TItem extends { id: string }>({
   return {
     // Data
     items,
-    loading,
+    isLoading,
 
     // Selected
     selectedItem,

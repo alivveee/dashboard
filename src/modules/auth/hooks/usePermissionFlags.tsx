@@ -1,20 +1,20 @@
 import useAuth from "./useAuth";
 
 interface PermissionFlags {
-  canAdd: boolean;
-  canView: boolean;
-  canEdit: boolean;
-  canDelete: boolean;
+  isAddAllowed: boolean;
+  isViewAllowed: boolean;
+  isEditAllowed: boolean;
+  isDeleteAllowed: boolean;
 }
 
 const usePermissionFlags = (permissionId: string): PermissionFlags => {
   const { can } = useAuth();
 
   return {
-    canAdd: can(permissionId, "add"),
-    canView: can(permissionId, "view"),
-    canEdit: can(permissionId, "edit"),
-    canDelete: can(permissionId, "delete"),
+    isAddAllowed: can(permissionId, "add"),
+    isViewAllowed: can(permissionId, "view"),
+    isEditAllowed: can(permissionId, "edit"),
+    isDeleteAllowed: can(permissionId, "delete"),
   };
 };
 

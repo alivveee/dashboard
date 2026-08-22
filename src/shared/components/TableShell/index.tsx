@@ -47,7 +47,7 @@ function TableShell({
     searchQuery,
     setSearchQuery,
     isSearching,
-    hasSearchableColumns,
+    isSearchableColumnsPresent,
 
     handlePreviousPage,
     handleNextPage,
@@ -59,7 +59,7 @@ function TableShell({
   return (
     <div className={`card border-0 shadow-sm ${className ?? ""}`.trim()}>
       {/* Search */}
-      {hasSearchableColumns && (
+      {isSearchableColumnsPresent && (
         <div className="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
           <TableSearchBox
             value={searchQuery}

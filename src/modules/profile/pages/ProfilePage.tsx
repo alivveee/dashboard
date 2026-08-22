@@ -8,7 +8,7 @@ import useProfile, { ProfileFormData } from "../hooks/useProfile";
 const ProfilePage = () => {
   const {
     roleLabel,
-    loading,
+    isLoading,
 
     formInitialValues,
     updateProfile,
@@ -41,7 +41,7 @@ const ProfilePage = () => {
                 type="button"
                 className="btn btn-outline-secondary"
                 onClick={() => setIsEditing(false)}
-                disabled={loading}
+                disabled={isLoading}
               >
                 Cancel
               </button>
@@ -50,9 +50,9 @@ const ProfilePage = () => {
                 type="submit"
                 form="profile-form"
                 className="btn btn-primary"
-                disabled={loading}
+                disabled={isLoading}
               >
-                {loading ? "Saving..." : "Save Changes"}
+                {isLoading ? "Saving..." : "Save Changes"}
               </button>
             </div>
           ) : undefined

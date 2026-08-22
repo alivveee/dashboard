@@ -10,13 +10,13 @@ import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
 const CustomerPage = () => {
-  const { canAdd, canEdit, canDelete } = usePermissionFlags(
+  const { isAddAllowed, isEditAllowed, isDeleteAllowed } = usePermissionFlags(
     PERMISSION_ID.CUSTOMER,
   );
 
   const {
     items: customers,
-    loading,
+    isLoading,
 
     selectedItem: selectedCustomer,
 
@@ -38,7 +38,7 @@ const CustomerPage = () => {
       <PageHeader
         title="Customer List"
         action={
-          canAdd
+          isAddAllowed
             ? {
                 label: "Add Customer",
                 icon: <IconPlus />,
@@ -54,8 +54,8 @@ const CustomerPage = () => {
         statusOptions={customerStatusOptions}
         onEdit={openEdit}
         onDelete={openDelete}
-        canEdit={canEdit}
-        canDelete={canDelete}
+        isEditAllowed={isEditAllowed}
+        isDeleteAllowed={isDeleteAllowed}
       />
 
       <ClientFormOffcanvas
@@ -65,7 +65,7 @@ const CustomerPage = () => {
         namePrefix="customer"
         statusOptions={customerStatusOptions}
         isEditing={!!selectedCustomer}
-        loading={loading}
+        isLoading={isLoading}
         onSubmit={submitForm}
         onCancel={closeForm}
       />
@@ -74,7 +74,7 @@ const CustomerPage = () => {
         modalRef={deleteModalRef}
         entityName="Customer"
         itemName={selectedCustomer?.name ?? ""}
-        loading={loading}
+        isLoading={isLoading}
         onConfirm={confirmDelete}
         onCancel={closeDelete}
       />

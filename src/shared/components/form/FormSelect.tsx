@@ -10,7 +10,7 @@ interface FormSelectProps {
   options: SelectOption[];
   onChange: (value: string) => void;
   placeholder?: string;
-  required?: boolean;
+  isRequired?: boolean;
 }
 
 const FormSelect = ({
@@ -20,7 +20,7 @@ const FormSelect = ({
   options,
   onChange,
   placeholder,
-  required = false,
+  isRequired = false,
 }: FormSelectProps) => {
   return (
     <div className="mb-3">
@@ -33,7 +33,7 @@ const FormSelect = ({
         className="form-select"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        required={required}
+        required={isRequired}
       >
         {placeholder && (
           <option value="" disabled hidden>

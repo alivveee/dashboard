@@ -6,7 +6,7 @@ import PermissionForm from "./PermissionForm";
 interface PermissionFormOffcanvasProps {
   offcanvasRef: RefObject<OffcanvasHandle | null>;
   permission: Permission | null;
-  loading: boolean;
+  isLoading: boolean;
   onSubmit: (activeActions: PermissionAction[]) => void;
   onCancel: () => void;
 }
@@ -14,7 +14,7 @@ interface PermissionFormOffcanvasProps {
 const PermissionFormOffcanvas = ({
   offcanvasRef,
   permission,
-  loading,
+  isLoading,
   onSubmit,
   onCancel,
 }: PermissionFormOffcanvasProps) => (
@@ -22,7 +22,7 @@ const PermissionFormOffcanvas = ({
     {permission && (
       <PermissionForm
         permission={permission}
-        loading={loading}
+        isLoading={isLoading}
         onSubmit={onSubmit}
         onCancel={onCancel}
       />

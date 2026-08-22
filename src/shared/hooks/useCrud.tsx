@@ -9,10 +9,10 @@ const useCrud = <T extends { id: string }>(
 ) => {
   const [items, setItems] = useLocalStorage<T[]>(storageKey, initialData);
 
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const add = (data: Omit<T, "id">) => {
-    setLoading(true);
+    setIsLoading(true);
 
     return new Promise<T>((resolve) => {
       setTimeout(() => {
@@ -23,14 +23,14 @@ const useCrud = <T extends { id: string }>(
 
         setItems((prev) => [newItem, ...prev]);
 
-        setLoading(false);
+        setIsLoading(false);
         resolve(newItem);
       }, SIMULATED_DELAY);
     });
   };
 
   const update = (id: string, data: Omit<T, "id">) => {
-    setLoading(true);
+    setIsLoading(true);
 
     return new Promise<void>((resolve) => {
       setTimeout(() => {
@@ -38,20 +38,20 @@ const useCrud = <T extends { id: string }>(
           prev.map((item) => (item.id === id ? ({ ...data, id } as T) : item)),
         );
 
-        setLoading(false);
+        setIsLoading(false);
         resolve();
       }, SIMULATED_DELAY);
     });
   };
 
   const remove = (id: string) => {
-    setLoading(true);
+    setIsLoading(true);
 
     return new Promise<void>((resolve) => {
       setTimeout(() => {
         setItems((prev) => prev.filter((item) => item.id !== id));
 
-        setLoading(false);
+        setIsLoading(false);
         resolve();
       }, SIMULATED_DELAY);
     });
@@ -59,7 +59,7 @@ const useCrud = <T extends { id: string }>(
 
   return {
     items,
-    loading,
+    isLoading,
     add,
     update,
     remove,

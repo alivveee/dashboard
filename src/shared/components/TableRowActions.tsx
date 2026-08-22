@@ -5,9 +5,9 @@ interface TableRowActionsProps<T> {
   onView?: (item: T) => void;
   onEdit?: (item: T) => void;
   onDelete?: (item: T) => void;
-  canView?: boolean;
-  canEdit?: boolean;
-  canDelete?: boolean;
+  isViewAllowed?: boolean;
+  isEditAllowed?: boolean;
+  isDeleteAllowed?: boolean;
   label?: string;
 }
 
@@ -16,14 +16,14 @@ function TableRowActions<T>({
   onView,
   onEdit,
   onDelete,
-  canView,
-  canEdit,
-  canDelete,
+  isViewAllowed,
+  isEditAllowed,
+  isDeleteAllowed,
   label = "",
 }: TableRowActionsProps<T>) {
   return (
     <div className="d-flex justify-content-end gap-2">
-      {onView && canView && (
+      {onView && isViewAllowed && (
         <button
           type="button"
           className="btn btn-sm text-secondary border-0 d-flex align-items-center"
@@ -34,7 +34,7 @@ function TableRowActions<T>({
         </button>
       )}
 
-      {onEdit && canEdit && (
+      {onEdit && isEditAllowed && (
         <button
           type="button"
           className="btn btn-sm text-secondary border-0 d-flex align-items-center"
@@ -45,7 +45,7 @@ function TableRowActions<T>({
         </button>
       )}
 
-      {onDelete && canDelete && (
+      {onDelete && isDeleteAllowed && (
         <button
           type="button"
           className="btn btn-sm text-danger border-0 d-flex align-items-center"

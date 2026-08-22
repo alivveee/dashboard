@@ -78,7 +78,7 @@ export const INITIAL_PERMISSIONS: Permission[] = [
 const usePermission = () => {
   const {
     items: permissions,
-    loading,
+    isLoading,
     update,
   } = useCrud<Permission>(PERMISSIONS_KEY, INITIAL_PERMISSIONS);
 
@@ -106,7 +106,7 @@ const usePermission = () => {
 
   return {
     permissions,
-    loading,
+    isLoading,
 
     selectedItem,
     formOffcanvasRef: formOffcanvas.ref,

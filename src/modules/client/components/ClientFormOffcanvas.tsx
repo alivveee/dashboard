@@ -14,7 +14,7 @@ interface ClientFormOffcanvasProps<TFormData extends ClientFormData> {
   namePrefix: string;
   statusOptions: StatusOption[];
   isEditing: boolean;
-  loading: boolean;
+  isLoading: boolean;
   onSubmit: (data: TFormData) => void;
   onCancel: () => void;
 }
@@ -26,7 +26,7 @@ function ClientFormOffcanvas<TFormData extends ClientFormData>({
   namePrefix,
   statusOptions,
   isEditing,
-  loading,
+  isLoading,
   onSubmit,
   onCancel,
 }: ClientFormOffcanvasProps<TFormData>) {
@@ -40,7 +40,7 @@ function ClientFormOffcanvas<TFormData extends ClientFormData>({
         onSubmit={onSubmit}
         onCancel={onCancel}
         isEditing={isEditing}
-        loading={loading}
+        isLoading={isLoading}
       />
     </Offcanvas>
   );
