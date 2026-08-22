@@ -47,33 +47,39 @@ export const OffcanvasPanelFooter = ({
   </div>
 );
 
-interface OffcanvasFormActionsProps {
+interface OffcanvasFormHeaderProps {
+  title: string;
   onCancel: () => void;
   isLoading: boolean;
   submitLabel: ReactNode;
   cancelLabel?: string;
 }
 
-export const OffcanvasFormActions = ({
+export const OffcanvasFormHeader = ({
+  title,
   onCancel,
   isLoading,
   submitLabel,
   cancelLabel = "Cancel",
-}: OffcanvasFormActionsProps) => (
-  <OffcanvasPanelFooter>
-    <button
-      type="button"
-      className="btn btn-outline-secondary"
-      onClick={onCancel}
-      disabled={isLoading}
-    >
-      {cancelLabel}
-    </button>
+}: OffcanvasFormHeaderProps) => (
+  <div className="offcanvas-header">
+    <h5 className="offcanvas-title fw-bold">{title}</h5>
 
-    <button type="submit" className="btn btn-primary" disabled={isLoading}>
-      {submitLabel}
-    </button>
-  </OffcanvasPanelFooter>
+    <div className="d-flex gap-2 ms-auto">
+      <button
+        type="button"
+        className="btn btn-outline-secondary"
+        onClick={onCancel}
+        disabled={isLoading}
+      >
+        {cancelLabel}
+      </button>
+
+      <button type="submit" className="btn btn-primary" disabled={isLoading}>
+        {submitLabel}
+      </button>
+    </div>
+  </div>
 );
 
 interface OffcanvasSectionLabelProps {
