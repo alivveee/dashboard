@@ -23,6 +23,7 @@ const UserFormOffcanvas = ({
   return (
     <Offcanvas offcanvasRef={offcanvasRef} onClose={onCancel}>
       <UserForm
+        key={JSON.stringify(initialValues)}
         initialValues={initialValues}
         isEditing={isEditing}
         isLoading={isLoading}

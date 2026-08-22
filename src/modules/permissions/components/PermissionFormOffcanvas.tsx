@@ -21,6 +21,7 @@ const PermissionFormOffcanvas = ({
   <Offcanvas offcanvasRef={offcanvasRef} onClose={onCancel}>
     {permission && (
       <PermissionForm
+        key={permission.id}
         permission={permission}
         isLoading={isLoading}
         onSubmit={onSubmit}

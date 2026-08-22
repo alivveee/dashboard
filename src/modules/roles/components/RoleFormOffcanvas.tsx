@@ -26,6 +26,7 @@ const RoleFormOffcanvas = ({
   return (
     <Offcanvas offcanvasRef={offcanvasRef} onClose={onCancel}>
       <RoleForm
+        key={JSON.stringify(initialValues)}
         initialValues={initialValues}
         permissions={permissions}
         isEditing={isEditing}

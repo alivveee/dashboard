@@ -23,7 +23,7 @@ const FormSelect = ({
   isRequired = false,
 }: FormSelectProps) => {
   return (
-    <div className="mb-3">
+    <div className="mb-2">
       <label htmlFor={id} className="form-label">
         {label}
       </label>

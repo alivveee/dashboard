@@ -1,14 +1,24 @@
 import type { FormEvent } from "react";
 import useForm from "../../../shared/hooks/useForm";
 import { Role } from "../types/Role.types";
-import { Permission, PermissionAction } from "../../../shared/types/Permission.types";
+import {
+  Permission,
+  PermissionAction,
+} from "../../../shared/types/Permission.types";
 import FormInput from "../../../shared/components/form/FormInput";
 import FormTextarea from "../../../shared/components/form/FormTextarea";
 import {
+  CRUD_ACTIONS,
   isActionActive,
   PERMISSION_ACTION_LABEL,
 } from "../../../shared/constants/permissions";
 import { toggleInArray } from "../../../shared/helpers/array.helper";
+import {
+  OffcanvasPanelHeader,
+  OffcanvasPanelBody,
+  OffcanvasFormActions,
+  OffcanvasSectionLabel,
+} from "../../../shared/components/OffcanvasPanel";
 
 interface RoleFormProps {
   initialValues: Omit<Role, "id">;
@@ -44,18 +54,14 @@ const RoleForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
-      <div className="offcanvas-header">
-        <h5 className="offcanvas-title">{isEditing ? "Edit Role" : "Add Role"}</h5>
+      <OffcanvasPanelHeader
+        title={isEditing ? "Edit Role" : "Add Role"}
+        onClose={onCancel}
+      />
 
-        <button
-          type="button"
-          className="btn-close"
-          aria-label="Close"
-          onClick={onCancel}
-        />
-      </div>
+      <OffcanvasPanelBody>
+        <OffcanvasSectionLabel>Role Details</OffcanvasSectionLabel>
 
-      <div className="offcanvas-body">
         <FormInput
           id="role-name"
           label="Role Name"
@@ -73,27 +79,49 @@ const RoleForm = ({
           onChange={(value) => handleChange("description", value)}
         />
 
-        <div className="mb-3">
-          <label className="form-label">Permission</label>
+        <OffcanvasSectionLabel>Permissions</OffcanvasSectionLabel>
 
-          <div className="d-flex flex-column gap-3">
-            {permissions.map((permission) => (
-              <div key={permission.id}>
-                <div className="fw-semibold mb-1">{permission.name}</div>
+        <div className="table-responsive">
+          <table className="table align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Module</th>
+                {CRUD_ACTIONS.map((action) => (
+                  <th className="text-center" key={action}>
+                    {PERMISSION_ACTION_LABEL[action]}
+                  </th>
+                ))}
+              </tr>
+            </thead>
 
-                <div className="d-flex flex-wrap gap-3">
-                  {permission.actions.map((action) => {
-                    const isGloballyDisabled = !isActionActive(permission, action);
+            <tbody>
+              {permissions.map((permission) => (
+                <tr key={permission.id}>
+                  <td>{permission.name}</td>
+
+                  {CRUD_ACTIONS.map((action) => {
+                    if (!permission.actions.includes(action)) {
+                      return (
+                        <td className="text-center text-muted" key={action}>
+                          &mdash;
+                        </td>
+                      );
+                    }
+
+                    const isGloballyDisabled = !isActionActive(
+                      permission,
+                      action,
+                    );
 
                     return (
-                      <div className="form-check" key={`${permission.id}-${action}`}>
+                      <td className="text-center" key={action}>
                         <input
                           type="checkbox"
                           className="form-check-input"
-                          id={`role-permission-${permission.id}-${action}`}
-                          checked={(values.grants[permission.id] ?? []).includes(
-                            action,
-                          )}
+                          aria-label={`${permission.name} - ${PERMISSION_ACTION_LABEL[action]}`}
+                          checked={(
+                            values.grants[permission.id] ?? []
+                          ).includes(action)}
                           disabled={isGloballyDisabled}
                           title={
                             isGloballyDisabled
@@ -102,40 +130,23 @@ const RoleForm = ({
                           }
                           onChange={() => toggleAction(permission.id, action)}
                         />
-                        <label
-                          className="form-check-label"
-                          htmlFor={`role-permission-${permission.id}-${action}`}
-                        >
-                          {PERMISSION_ACTION_LABEL[action]}
-
-                          {isGloballyDisabled && (
-                            <span className="text-muted"> (disabled)</span>
-                          )}
-                        </label>
-                      </div>
+                      </td>
                     );
                   })}
-                </div>
-              </div>
-            ))}
-          </div>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      </div>
+      </OffcanvasPanelBody>
 
-      <div className="d-flex justify-content-end gap-2 border-top p-3 mt-3">
-        <button
-          type="button"
-          className="btn btn-outline-secondary"
-          onClick={onCancel}
-          disabled={isLoading}
-        >
-          Cancel
-        </button>
-
-        <button type="submit" className="btn btn-primary" disabled={isLoading}>
-          {isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
-        </button>
-      </div>
+      <OffcanvasFormActions
+        onCancel={onCancel}
+        isLoading={isLoading}
+        submitLabel={
+          isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"
+        }
+      />
     </form>
   );
 };

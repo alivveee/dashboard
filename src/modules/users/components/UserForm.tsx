@@ -5,6 +5,17 @@ import { User } from "../types/User.types";
 import FormInput from "../../../shared/components/form/FormInput";
 import FormSelect from "../../../shared/components/form/FormSelect";
 import PasswordInput from "../../../shared/components/form/PasswordInput";
+import {
+  OffcanvasPanelHeader,
+  OffcanvasPanelBody,
+  OffcanvasFormActions,
+  OffcanvasSectionLabel,
+} from "../../../shared/components/OffcanvasPanel";
+import {
+  IconMail,
+  IconMapPin,
+  IconCalendar,
+} from "../../../shared/components/icons/Icons";
 
 const genderOptions = [
   { value: "L", label: "Male" },
@@ -28,7 +39,10 @@ const UserForm = ({
 }: UserFormProps) => {
   const { values, handleChange } = useForm(initialValues);
   const roles = useRoles();
-  const roleOptions = roles.map((role) => ({ value: role.id, label: role.name }));
+  const roleOptions = roles.map((role) => ({
+    value: role.id,
+    label: role.name,
+  }));
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,20 +52,14 @@ const UserForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
-      <div className="offcanvas-header">
-        <h5 className="offcanvas-title">
-          {isEditing ? "Edit User" : "Add User"}
-        </h5>
+      <OffcanvasPanelHeader
+        title={isEditing ? "Edit User" : "Add User"}
+        onClose={onCancel}
+      />
 
-        <button
-          type="button"
-          className="btn-close"
-          aria-label="Close"
-          onClick={onCancel}
-        />
-      </div>
+      <OffcanvasPanelBody>
+        <OffcanvasSectionLabel>Personal Information</OffcanvasSectionLabel>
 
-      <div className="offcanvas-body">
         <FormInput
           id="user-name"
           label="Name"
@@ -61,15 +69,47 @@ const UserForm = ({
           isRequired
         />
 
-        <FormInput
-          id="user-email"
-          label="Email"
-          type="email"
-          placeholder="name@email.com"
-          value={values.email}
-          onChange={(value) => handleChange("email", value)}
-          isRequired
-        />
+        <div className="row g-2">
+          <div className="col-md-6">
+            <FormInput
+              id="user-birthday"
+              label="Date of Birth"
+              type="date"
+              value={values.birthday}
+              onChange={(value) => handleChange("birthday", value)}
+              icon={<IconCalendar />}
+              isRequired
+            />
+          </div>
+
+          <div className="col-md-6">
+            <div className="mb-2">
+              <label className="form-label d-block">Gender</label>
+
+              <div className="d-flex gap-3">
+                {genderOptions.map((option) => (
+                  <div className="form-check" key={option.value}>
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      id={`user-gender-${option.value}`}
+                      name="user-gender"
+                      checked={values.gender === option.value}
+                      onChange={() => handleChange("gender", option.value)}
+                      required
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor={`user-gender-${option.value}`}
+                    >
+                      {option.label}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
 
         <FormInput
           id="user-address"
@@ -77,58 +117,54 @@ const UserForm = ({
           placeholder="Enter address here"
           value={values.address}
           onChange={(value) => handleChange("address", value)}
+          icon={<IconMapPin />}
           isRequired
         />
 
-        <FormInput
-          id="user-birthday"
-          label="Date of Birth"
-          type="date"
-          value={values.birthday}
-          onChange={(value) => handleChange("birthday", value)}
-          isRequired
-        />
+        <br />
 
-        <FormSelect
-          id="user-gender"
-          label="Gender"
-          placeholder="Select gender"
-          value={values.gender}
-          onChange={(value) => handleChange("gender", value)}
-          options={genderOptions}
-          isRequired
-        />
+        <OffcanvasSectionLabel>Account Access</OffcanvasSectionLabel>
+
+        <div className="row g-2">
+          <div className="col-md-6">
+            <FormInput
+              id="user-email"
+              label="Email"
+              type="email"
+              placeholder="name@email.com"
+              value={values.email}
+              onChange={(value) => handleChange("email", value)}
+              icon={<IconMail />}
+              isRequired
+            />
+          </div>
+
+          <div className="col-md-6">
+            <FormSelect
+              id="user-role"
+              label="Role"
+              placeholder="Select role"
+              value={values.role}
+              onChange={(value) => handleChange("role", value)}
+              options={roleOptions}
+              isRequired
+            />
+          </div>
+        </div>
 
         <PasswordInput
           value={values.password}
           onChange={(value) => handleChange("password", value)}
         />
+      </OffcanvasPanelBody>
 
-        <FormSelect
-          id="user-role"
-          label="Role"
-          placeholder="Select role"
-          value={values.role}
-          onChange={(value) => handleChange("role", value)}
-          options={roleOptions}
-          isRequired
-        />
-      </div>
-
-      <div className="d-flex justify-content-end gap-2 border-top p-3 mt-3">
-        <button
-          type="button"
-          className="btn btn-outline-secondary"
-          onClick={onCancel}
-          disabled={isLoading}
-        >
-          Cancel
-        </button>
-
-        <button type="submit" className="btn btn-primary" disabled={isLoading}>
-          {isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
-        </button>
-      </div>
+      <OffcanvasFormActions
+        onCancel={onCancel}
+        isLoading={isLoading}
+        submitLabel={
+          isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"
+        }
+      />
     </form>
   );
 };

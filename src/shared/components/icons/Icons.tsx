@@ -28,6 +28,10 @@ import {
   ChevronLeft,
   ChevronRight,
   Search,
+  Mail,
+  Phone,
+  MapPin,
+  Calendar,
 } from "lucide-react";
 
 interface IconProps {
@@ -148,4 +152,20 @@ export const IconSearch = ({ className }: IconProps) => (
 
 export const IconChevronRight = ({ className }: IconProps) => (
   <ChevronRight size={16} className={className} />
+);
+
+export const IconMail = ({ className }: IconProps) => (
+  <Mail size={18} className={className} />
+);
+
+export const IconPhone = ({ className }: IconProps) => (
+  <Phone size={18} className={className} />
+);
+
+export const IconMapPin = ({ className }: IconProps) => (
+  <MapPin size={18} className={className} />
+);
+
+export const IconCalendar = ({ className }: IconProps) => (
+  <Calendar size={18} className={className} />
 );

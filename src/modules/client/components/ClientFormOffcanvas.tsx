@@ -33,6 +33,7 @@ function ClientFormOffcanvas<TFormData extends ClientFormData>({
   return (
     <Offcanvas offcanvasRef={offcanvasRef} onClose={onCancel}>
       <ClientForm
+        key={JSON.stringify(initialValues)}
         initialValues={initialValues}
         clientLabel={clientLabel}
         namePrefix={namePrefix}

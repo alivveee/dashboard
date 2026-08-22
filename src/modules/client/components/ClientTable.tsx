@@ -45,7 +45,7 @@ function ClientTable<TItem extends ClientWithStatus>({
       headers={[
         "#",
         { content: "Personal Data", isSortable: true, isSearchable: true },
-        { content: "Package", isSortable: true},
+        { content: "Package", isSortable: true },
         { content: "Status", isSortable: true },
         { className: "text-end", content: "Actions" },
       ]}

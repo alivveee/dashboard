@@ -15,7 +15,7 @@ const FormTextarea = ({
   onChange,
   placeholder,
   isRequired = false,
-  rows = 3,
+  rows = 1,
 }: FormTextareaProps) => {
   return (
     <div className="mb-3">

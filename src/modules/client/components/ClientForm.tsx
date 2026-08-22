@@ -1,15 +1,19 @@
 import type { FormEvent } from "react";
 import { formatCurrency } from "../../../shared/helpers/format";
-import {
-  INITIAL_PACKAGES,
-  PACKAGES_KEY,
-} from "../../package/hooks/usePackage";
+import { INITIAL_PACKAGES, PACKAGES_KEY } from "../../package/hooks/usePackage";
 import useForm from "../../../shared/hooks/useForm";
 import useLocalStorage from "../../../shared/hooks/useLocalStorage";
 import { BaseClient, StatusOption } from "../types/Client.types";
 import { PackageOption } from "../../package/types/Package.types";
 import FormInput from "../../../shared/components/form/FormInput";
 import FormSelect from "../../../shared/components/form/FormSelect";
+import {
+  OffcanvasPanelHeader,
+  OffcanvasPanelBody,
+  OffcanvasFormActions,
+  OffcanvasSectionLabel,
+} from "../../../shared/components/OffcanvasPanel";
+import { IconMail, IconPhone } from "../../../shared/components/icons/Icons";
 
 interface ClientFormData extends Omit<BaseClient, "id"> {
   status: string;
@@ -54,20 +58,14 @@ function ClientForm<TFormData extends ClientFormData>({
 
   return (
     <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
-      <div className="offcanvas-header">
-        <h5 className="offcanvas-title">
-          {isEditing ? `Edit ${clientLabel}` : `Add ${clientLabel}`}
-        </h5>
+      <OffcanvasPanelHeader
+        title={isEditing ? `Edit ${clientLabel}` : `Add ${clientLabel}`}
+        onClose={onCancel}
+      />
 
-        <button
-          type="button"
-          className="btn-close"
-          aria-label="Close"
-          onClick={onCancel}
-        />
-      </div>
+      <OffcanvasPanelBody>
+        <OffcanvasSectionLabel>Personal Data</OffcanvasSectionLabel>
 
-      <div className="offcanvas-body">
         <FormInput
           id={`${namePrefix}-name`}
           label="Name"
@@ -84,18 +82,24 @@ function ClientForm<TFormData extends ClientFormData>({
           placeholder="name@email.com"
           value={values.email}
           onChange={(value) => setField("email", value)}
+          icon={<IconMail />}
           isRequired
         />
 
         <FormInput
-          id={`${namePrefix}-phone`}  
+          id={`${namePrefix}-phone`}
           label="Phone"
           type="tel"
           placeholder="08xxxxxxxxxx"
           value={values.phone}
           onChange={(value) => setField("phone", value)}
+          icon={<IconPhone />}
           isRequired
         />
+
+        <br />
+
+        <OffcanvasSectionLabel>Subscription</OffcanvasSectionLabel>
 
         <FormSelect
           id={`${namePrefix}-package`}
@@ -117,22 +121,15 @@ function ClientForm<TFormData extends ClientFormData>({
           onChange={(value) => setField("status", value)}
           options={statusOptions}
         />
-      </div>
+      </OffcanvasPanelBody>
 
-      <div className="d-flex justify-content-end gap-2 border-top p-3 mt-3">
-        <button
-          type="button"
-          className="btn btn-outline-secondary"
-          onClick={onCancel}
-          disabled={isLoading}
-        >
-          Cancel
-        </button>
-
-        <button type="submit" className="btn btn-primary" disabled={isLoading}>
-          {isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
-        </button>
-      </div>
+      <OffcanvasFormActions
+        onCancel={onCancel}
+        isLoading={isLoading}
+        submitLabel={
+          isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"
+        }
+      />
     </form>
   );
 }

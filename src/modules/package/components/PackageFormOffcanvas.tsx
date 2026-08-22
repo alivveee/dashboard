@@ -23,6 +23,7 @@ const PackageFormOffcanvas = ({
   return (
     <Offcanvas offcanvasRef={offcanvasRef} onClose={onCancel}>
       <PackageForm
+        key={JSON.stringify(initialValues)}
         initialValues={initialValues}
         isEditing={isEditing}
         isLoading={isLoading}

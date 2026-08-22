@@ -2,6 +2,11 @@ import type { FormEvent } from "react";
 import useForm from "../../../shared/hooks/useForm";
 import { PackageOption } from "../types/Package.types";
 import FormInput from "../../../shared/components/form/FormInput";
+import {
+  OffcanvasPanelHeader,
+  OffcanvasPanelBody,
+  OffcanvasFormActions,
+} from "../../../shared/components/OffcanvasPanel";
 
 interface PackageFormProps {
   initialValues: Omit<PackageOption, "id">;
@@ -36,20 +41,12 @@ const PackageForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
-      <div className="offcanvas-header">
-        <h5 className="offcanvas-title">
-          {isEditing ? "Edit Package" : "Add Package"}
-        </h5>
+      <OffcanvasPanelHeader
+        title={isEditing ? "Edit Package" : "Add Package"}
+        onClose={onCancel}
+      />
 
-        <button
-          type="button"
-          className="btn-close"
-          aria-label="Close"
-          onClick={onCancel}
-        />
-      </div>
-
-      <div className="offcanvas-body">
+      <OffcanvasPanelBody>
         <FormInput
           id="package-name"
           label="Package Name"
@@ -77,22 +74,13 @@ const PackageForm = ({
           onChange={(value) => handleChange("price", value)}
           isRequired
         />
-      </div>
+      </OffcanvasPanelBody>
 
-      <div className="d-flex justify-content-end gap-2 border-top p-3 mt-3">
-        <button
-          type="button"
-          className="btn btn-outline-secondary"
-          onClick={onCancel}
-          disabled={isLoading}
-        >
-          Cancel
-        </button>
-
-        <button type="submit" className="btn btn-primary" disabled={isLoading}>
-          {isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
-        </button>
-      </div>
+      <OffcanvasFormActions
+        onCancel={onCancel}
+        isLoading={isLoading}
+        submitLabel={isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
+      />
     </form>
   );
 };
