@@ -1,3 +1,6 @@
+import { Bar } from "react-chartjs-2";
+import useChartTheme from "../../../shared/hooks/useChartTheme";
+
 interface PackageRanking {
   packageId: string;
   packageName: string;
@@ -16,31 +19,48 @@ const PackageRankingCard = ({
   items,
   type,
 }: PackageRankingCardProps) => {
+  const chartTheme = useChartTheme();
+
+  const data = {
+    labels: items.map((item) => item.packageName),
+    datasets: [
+      {
+        label: type === "prospects" ? "Prospects" : "Customers",
+        data: items.map((item) => item[type]),
+        backgroundColor: chartTheme.slot1,
+        borderRadius: 4,
+        maxBarThickness: 24,
+      },
+    ],
+  };
+
   return (
     <div className="card border-0 shadow-sm h-100">
       <div className="card-body">
         <h2 className="h5 mb-4">{title}</h2>
 
-        <div className="d-flex flex-column gap-3">
-          {items.map((item, index) => (
-            <div
-              key={item.packageId}
-              className="d-flex align-items-center gap-3"
-            >
-              <span className="fw-bold text-body-secondary">#{index + 1}</span>
-
-              <div className="flex-grow-1">
-                <div className="fw-medium">{item.packageName}</div>
-
-                <div className="text-body-secondary small">
-                  {item[type]}{" "}
-                  {type === "prospects" ? "prospects" : "customers"}
-                </div>
-              </div>
-
-              <span className="badge text-bg-light">{item[type]}</span>
-            </div>
-          ))}
+        <div style={{ height: Math.max(160, items.length * 56) }}>
+          <Bar
+            data={data}
+            options={{
+              indexAxis: "y",
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false },
+              },
+              scales: {
+                x: {
+                  beginAtZero: true,
+                  ticks: { color: chartTheme.muted, precision: 0 },
+                  grid: { color: chartTheme.grid },
+                },
+                y: {
+                  ticks: { color: chartTheme.text },
+                  grid: { display: false },
+                },
+              },
+            }}
+          />
         </div>
       </div>
     </div>

@@ -1,5 +1,7 @@
+import { Doughnut } from "react-chartjs-2";
 import PackageRankingCard from "../components/PackageRankingCard";
 import useAnalytics from "../hooks/useAnalytics";
+import useChartTheme from "../../../shared/hooks/useChartTheme";
 
 const formatPercentage = (value: number) => `${value.toFixed(1)}%`;
 
@@ -79,12 +81,12 @@ const AnalyticsPage = () => {
                   title="Prospect Status"
                   items={[
                     {
-                      label: "Pending",
-                      value: prospectStatus.pending,
-                    },
-                    {
                       label: "Completed",
                       value: prospectStatus.completed,
+                    },
+                    {
+                      label: "Pending",
+                      value: prospectStatus.pending,
                     },
                   ]}
                 />
@@ -175,44 +177,53 @@ interface StatusCardProps {
 }
 
 const StatusCard = ({ title, items }: StatusCardProps) => {
-  const total = items.reduce((sum, item) => sum + item.value, 0);
+  const chartTheme = useChartTheme();
+
+  const data = {
+    labels: items.map((item) => item.label),
+    datasets: [
+      {
+        data: items.map((item) => item.value),
+        backgroundColor: [chartTheme.slot1, chartTheme.slot2],
+        borderColor: chartTheme.surface,
+        borderWidth: 2,
+        hoverOffset: 4,
+      },
+    ],
+  };
 
   return (
     <div className="card border bg-body-tertiary rounded-3 h-100">
       <div className="card-body">
         <h3 className="h6 mb-4">{title}</h3>
 
-        <div className="d-flex flex-column gap-3">
-          {items.map((item) => {
-            const percentage = total > 0 ? (item.value / total) * 100 : 0;
+        <div style={{ height: 220 }}>
+          <Doughnut
+            data={data}
+            options={{
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  position: "bottom",
+                  labels: { color: chartTheme.text, usePointStyle: true },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (context) => {
+                      const value = context.parsed;
+                      const total = (context.dataset.data as number[]).reduce(
+                        (sum, item) => sum + item,
+                        0,
+                      );
+                      const percentage = total > 0 ? (value / total) * 100 : 0;
 
-            return (
-              <div key={item.label}>
-                <div className="d-flex justify-content-between mb-1">
-                  <span>{item.label}</span>
-
-                  <span className="text-body-secondary">
-                    {item.value} ({formatPercentage(percentage)})
-                  </span>
-                </div>
-
-                <div
-                  className="progress"
-                  role="progressbar"
-                  aria-valuenow={percentage}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                >
-                  <div
-                    className="progress-bar"
-                    style={{
-                      width: `${percentage}%`,
-                    }}
-                  />
-                </div>
-              </div>
-            );
-          })}
+                      return `${context.label}: ${value} (${formatPercentage(percentage)})`;
+                    },
+                  },
+                },
+              },
+            }}
+          />
         </div>
       </div>
     </div>

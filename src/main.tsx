@@ -2,6 +2,7 @@ import "bootstrap";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
+import "./shared/helpers/chartjs";
 import "./scss/styles.scss";
 
 createRoot(document.getElementById("root")!).render(

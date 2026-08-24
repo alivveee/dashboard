@@ -1,0 +1,18 @@
+import {
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  Chart,
+  LinearScale,
+  Legend,
+  Tooltip,
+} from "chart.js";
+
+Chart.register(
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip,
+);
