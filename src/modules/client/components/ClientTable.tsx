@@ -60,8 +60,20 @@ function ClientTable<TItem extends ClientWithStatus>({
             content: (
               <>
                 <div>{item.name}</div>
-                <div className="text-muted small"> {item.email}</div>
-                <div className="text-muted small">{item.phone}</div>
+
+                <a
+                  href={`mailto:${item.email}`}
+                  className="text-muted small contact-link d-block"
+                >
+                  {item.email}
+                </a>
+
+                <a
+                  href={`tel:${item.phone}`}
+                  className="text-muted small contact-link d-block"
+                >
+                  {item.phone}
+                </a>
               </>
             ),
           },

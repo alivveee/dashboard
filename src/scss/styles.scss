@@ -117,3 +117,11 @@ $font-family-sans-serif: "Inter", sans-serif;
   background-color: var(--bs-secondary-bg);
   color: var(--bs-body-color);
 }
+
+.contact-link {
+  text-decoration: none;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
+}
