@@ -19,7 +19,7 @@ const ConfirmDeleteModal = ({
   onCancel,
 }: ConfirmDeleteModalProps) => {
   return (
-    <Modal modalRef={modalRef} onClose={onCancel}>
+    <Modal modalRef={modalRef} onClose={onCancel} closable>
       <div className="modal-header">
         <h5 className="modal-title">Delete {entityName}</h5>
 

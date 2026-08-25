@@ -1,19 +1,23 @@
 import { useEffect, useRef, type ReactNode, type RefObject } from "react";
 import { createPortal } from "react-dom";
 import { Offcanvas as BootstrapOffcanvas } from "bootstrap";
+import { setupBootstrapPanel, type PanelHandle } from "../helpers/bootstrapPanel";
 
-export interface OffcanvasHandle {
-  show: () => void;
-  hide: () => void;
-}
+export type OffcanvasHandle = PanelHandle;
 
 interface OffcanvasProps {
   offcanvasRef: RefObject<OffcanvasHandle | null>;
   onClose?: () => void;
+  closable?: boolean;
   children: ReactNode;
 }
 
-const Offcanvas = ({ offcanvasRef, onClose, children }: OffcanvasProps) => {
+const Offcanvas = ({
+  offcanvasRef,
+  onClose,
+  closable = false,
+  children,
+}: OffcanvasProps) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
@@ -22,21 +26,21 @@ const Offcanvas = ({ offcanvasRef, onClose, children }: OffcanvasProps) => {
     const el = elementRef.current;
     if (!el) return;
 
-    const instance = new BootstrapOffcanvas(el, { backdrop: true, scroll: false });
-    offcanvasRef.current = {
-      show: () => instance.show(),
-      hide: () => instance.hide(),
-    };
-
-    const handleHidden = () => onCloseRef.current?.();
-    el.addEventListener("hidden.bs.offcanvas", handleHidden);
+    const { handle, teardown } = setupBootstrapPanel({
+      element: el,
+      eventNamespace: "offcanvas",
+      onClose: () => onCloseRef.current?.(),
+      closable,
+      createInstance: (element, config) =>
+        new BootstrapOffcanvas(element, { ...config, scroll: false }),
+    });
+    offcanvasRef.current = handle;
 
     return () => {
-      el.removeEventListener("hidden.bs.offcanvas", handleHidden);
-      instance.dispose();
+      teardown();
       offcanvasRef.current = null;
     };
-  }, [offcanvasRef]);
+  }, [offcanvasRef, closable]);
 
   return createPortal(
     <div ref={elementRef} className="offcanvas offcanvas-end" tabIndex={-1}>
