@@ -1,7 +1,9 @@
 import type { ReactNode, RefObject } from "react";
 import { User } from "../types/User.types";
 import useRoles from "../../roles/hooks/useRoles";
-import Offcanvas, { type OffcanvasHandle } from "../../../shared/components/Offcanvas";
+import Offcanvas, {
+  type OffcanvasHandle,
+} from "../../../shared/components/Offcanvas";
 import {
   OffcanvasPanelHeader,
   OffcanvasPanelBody,
@@ -15,18 +17,32 @@ interface UserDetailOffcanvasProps {
   onClose: () => void;
 }
 
-const DetailField = ({ label, value }: { label: string; value: ReactNode }) => (
-  <div>
-    <div className="form-label text-muted mb-1">{label}</div>
-    <div>{value}</div>
+interface DetailFieldProps {
+  label: string;
+  value: ReactNode;
+}
+
+const DetailField = ({ label, value }: DetailFieldProps) => (
+  <div className="mb-2">
+    <span className="text-muted d-inline-block" style={{ width: "120px" }}>
+      {label}
+    </span>
+    <span>: </span>
+    <span>{value || "-"}</span>
   </div>
 );
 
-const UserDetailOffcanvas = ({ offcanvasRef, user, onClose }: UserDetailOffcanvasProps) => {
+const UserDetailOffcanvas = ({
+  offcanvasRef,
+  user,
+  onClose,
+}: UserDetailOffcanvasProps) => {
   const roles = useRoles();
+
   const roleLabel = user
-    ? roles.find((role) => role.id === user.role)?.name ?? user.role
+    ? (roles.find((role) => role.id === user.role)?.name ?? user.role)
     : "";
+
   const genderLabel = user
     ? user.gender === "L"
       ? "Male"
@@ -42,35 +58,35 @@ const UserDetailOffcanvas = ({ offcanvasRef, user, onClose }: UserDetailOffcanva
           <OffcanvasPanelHeader title="User Detail" onClose={onClose} />
 
           <OffcanvasPanelBody>
-            <div className="fs-5 fw-semibold">{user.name}</div>
-
             <OffcanvasSectionLabel>Personal Information</OffcanvasSectionLabel>
 
-            <div className="mb-3">
-              <div className="form-label text-muted mb-1">Gender</div>
-              <span className="badge text-bg-light">{genderLabel}</span>
-            </div>
+            <DetailField label="Full Name" value={user.name} />
+            <DetailField label="Gender" value={genderLabel} />
+            <DetailField label="Birthday" value={user.birthday} />
+            <DetailField label="Address" value={user.address} />
 
-            <div className="row row-cols-1 row-cols-sm-2 g-3">
-              <div className="col">
-                <DetailField label="Address" value={user.address} />
-              </div>
-
-              <div className="col">
-                <DetailField label="Date of Birth" value={user.birthday} />
-              </div>
-            </div>
+            <br />
 
             <OffcanvasSectionLabel>Account</OffcanvasSectionLabel>
 
-            <div className="mb-3">
-              <DetailField label="Email" value={user.email} />
-            </div>
+            <DetailField
+              label="Email"
+              value={
+                <a
+                  href={`mailto:${user.email}`}
+                  className="text-decoration-none"
+                >
+                  {user.email}
+                </a>
+              }
+            />
 
-            <div>
-              <div className="form-label text-muted mb-1">Role</div>
-              <span className="badge text-bg-secondary">{roleLabel}</span>
-            </div>
+            <DetailField
+              label="Role"
+              value={
+                <span className="badge text-bg-secondary">{roleLabel}</span>
+              }
+            />
           </OffcanvasPanelBody>
 
           <OffcanvasPanelFooter>

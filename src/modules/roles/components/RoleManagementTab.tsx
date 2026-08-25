@@ -21,15 +21,15 @@ const RoleManagementTab = () => {
 
     formInitialValues,
     formOffcanvasRef,
-    openAdd,
-    openEdit,
-    submitForm,
-    closeForm,
+    handleOpenAdd,
+    handleOpenEdit,
+    handleSubmitForm,
+    handleCloseForm,
 
     deleteModalRef,
-    openDelete,
-    confirmDelete,
-    closeDelete,
+    handleOpenDelete,
+    handleConfirmDelete,
+    handleCloseDelete,
   } = useRole();
 
   return (
@@ -41,7 +41,7 @@ const RoleManagementTab = () => {
             ? {
                 label: "Add Role",
                 icon: <IconPlus />,
-                onClick: openAdd,
+                onClick: handleOpenAdd,
               }
             : undefined
         }
@@ -49,8 +49,8 @@ const RoleManagementTab = () => {
 
       <RolesTable
         roles={roles}
-        onEdit={openEdit}
-        onDelete={openDelete}
+        onEdit={handleOpenEdit}
+        onDelete={handleOpenDelete}
         isEditAllowed={isEditAllowed}
         isDeleteAllowed={isDeleteAllowed}
       />
@@ -61,8 +61,8 @@ const RoleManagementTab = () => {
         permissions={permissions}
         isEditing={!!selectedItem}
         isLoading={isLoading}
-        onSubmit={submitForm}
-        onCancel={closeForm}
+        onSubmit={handleSubmitForm}
+        onCancel={handleCloseForm}
       />
 
       <ConfirmDeleteModal
@@ -70,8 +70,8 @@ const RoleManagementTab = () => {
         entityName="Role"
         itemName={selectedItem?.name ?? ""}
         isLoading={isLoading}
-        onConfirm={confirmDelete}
-        onCancel={closeDelete}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCloseDelete}
       />
     </div>
   );

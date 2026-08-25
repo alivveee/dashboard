@@ -14,9 +14,9 @@ const PermissionManagementTab = () => {
 
     selectedItem,
     formOffcanvasRef,
-    openEdit,
-    submitForm,
-    closeForm,
+    handleOpenEdit,
+    handleSubmitForm,
+    handleCloseForm,
   } = usePermission();
 
   return (
@@ -26,15 +26,15 @@ const PermissionManagementTab = () => {
       <PermissionsTable
         permissions={permissions}
         isEditAllowed={isEditAllowed}
-        onEdit={openEdit}
+        onEdit={handleOpenEdit}
       />
 
       <PermissionFormOffcanvas
         offcanvasRef={formOffcanvasRef}
         permission={selectedItem}
         isLoading={isLoading}
-        onSubmit={submitForm}
-        onCancel={closeForm}
+        onSubmit={handleSubmitForm}
+        onCancel={handleCloseForm}
       />
     </div>
   );

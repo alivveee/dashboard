@@ -22,15 +22,15 @@ const ProspectPage = () => {
 
     formInitialValues,
     formOffcanvasRef,
-    openAdd,
-    openEdit,
-    submitForm,
-    closeForm,
+    handleOpenAdd,
+    handleOpenEdit,
+    handleSubmitForm,
+    handleCloseForm,
 
     deleteModalRef,
-    openDelete,
-    confirmDelete,
-    closeDelete,
+    handleOpenDelete,
+    handleConfirmDelete,
+    handleCloseDelete,
   } = useProspect();
 
   return (
@@ -42,7 +42,7 @@ const ProspectPage = () => {
             ? {
                 label: "Add Prospect",
                 icon: <IconPlus />,
-                onClick: openAdd,
+                onClick: handleOpenAdd,
               }
             : undefined
         }
@@ -52,8 +52,8 @@ const ProspectPage = () => {
         items={prospects}
         clientLabelLower="prospect"
         statusOptions={prospectStatusOptions}
-        onEdit={openEdit}
-        onDelete={openDelete}
+        onEdit={handleOpenEdit}
+        onDelete={handleOpenDelete}
         isEditAllowed={isEditAllowed}
         isDeleteAllowed={isDeleteAllowed}
       />
@@ -66,8 +66,8 @@ const ProspectPage = () => {
         statusOptions={prospectStatusOptions}
         isEditing={!!selectedProspect}
         isLoading={isLoading}
-        onSubmit={submitForm}
-        onCancel={closeForm}
+        onSubmit={handleSubmitForm}
+        onCancel={handleCloseForm}
       />
 
       <ConfirmDeleteModal
@@ -75,8 +75,8 @@ const ProspectPage = () => {
         entityName="Prospect"
         itemName={selectedProspect?.name ?? ""}
         isLoading={isLoading}
-        onConfirm={confirmDelete}
-        onCancel={closeDelete}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCloseDelete}
       />
     </div>
   );

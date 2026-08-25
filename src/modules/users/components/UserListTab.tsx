@@ -21,19 +21,19 @@ const UserListTab = () => {
 
     formInitialValues,
     formOffcanvasRef,
-    openAdd,
-    openEdit,
-    submitForm,
-    closeForm,
+    handleOpenAdd,
+    handleOpenEdit,
+    handleSubmitForm,
+    handleCloseForm,
 
     deleteModalRef,
-    openDelete,
-    confirmDelete,
-    closeDelete,
+    handleOpenDelete,
+    handleConfirmDelete,
+    handleCloseDelete,
 
     detailOffcanvasRef,
-    openDetail,
-    closeDetail,
+    handleOpenDetail,
+    handleCloseDetail,
   } = useUser();
 
   return (
@@ -45,7 +45,7 @@ const UserListTab = () => {
             ? {
                 label: "Add User",
                 icon: <IconPlus />,
-                onClick: openAdd,
+                onClick: handleOpenAdd,
               }
             : undefined
         }
@@ -53,9 +53,9 @@ const UserListTab = () => {
 
       <UsersTable
         users={users}
-        onView={openDetail}
-        onEdit={openEdit}
-        onDelete={openDelete}
+        onView={handleOpenDetail}
+        onEdit={handleOpenEdit}
+        onDelete={handleOpenDelete}
         isViewAllowed={isViewAllowed}
         isEditAllowed={isEditAllowed}
         isDeleteAllowed={isDeleteAllowed}
@@ -66,8 +66,8 @@ const UserListTab = () => {
         initialValues={formInitialValues}
         isEditing={!!selectedUser}
         isLoading={isLoading}
-        onSubmit={submitForm}
-        onCancel={closeForm}
+        onSubmit={handleSubmitForm}
+        onCancel={handleCloseForm}
       />
 
       <ConfirmDeleteModal
@@ -75,14 +75,14 @@ const UserListTab = () => {
         entityName="User"
         itemName={selectedUser?.name ?? ""}
         isLoading={isLoading}
-        onConfirm={confirmDelete}
-        onCancel={closeDelete}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCloseDelete}
       />
 
       <UserDetailOffcanvas
         offcanvasRef={detailOffcanvasRef}
         user={selectedUser}
-        onClose={closeDetail}
+        onClose={handleCloseDetail}
       />
     </div>
   );

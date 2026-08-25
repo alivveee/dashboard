@@ -22,15 +22,15 @@ const CustomerPage = () => {
 
     formInitialValues,
     formOffcanvasRef,
-    openAdd,
-    openEdit,
-    submitForm,
-    closeForm,
+    handleOpenAdd,
+    handleOpenEdit,
+    handleSubmitForm,
+    handleCloseForm,
 
     deleteModalRef,
-    openDelete,
-    confirmDelete,
-    closeDelete,
+    handleOpenDelete,
+    handleConfirmDelete,
+    handleCloseDelete,
   } = useCustomer();
 
   return (
@@ -42,7 +42,7 @@ const CustomerPage = () => {
             ? {
                 label: "Add Customer",
                 icon: <IconPlus />,
-                onClick: openAdd,
+                onClick: handleOpenAdd,
               }
             : undefined
         }
@@ -52,8 +52,8 @@ const CustomerPage = () => {
         items={customers}
         clientLabelLower="customer"
         statusOptions={customerStatusOptions}
-        onEdit={openEdit}
-        onDelete={openDelete}
+        onEdit={handleOpenEdit}
+        onDelete={handleOpenDelete}
         isEditAllowed={isEditAllowed}
         isDeleteAllowed={isDeleteAllowed}
       />
@@ -66,8 +66,8 @@ const CustomerPage = () => {
         statusOptions={customerStatusOptions}
         isEditing={!!selectedCustomer}
         isLoading={isLoading}
-        onSubmit={submitForm}
-        onCancel={closeForm}
+        onSubmit={handleSubmitForm}
+        onCancel={handleCloseForm}
       />
 
       <ConfirmDeleteModal
@@ -75,8 +75,8 @@ const CustomerPage = () => {
         entityName="Customer"
         itemName={selectedCustomer?.name ?? ""}
         isLoading={isLoading}
-        onConfirm={confirmDelete}
-        onCancel={closeDelete}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCloseDelete}
       />
     </div>
   );

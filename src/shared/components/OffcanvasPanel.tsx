@@ -89,7 +89,7 @@ interface OffcanvasSectionLabelProps {
 export const OffcanvasSectionLabel = ({
   children,
 }: OffcanvasSectionLabelProps) => (
-  <h6 className="text-uppercase text-muted fw-semibold mb-2">
+  <h6 className="text-uppercase text-muted fs-6 fw-semibold mb-2">
     {children}
   </h6>
 );

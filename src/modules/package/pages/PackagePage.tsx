@@ -20,15 +20,15 @@ const PackagePage = () => {
 
     formInitialValues,
     formOffcanvasRef,
-    openAdd,
-    openEdit,
-    submitForm,
-    closeForm,
+    handleOpenAdd,
+    handleOpenEdit,
+    handleSubmitForm,
+    handleCloseForm,
 
     deleteModalRef,
-    openDelete,
-    confirmDelete,
-    closeDelete,
+    handleOpenDelete,
+    handleConfirmDelete,
+    handleCloseDelete,
   } = usePackage();
 
   return (
@@ -40,7 +40,7 @@ const PackagePage = () => {
             ? {
                 label: "Add Package",
                 icon: <IconPlus />,
-                onClick: openAdd,
+                onClick: handleOpenAdd,
               }
             : undefined
         }
@@ -48,8 +48,8 @@ const PackagePage = () => {
 
       <PackagesTable
         packages={packages}
-        onEdit={openEdit}
-        onDelete={openDelete}
+        onEdit={handleOpenEdit}
+        onDelete={handleOpenDelete}
         isEditAllowed={isEditAllowed}
         isDeleteAllowed={isDeleteAllowed}
       />
@@ -59,8 +59,8 @@ const PackagePage = () => {
         initialValues={formInitialValues}
         isEditing={!!selectedItem}
         isLoading={isLoading}
-        onSubmit={submitForm}
-        onCancel={closeForm}
+        onSubmit={handleSubmitForm}
+        onCancel={handleCloseForm}
       />
 
       <ConfirmDeleteModal
@@ -68,8 +68,8 @@ const PackagePage = () => {
         entityName="Package"
         itemName={selectedItem?.name ?? ""}
         isLoading={isLoading}
-        onConfirm={confirmDelete}
-        onCancel={closeDelete}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCloseDelete}
       />
     </div>
   );

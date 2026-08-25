@@ -85,23 +85,23 @@ const usePermission = () => {
   const formOffcanvas = createOffcanvasControls(useRef<OffcanvasHandle>(null));
   const [selectedItem, setSelectedItem] = useState<Permission | null>(null);
 
-  const openEdit = (item: Permission) => {
+  const handleOpenEdit = (item: Permission) => {
     setSelectedItem(item);
     formOffcanvas.open();
   };
 
-  const closeForm = () => {
+  const handleCloseForm = () => {
     formOffcanvas.close();
     setSelectedItem(null);
   };
 
-  const submitForm = async (activeActions: PermissionAction[]) => {
+  const handleSubmitForm = async (activeActions: PermissionAction[]) => {
     if (!selectedItem) return;
 
     const { id, ...rest } = selectedItem;
 
     await update(id, { ...rest, activeActions });
-    closeForm();
+    handleCloseForm();
   };
 
   return {
@@ -110,9 +110,9 @@ const usePermission = () => {
 
     selectedItem,
     formOffcanvasRef: formOffcanvas.ref,
-    openEdit,
-    submitForm,
-    closeForm,
+    handleOpenEdit,
+    handleSubmitForm,
+    handleCloseForm,
   };
 };
 

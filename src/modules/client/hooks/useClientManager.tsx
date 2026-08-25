@@ -43,27 +43,27 @@ const useClientManager = <TItem extends { id: string }>({
   // Selected item
   const [selectedItem, setSelectedItem] = useState<TItem | null>(null);
 
-  const openAdd = () => {
+  const handleOpenAdd = () => {
     setSelectedItem(null);
     formOffcanvas.open();
   };
 
-  const openEdit = (item: TItem) => {
+  const handleOpenEdit = (item: TItem) => {
     setSelectedItem(item);
     formOffcanvas.open();
   };
 
-  const openDetail = (item: TItem) => {
+  const handleOpenDetail = (item: TItem) => {
     setSelectedItem(item);
     detailOffcanvas.open();
   };
 
-  const closeDetail = () => {
+  const handleCloseDetail = () => {
     detailOffcanvas.close();
     setSelectedItem(null);
   };
 
-  const submitForm = async (data: Omit<TItem, "id">) => {
+  const handleSubmitForm = async (data: Omit<TItem, "id">) => {
     if (selectedItem) {
       await update(selectedItem.id, data);
       showAlert(`${clientLabel} updated successfully.`);
@@ -72,27 +72,27 @@ const useClientManager = <TItem extends { id: string }>({
       showAlert(`${clientLabel} added successfully.`);
     }
 
-    closeForm();
+    handleCloseForm();
   };
 
-  const closeForm = () => {
+  const handleCloseForm = () => {
     formOffcanvas.close();
     setSelectedItem(null);
   };
 
-  const openDelete = (item: TItem) => {
+  const handleOpenDelete = (item: TItem) => {
     setSelectedItem(item);
     deleteModal.open();
   };
 
-  const confirmDelete = async () => {
+  const handleConfirmDelete = async () => {
     if (!selectedItem) return;
 
     await remove(selectedItem.id);
-    closeDelete();
+    handleCloseDelete();
   };
 
-  const closeDelete = () => {
+  const handleCloseDelete = () => {
     deleteModal.close();
     setSelectedItem(null);
   };
@@ -112,21 +112,21 @@ const useClientManager = <TItem extends { id: string }>({
     // Form
     formInitialValues,
     formOffcanvasRef: formOffcanvas.ref,
-    openAdd,
-    openEdit,
-    submitForm,
-    closeForm,
+    handleOpenAdd,
+    handleOpenEdit,
+    handleSubmitForm,
+    handleCloseForm,
 
     // Delete
     deleteModalRef: deleteModal.ref,
-    openDelete,
-    confirmDelete,
-    closeDelete,
+    handleOpenDelete,
+    handleConfirmDelete,
+    handleCloseDelete,
 
     // Detail
     detailOffcanvasRef: detailOffcanvas.ref,
-    openDetail,
-    closeDetail,
+    handleOpenDetail,
+    handleCloseDetail,
   };
 };
 
