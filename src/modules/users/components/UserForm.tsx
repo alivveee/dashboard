@@ -21,20 +21,23 @@ const genderOptions = [
   { value: "P", label: "Female" },
 ];
 
+interface UserFormActions {
+  onSubmit: (data: Omit<User, "id">) => void;
+  onCancel: () => void;
+}
+
 interface UserFormProps {
   initialValues: Omit<User, "id">;
   isEditing: boolean;
   isLoading: boolean;
-  onSubmit: (data: Omit<User, "id">) => void;
-  onCancel: () => void;
+  actions: UserFormActions;
 }
 
 const UserForm = ({
   initialValues,
   isEditing,
   isLoading,
-  onSubmit,
-  onCancel,
+  actions: { onSubmit, onCancel },
 }: UserFormProps) => {
   const { values, handleChange } = useForm(initialValues);
   const roles = useRoles();

@@ -7,20 +7,23 @@ import {
   OffcanvasPanelBody,
 } from "../../../shared/components/OffcanvasPanel";
 
+interface PackageFormActions {
+  onSubmit: (data: Omit<PackageOption, "id">) => void;
+  onCancel: () => void;
+}
+
 interface PackageFormProps {
   initialValues: Omit<PackageOption, "id">;
   isEditing: boolean;
   isLoading: boolean;
-  onSubmit: (data: Omit<PackageOption, "id">) => void;
-  onCancel: () => void;
+  actions: PackageFormActions;
 }
 
 const PackageForm = ({
   initialValues,
   isEditing,
   isLoading,
-  onSubmit,
-  onCancel,
+  actions: { onSubmit, onCancel },
 }: PackageFormProps) => {
   const { values, handleChange } = useForm({
     name: initialValues.name,

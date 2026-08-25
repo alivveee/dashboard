@@ -49,8 +49,7 @@ const RoleManagementTab = () => {
 
       <RolesTable
         roles={roles}
-        onEdit={handleOpenEdit}
-        onDelete={handleOpenDelete}
+        actions={{ onEdit: handleOpenEdit, onDelete: handleOpenDelete }}
         isEditAllowed={isEditAllowed}
         isDeleteAllowed={isDeleteAllowed}
       />
@@ -61,8 +60,7 @@ const RoleManagementTab = () => {
         permissions={permissions}
         isEditing={!!selectedItem}
         isLoading={isLoading}
-        onSubmit={handleSubmitForm}
-        onCancel={handleCloseForm}
+        actions={{ onSubmit: handleSubmitForm, onCancel: handleCloseForm }}
       />
 
       <ConfirmDeleteModal
@@ -70,8 +68,7 @@ const RoleManagementTab = () => {
         entityName="Role"
         itemName={selectedItem?.name ?? ""}
         isLoading={isLoading}
-        onConfirm={handleConfirmDelete}
-        onCancel={handleCloseDelete}
+        actions={{ onConfirm: handleConfirmDelete, onCancel: handleCloseDelete }}
       />
     </>
   );

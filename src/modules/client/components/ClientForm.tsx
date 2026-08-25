@@ -18,13 +18,17 @@ interface ClientFormData extends Omit<BaseClient, "id"> {
   status: string;
 }
 
+interface ClientFormActions<TFormData> {
+  onSubmit: (data: TFormData) => void;
+  onCancel: () => void;
+}
+
 interface ClientFormProps<TFormData extends ClientFormData> {
   initialValues: TFormData;
   clientLabel: string;
   namePrefix: string;
   statusOptions: StatusOption[];
-  onSubmit: (data: TFormData) => void;
-  onCancel: () => void;
+  actions: ClientFormActions<TFormData>;
   isEditing: boolean;
   isLoading: boolean;
 }
@@ -34,8 +38,7 @@ function ClientForm<TFormData extends ClientFormData>({
   clientLabel,
   namePrefix,
   statusOptions,
-  onSubmit,
-  onCancel,
+  actions: { onSubmit, onCancel },
   isEditing,
   isLoading,
 }: ClientFormProps<TFormData>) {

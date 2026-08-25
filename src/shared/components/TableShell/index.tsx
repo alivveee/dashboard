@@ -95,14 +95,16 @@ function TableShell({
         <TableShellPagination
           pageSize={pageSize}
           pageSizeOptions={pageSizeOptions}
-          onPageSizeChange={setPageSize}
           currentPage={currentPage}
           totalPages={totalPages}
           startIndex={startIndex}
           totalItems={totalItems}
-          onPrevious={handlePreviousPage}
-          onNext={handleNextPage}
-          onGoToPage={goToPage}
+          actions={{
+            onPageSizeChange: setPageSize,
+            onPrevious: handlePreviousPage,
+            onNext: handleNextPage,
+            onGoToPage: goToPage,
+          }}
         />
       )}
     </div>

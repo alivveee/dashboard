@@ -10,12 +10,16 @@ interface ClientWithStatus extends BaseClient {
   status: string;
 }
 
+interface ClientTableActions<TItem> {
+  onEdit: (item: TItem) => void;
+  onDelete: (item: TItem) => void;
+}
+
 interface ClientTableProps<TItem extends ClientWithStatus> {
   items: TItem[];
   clientLabelLower: string;
   statusOptions: StatusOption[];
-  onEdit: (item: TItem) => void;
-  onDelete: (item: TItem) => void;
+  actions: ClientTableActions<TItem>;
   isEditAllowed: boolean;
   isDeleteAllowed: boolean;
 }
@@ -24,8 +28,7 @@ function ClientTable<TItem extends ClientWithStatus>({
   items,
   clientLabelLower,
   statusOptions,
-  onEdit,
-  onDelete,
+  actions,
   isEditAllowed,
   isDeleteAllowed,
 }: ClientTableProps<TItem>) {
@@ -103,8 +106,7 @@ function ClientTable<TItem extends ClientWithStatus>({
             content: (
               <TableRowActions
                 item={item}
-                onEdit={onEdit}
-                onDelete={onDelete}
+                actions={actions}
                 isEditAllowed={isEditAllowed}
                 isDeleteAllowed={isDeleteAllowed}
                 label={clientLabelLower}

@@ -2,18 +2,21 @@ import { Role } from "../types/Role.types";
 import TableShell from "../../../shared/components/TableShell";
 import TableRowActions from "../../../shared/components/TableRowActions";
 
-interface RolesTableProps {
-  roles: Role[];
+interface RolesTableActions {
   onEdit: (item: Role) => void;
   onDelete: (item: Role) => void;
+}
+
+interface RolesTableProps {
+  roles: Role[];
+  actions: RolesTableActions;
   isEditAllowed: boolean;
   isDeleteAllowed: boolean;
 }
 
 const RolesTable = ({
   roles,
-  onEdit,
-  onDelete,
+  actions,
   isEditAllowed,
   isDeleteAllowed,
 }: RolesTableProps) => (
@@ -43,8 +46,7 @@ const RolesTable = ({
         content: (
           <TableRowActions
             item={role}
-            onEdit={onEdit}
-            onDelete={onDelete}
+            actions={actions}
             isEditAllowed={isEditAllowed}
             isDeleteAllowed={isDeleteAllowed}
             label={role.name}

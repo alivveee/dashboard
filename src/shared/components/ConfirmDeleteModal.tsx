@@ -1,13 +1,17 @@
 import type { RefObject } from "react";
 import Modal, { type ModalHandle } from "./Modal";
 
+interface ConfirmDeleteModalActions {
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
 interface ConfirmDeleteModalProps {
   modalRef: RefObject<ModalHandle | null>;
   entityName: string;
   itemName: string;
   isLoading: boolean;
-  onConfirm: () => void;
-  onCancel: () => void;
+  actions: ConfirmDeleteModalActions;
 }
 
 const ConfirmDeleteModal = ({
@@ -15,8 +19,7 @@ const ConfirmDeleteModal = ({
   entityName,
   itemName,
   isLoading,
-  onConfirm,
-  onCancel,
+  actions: { onConfirm, onCancel },
 }: ConfirmDeleteModalProps) => {
   return (
     <Modal modalRef={modalRef} onClose={onCancel} closable>

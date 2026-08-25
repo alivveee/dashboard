@@ -1,10 +1,14 @@
 import { IconEdit, IconEye, IconTrash } from "./icons/Icons";
 
-interface TableRowActionsProps<T> {
-  item: T;
+interface TableRowActionsActions<T> {
   onView?: (item: T) => void;
   onEdit?: (item: T) => void;
   onDelete?: (item: T) => void;
+}
+
+interface TableRowActionsProps<T> {
+  item: T;
+  actions?: TableRowActionsActions<T>;
   isViewAllowed?: boolean;
   isEditAllowed?: boolean;
   isDeleteAllowed?: boolean;
@@ -13,14 +17,14 @@ interface TableRowActionsProps<T> {
 
 function TableRowActions<T>({
   item,
-  onView,
-  onEdit,
-  onDelete,
+  actions = {},
   isViewAllowed,
   isEditAllowed,
   isDeleteAllowed,
   label = "",
 }: TableRowActionsProps<T>) {
+  const { onView, onEdit, onDelete } = actions;
+
   return (
     <div className="d-flex justify-content-end gap-2">
       {onView && isViewAllowed && (

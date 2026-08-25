@@ -3,11 +3,15 @@ import useRoles from "../../roles/hooks/useRoles";
 import TableShell from "../../../shared/components/TableShell";
 import TableRowActions from "../../../shared/components/TableRowActions";
 
-interface UserTableProps {
-  users: User[];
+interface UserTableActions {
   onView: (user: User) => void;
   onEdit: (user: User) => void;
   onDelete: (user: User) => void;
+}
+
+interface UserTableProps {
+  users: User[];
+  actions: UserTableActions;
   isViewAllowed: boolean;
   isEditAllowed: boolean;
   isDeleteAllowed: boolean;
@@ -15,9 +19,7 @@ interface UserTableProps {
 
 const UsersTable = ({
   users,
-  onView,
-  onEdit,
-  onDelete,
+  actions,
   isViewAllowed,
   isEditAllowed,
   isDeleteAllowed,
@@ -47,9 +49,7 @@ const UsersTable = ({
           content: (
             <TableRowActions
               item={user}
-              onView={onView}
-              onEdit={onEdit}
-              onDelete={onDelete}
+              actions={actions}
               isViewAllowed={isViewAllowed}
               isEditAllowed={isEditAllowed}
               isDeleteAllowed={isDeleteAllowed}

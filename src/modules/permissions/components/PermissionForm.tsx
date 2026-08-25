@@ -8,18 +8,21 @@ import {
   OffcanvasPanelBody,
 } from "../../../shared/components/OffcanvasPanel";
 
+interface PermissionFormActions {
+  onSubmit: (activeActions: PermissionAction[]) => void;
+  onCancel: () => void;
+}
+
 interface PermissionFormProps {
   permission: Permission;
   isLoading: boolean;
-  onSubmit: (activeActions: PermissionAction[]) => void;
-  onCancel: () => void;
+  actions: PermissionFormActions;
 }
 
 const PermissionForm = ({
   permission,
   isLoading,
-  onSubmit,
-  onCancel,
+  actions: { onSubmit, onCancel },
 }: PermissionFormProps) => {
   const { values, handleChange } = useForm({
     activeActions: permission.activeActions,

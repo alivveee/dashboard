@@ -3,29 +3,31 @@ import { Permission, PermissionAction } from "../../../shared/types/Permission.t
 import Offcanvas, { type OffcanvasHandle } from "../../../shared/components/Offcanvas";
 import PermissionForm from "./PermissionForm";
 
+interface PermissionFormOffcanvasActions {
+  onSubmit: (activeActions: PermissionAction[]) => void;
+  onCancel: () => void;
+}
+
 interface PermissionFormOffcanvasProps {
   offcanvasRef: RefObject<OffcanvasHandle | null>;
   permission: Permission | null;
   isLoading: boolean;
-  onSubmit: (activeActions: PermissionAction[]) => void;
-  onCancel: () => void;
+  actions: PermissionFormOffcanvasActions;
 }
 
 const PermissionFormOffcanvas = ({
   offcanvasRef,
   permission,
   isLoading,
-  onSubmit,
-  onCancel,
+  actions,
 }: PermissionFormOffcanvasProps) => (
-  <Offcanvas offcanvasRef={offcanvasRef} onClose={onCancel}>
+  <Offcanvas offcanvasRef={offcanvasRef} onClose={actions.onCancel}>
     {permission && (
       <PermissionForm
         key={permission.id}
         permission={permission}
         isLoading={isLoading}
-        onSubmit={onSubmit}
-        onCancel={onCancel}
+        actions={actions}
       />
     )}
   </Offcanvas>

@@ -52,8 +52,7 @@ const CustomerPage = () => {
         items={customers}
         clientLabelLower="customer"
         statusOptions={customerStatusOptions}
-        onEdit={handleOpenEdit}
-        onDelete={handleOpenDelete}
+        actions={{ onEdit: handleOpenEdit, onDelete: handleOpenDelete }}
         isEditAllowed={isEditAllowed}
         isDeleteAllowed={isDeleteAllowed}
       />
@@ -66,8 +65,7 @@ const CustomerPage = () => {
         statusOptions={customerStatusOptions}
         isEditing={!!selectedCustomer}
         isLoading={isLoading}
-        onSubmit={handleSubmitForm}
-        onCancel={handleCloseForm}
+        actions={{ onSubmit: handleSubmitForm, onCancel: handleCloseForm }}
       />
 
       <ConfirmDeleteModal
@@ -75,8 +73,7 @@ const CustomerPage = () => {
         entityName="Customer"
         itemName={selectedCustomer?.name ?? ""}
         isLoading={isLoading}
-        onConfirm={handleConfirmDelete}
-        onCancel={handleCloseDelete}
+        actions={{ onConfirm: handleConfirmDelete, onCancel: handleCloseDelete }}
       />
     </>
   );

@@ -3,18 +3,21 @@ import { formatCurrency } from "../../../shared/helpers/format";
 import TableShell from "../../../shared/components/TableShell";
 import TableRowActions from "../../../shared/components/TableRowActions";
 
-interface PackagesTableProps {
-  packages: PackageOption[];
+interface PackagesTableActions {
   onEdit: (item: PackageOption) => void;
   onDelete: (item: PackageOption) => void;
+}
+
+interface PackagesTableProps {
+  packages: PackageOption[];
+  actions: PackagesTableActions;
   isEditAllowed: boolean;
   isDeleteAllowed: boolean;
 }
 
 const PackagesTable = ({
   packages,
-  onEdit,
-  onDelete,
+  actions,
   isEditAllowed,
   isDeleteAllowed,
 }: PackagesTableProps) => (
@@ -37,8 +40,7 @@ const PackagesTable = ({
         content: (
           <TableRowActions
             item={item}
-            onEdit={onEdit}
-            onDelete={onDelete}
+            actions={actions}
             isEditAllowed={isEditAllowed}
             isDeleteAllowed={isDeleteAllowed}
             label={item.name}

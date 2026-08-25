@@ -59,7 +59,7 @@ const PermissionsTable = ({
         content: (
           <TableRowActions
             item={item}
-            onEdit={onEdit}
+            actions={{ onEdit }}
             isEditAllowed={isEditAllowed}
             label={item.name}
           />

@@ -19,13 +19,17 @@ import {
   OffcanvasSectionLabel,
 } from "../../../shared/components/OffcanvasPanel";
 
+interface RoleFormActions {
+  onSubmit: (data: Omit<Role, "id">) => void;
+  onCancel: () => void;
+}
+
 interface RoleFormProps {
   initialValues: Omit<Role, "id">;
   permissions: Permission[];
   isEditing: boolean;
   isLoading: boolean;
-  onSubmit: (data: Omit<Role, "id">) => void;
-  onCancel: () => void;
+  actions: RoleFormActions;
 }
 
 const RoleForm = ({
@@ -33,8 +37,7 @@ const RoleForm = ({
   permissions,
   isEditing,
   isLoading,
-  onSubmit,
-  onCancel,
+  actions: { onSubmit, onCancel },
 }: RoleFormProps) => {
   const { values, handleChange } = useForm(initialValues);
 

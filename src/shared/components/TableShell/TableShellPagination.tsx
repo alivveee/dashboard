@@ -1,31 +1,32 @@
 import { getPageNumbers, PAGE_ELLIPSIS } from "./table.helper";
 
+interface TableShellPaginationActions {
+  onPageSizeChange: (size: number) => void;
+  onPrevious: () => void;
+  onNext: () => void;
+  onGoToPage: (page: number) => void;
+}
+
 interface TableShellPaginationProps {
   pageSize: number;
   pageSizeOptions: number[];
-  onPageSizeChange: (size: number) => void;
 
   currentPage: number;
   totalPages: number;
   startIndex: number;
   totalItems: number;
 
-  onPrevious: () => void;
-  onNext: () => void;
-  onGoToPage: (page: number) => void;
+  actions: TableShellPaginationActions;
 }
 
 const TableShellPagination = ({
   pageSize,
   pageSizeOptions,
-  onPageSizeChange,
   currentPage,
   totalPages,
   startIndex,
   totalItems,
-  onPrevious,
-  onNext,
-  onGoToPage,
+  actions: { onPageSizeChange, onPrevious, onNext, onGoToPage },
 }: TableShellPaginationProps) => (
   <div className="card-footer d-flex flex-wrap justify-content-between align-items-center gap-2">
     {/* Page Size */}

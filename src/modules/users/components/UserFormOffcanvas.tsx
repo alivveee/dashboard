@@ -3,13 +3,17 @@ import { User } from "../types/User.types";
 import Offcanvas, { type OffcanvasHandle } from "../../../shared/components/Offcanvas";
 import UserForm from "./UserForm";
 
+interface UserFormOffcanvasActions {
+  onSubmit: (data: Omit<User, "id">) => void;
+  onCancel: () => void;
+}
+
 interface UserFormOffcanvasProps {
   offcanvasRef: RefObject<OffcanvasHandle | null>;
   initialValues: Omit<User, "id">;
   isEditing: boolean;
   isLoading: boolean;
-  onSubmit: (data: Omit<User, "id">) => void;
-  onCancel: () => void;
+  actions: UserFormOffcanvasActions;
 }
 
 const UserFormOffcanvas = ({
@@ -17,18 +21,16 @@ const UserFormOffcanvas = ({
   initialValues,
   isEditing,
   isLoading,
-  onSubmit,
-  onCancel,
+  actions,
 }: UserFormOffcanvasProps) => {
   return (
-    <Offcanvas offcanvasRef={offcanvasRef} onClose={onCancel}>
+    <Offcanvas offcanvasRef={offcanvasRef} onClose={actions.onCancel}>
       <UserForm
         key={JSON.stringify(initialValues)}
         initialValues={initialValues}
         isEditing={isEditing}
         isLoading={isLoading}
-        onSubmit={onSubmit}
-        onCancel={onCancel}
+        actions={actions}
       />
     </Offcanvas>
   );

@@ -53,9 +53,11 @@ const UserListTab = () => {
 
       <UsersTable
         users={users}
-        onView={handleOpenDetail}
-        onEdit={handleOpenEdit}
-        onDelete={handleOpenDelete}
+        actions={{
+          onView: handleOpenDetail,
+          onEdit: handleOpenEdit,
+          onDelete: handleOpenDelete,
+        }}
         isViewAllowed={isViewAllowed}
         isEditAllowed={isEditAllowed}
         isDeleteAllowed={isDeleteAllowed}
@@ -66,8 +68,7 @@ const UserListTab = () => {
         initialValues={formInitialValues}
         isEditing={!!selectedUser}
         isLoading={isLoading}
-        onSubmit={handleSubmitForm}
-        onCancel={handleCloseForm}
+        actions={{ onSubmit: handleSubmitForm, onCancel: handleCloseForm }}
       />
 
       <ConfirmDeleteModal
@@ -75,8 +76,7 @@ const UserListTab = () => {
         entityName="User"
         itemName={selectedUser?.name ?? ""}
         isLoading={isLoading}
-        onConfirm={handleConfirmDelete}
-        onCancel={handleCloseDelete}
+        actions={{ onConfirm: handleConfirmDelete, onCancel: handleCloseDelete }}
       />
 
       <UserDetailOffcanvas

@@ -4,14 +4,18 @@ import { Permission } from "../../../shared/types/Permission.types";
 import Offcanvas, { type OffcanvasHandle } from "../../../shared/components/Offcanvas";
 import RoleForm from "./RoleForm";
 
+interface RoleFormOffcanvasActions {
+  onSubmit: (data: Omit<Role, "id">) => void;
+  onCancel: () => void;
+}
+
 interface RoleFormOffcanvasProps {
   offcanvasRef: RefObject<OffcanvasHandle | null>;
   initialValues: Omit<Role, "id">;
   permissions: Permission[];
   isEditing: boolean;
   isLoading: boolean;
-  onSubmit: (data: Omit<Role, "id">) => void;
-  onCancel: () => void;
+  actions: RoleFormOffcanvasActions;
 }
 
 const RoleFormOffcanvas = ({
@@ -20,19 +24,17 @@ const RoleFormOffcanvas = ({
   permissions,
   isEditing,
   isLoading,
-  onSubmit,
-  onCancel,
+  actions,
 }: RoleFormOffcanvasProps) => {
   return (
-    <Offcanvas offcanvasRef={offcanvasRef} onClose={onCancel}>
+    <Offcanvas offcanvasRef={offcanvasRef} onClose={actions.onCancel}>
       <RoleForm
         key={JSON.stringify(initialValues)}
         initialValues={initialValues}
         permissions={permissions}
         isEditing={isEditing}
         isLoading={isLoading}
-        onSubmit={onSubmit}
-        onCancel={onCancel}
+        actions={actions}
       />
     </Offcanvas>
   );

@@ -7,6 +7,11 @@ interface ClientFormData extends Omit<BaseClient, "id"> {
   status: string;
 }
 
+interface ClientFormOffcanvasActions<TFormData> {
+  onSubmit: (data: TFormData) => void;
+  onCancel: () => void;
+}
+
 interface ClientFormOffcanvasProps<TFormData extends ClientFormData> {
   offcanvasRef: RefObject<OffcanvasHandle | null>;
   initialValues: TFormData;
@@ -15,8 +20,7 @@ interface ClientFormOffcanvasProps<TFormData extends ClientFormData> {
   statusOptions: StatusOption[];
   isEditing: boolean;
   isLoading: boolean;
-  onSubmit: (data: TFormData) => void;
-  onCancel: () => void;
+  actions: ClientFormOffcanvasActions<TFormData>;
 }
 
 function ClientFormOffcanvas<TFormData extends ClientFormData>({
@@ -27,19 +31,17 @@ function ClientFormOffcanvas<TFormData extends ClientFormData>({
   statusOptions,
   isEditing,
   isLoading,
-  onSubmit,
-  onCancel,
+  actions,
 }: ClientFormOffcanvasProps<TFormData>) {
   return (
-    <Offcanvas offcanvasRef={offcanvasRef} onClose={onCancel}>
+    <Offcanvas offcanvasRef={offcanvasRef} onClose={actions.onCancel}>
       <ClientForm
         key={JSON.stringify(initialValues)}
         initialValues={initialValues}
         clientLabel={clientLabel}
         namePrefix={namePrefix}
         statusOptions={statusOptions}
-        onSubmit={onSubmit}
-        onCancel={onCancel}
+        actions={actions}
         isEditing={isEditing}
         isLoading={isLoading}
       />

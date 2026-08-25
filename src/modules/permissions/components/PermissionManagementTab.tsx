@@ -33,8 +33,7 @@ const PermissionManagementTab = () => {
         offcanvasRef={formOffcanvasRef}
         permission={selectedItem}
         isLoading={isLoading}
-        onSubmit={handleSubmitForm}
-        onCancel={handleCloseForm}
+        actions={{ onSubmit: handleSubmitForm, onCancel: handleCloseForm }}
       />
     </>
   );
