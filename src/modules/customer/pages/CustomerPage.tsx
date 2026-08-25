@@ -34,7 +34,7 @@ const CustomerPage = () => {
   } = useCustomer();
 
   return (
-    <div>
+    <>
       <PageHeader
         title="Customer List"
         action={
@@ -78,7 +78,7 @@ const CustomerPage = () => {
         onConfirm={handleConfirmDelete}
         onCancel={handleCloseDelete}
       />
-    </div>
+    </>
   );
 };
 

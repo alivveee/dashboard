@@ -33,7 +33,7 @@ const RoleManagementTab = () => {
   } = useRole();
 
   return (
-    <div>
+    <>
       <PageHeader
         title="Role List"
         action={
@@ -73,7 +73,7 @@ const RoleManagementTab = () => {
         onConfirm={handleConfirmDelete}
         onCancel={handleCloseDelete}
       />
-    </div>
+    </>
   );
 };
 

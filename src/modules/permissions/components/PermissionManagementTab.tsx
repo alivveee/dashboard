@@ -20,7 +20,7 @@ const PermissionManagementTab = () => {
   } = usePermission();
 
   return (
-    <div>
+    <>
       <PageHeader title="Permission List" />
 
       <PermissionsTable
@@ -36,7 +36,7 @@ const PermissionManagementTab = () => {
         onSubmit={handleSubmitForm}
         onCancel={handleCloseForm}
       />
-    </div>
+    </>
   );
 };
 

@@ -34,7 +34,7 @@ const ProspectPage = () => {
   } = useProspect();
 
   return (
-    <div>
+    <>
       <PageHeader
         title="Prospect List"
         action={
@@ -78,7 +78,7 @@ const ProspectPage = () => {
         onConfirm={handleConfirmDelete}
         onCancel={handleCloseDelete}
       />
-    </div>
+    </>
   );
 };
 

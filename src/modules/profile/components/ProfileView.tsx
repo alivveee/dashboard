@@ -45,10 +45,10 @@ const ProfileView = ({
           <div>{genderLabel}</div>
         </div>
 
-        <div>
+        <>
           <div className="form-label text-muted mb-1">Role</div>
           <div>{roleLabel}</div>
-        </div>
+        </>
       </div>
     </div>
   );

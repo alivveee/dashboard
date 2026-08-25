@@ -37,7 +37,7 @@ const UserListTab = () => {
   } = useUser();
 
   return (
-    <div>
+    <>
       <PageHeader
         title="User List"
         action={
@@ -84,7 +84,7 @@ const UserListTab = () => {
         user={selectedUser}
         onClose={handleCloseDetail}
       />
-    </div>
+    </>
   );
 };
 

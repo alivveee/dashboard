@@ -12,7 +12,7 @@ const DashboardPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <>
       {/* Welcome header */}
       <div className="card border rounded-3 bg-body-tertiary mb-4">
         <div className="card-body">
@@ -55,7 +55,7 @@ const DashboardPage = () => {
           />
         </div>
       </section>
-    </div>
+    </>
   );
 };
 

@@ -32,7 +32,7 @@ const PackagePage = () => {
   } = usePackage();
 
   return (
-    <div>
+    <>
       <PageHeader
         title="Package Management"
         action={
@@ -71,7 +71,7 @@ const PackagePage = () => {
         onConfirm={handleConfirmDelete}
         onCancel={handleCloseDelete}
       />
-    </div>
+    </>
   );
 };
 

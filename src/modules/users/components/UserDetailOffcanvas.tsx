@@ -54,7 +54,7 @@ const UserDetailOffcanvas = ({
   return (
     <Offcanvas offcanvasRef={offcanvasRef} onClose={onClose}>
       {user && (
-        <div className="d-flex flex-column h-100">
+        <>
           <OffcanvasPanelHeader title="User Detail" onClose={onClose} />
 
           <OffcanvasPanelBody>
@@ -98,7 +98,7 @@ const UserDetailOffcanvas = ({
               Close
             </button>
           </OffcanvasPanelFooter>
-        </div>
+        </>
       )}
     </Offcanvas>
   );

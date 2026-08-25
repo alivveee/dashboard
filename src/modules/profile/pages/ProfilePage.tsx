@@ -22,7 +22,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div>
+    <>
       <PageHeader
         title="My Profile"
         action={
@@ -75,7 +75,7 @@ const ProfilePage = () => {
           roleLabel={roleLabel}
         />
       )}
-    </div>
+    </>
   );
 };
 
