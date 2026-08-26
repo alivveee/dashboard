@@ -52,7 +52,7 @@ const UserDetailOffcanvas = ({
     : "";
 
   return (
-    <Offcanvas offcanvasRef={offcanvasRef} onClose={onClose}>
+    <Offcanvas offcanvasRef={offcanvasRef} onClose={onClose} closable>
       {user ? (
         <>
           <OffcanvasPanelHeader title="User Detail" onClose={onClose} />
