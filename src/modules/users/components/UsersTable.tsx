@@ -33,26 +33,47 @@ const UsersTable = ({
       searchPlaceholder="search by name..."
       headers={[
         "#",
-        { content: "Name", isSortable: true, isSearchable: true },
-        { content: "Email", isSortable: true },
-        { content: "Phone", isSortable: true },
-        { content: "Address", isSortable: true },
+        { content: "Personal Data", isSortable: true, isSearchable: true },
+        { content: "Account", isSortable: true },
         { content: "Role", isSortable: true },
         { className: "text-end", content: "Actions" },
       ]}
       rows={users.map((user, index) => [
         index + 1,
-        user.name,
+        {
+          sortValue: user.name,
+          content: (
+            <>
+              <div>{user.name}</div>
+              <div className="text-muted small">{user.address}</div>
+            </>
+          ),
+        },
         {
           sortValue: user.email,
-          content: <CopyableText text={user.email} />,
+          content: (
+            <>
+              <CopyableText
+                text={user.email}
+                className="text-muted small contact-link d-block"
+              />
+
+              <CopyableText
+                text={user.phone}
+                className="text-muted small contact-link d-block"
+              />
+            </>
+          ),
         },
         {
-          sortValue: user.phone,
-          content: <CopyableText text={user.phone} />,
+          sortValue:
+            roles.find((role) => role.id === user.role)?.name ?? user.role,
+          content: (
+            <span className="badge text-bg-secondary">
+              {roles.find((role) => role.id === user.role)?.name ?? user.role}
+            </span>
+          ),
         },
-        user.address,
-        roles.find((role) => role.id === user.role)?.name ?? user.role,
         {
           className: "text-end",
           content: (

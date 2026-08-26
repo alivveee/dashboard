@@ -80,6 +80,10 @@ const UserDetailOffcanvas = ({
               value={user.phone && <CopyableText text={user.phone} />}
             />
 
+            <br />
+
+            <OffcanvasSectionLabel>Role</OffcanvasSectionLabel>
+
             <DetailField
               label="Role"
               value={

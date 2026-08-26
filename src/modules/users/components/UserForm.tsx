@@ -157,6 +157,15 @@ const UserForm = ({
           </div>
         </div>
 
+        <PasswordInput
+          value={values.password}
+          onChange={(value) => handleChange("password", value)}
+        />
+
+        <br />
+
+        <OffcanvasSectionLabel>Role</OffcanvasSectionLabel>
+
         <FormSelect
           id="user-role"
           label="Role"
@@ -165,11 +174,6 @@ const UserForm = ({
           onChange={(value) => handleChange("role", value)}
           options={roleOptions}
           isRequired
-        />
-
-        <PasswordInput
-          value={values.password}
-          onChange={(value) => handleChange("password", value)}
         />
       </OffcanvasPanelBody>
 
