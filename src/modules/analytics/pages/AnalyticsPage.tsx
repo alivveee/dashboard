@@ -7,11 +7,11 @@ const formatPercentage = (value: number) => `${value.toFixed(1)}%`;
 
 const AnalyticsPage = () => {
   const {
-    overview,
-    prospectStatus,
-    customerStatus,
-    prospectRankings,
-    customerRankings,
+    __overview,
+    __prospectStatus,
+    __customerStatus,
+    __prospectRankings,
+    __customerRankings,
   } = useAnalytics();
 
   return (
@@ -37,27 +37,27 @@ const AnalyticsPage = () => {
             <div className="row g-3">
               <AnalyticsCard
                 title="Total Prospects"
-                value={overview.totalProspects}
+                value={__overview.totalProspects}
               />
 
               <AnalyticsCard
                 title="Completed Prospects"
-                value={overview.completedProspects}
+                value={__overview.completedProspects}
               />
 
               <AnalyticsCard
                 title="Conversion Rate"
-                value={formatPercentage(overview.conversionRate)}
+                value={formatPercentage(__overview.conversionRate)}
               />
 
               <AnalyticsCard
                 title="Total Customers"
-                value={overview.totalCustomers}
+                value={__overview.totalCustomers}
               />
 
               <AnalyticsCard
                 title="Active Customers"
-                value={overview.activeCustomers}
+                value={__overview.activeCustomers}
               />
             </div>
           </div>
@@ -82,11 +82,11 @@ const AnalyticsPage = () => {
                   items={[
                     {
                       label: "Completed",
-                      value: prospectStatus.completed,
+                      value: __prospectStatus.completed,
                     },
                     {
                       label: "Pending",
-                      value: prospectStatus.pending,
+                      value: __prospectStatus.pending,
                     },
                   ]}
                 />
@@ -98,11 +98,11 @@ const AnalyticsPage = () => {
                   items={[
                     {
                       label: "Active",
-                      value: customerStatus.active,
+                      value: __customerStatus.active,
                     },
                     {
                       label: "Blocked",
-                      value: customerStatus.blocked,
+                      value: __customerStatus.blocked,
                     },
                   ]}
                 />
@@ -127,7 +127,7 @@ const AnalyticsPage = () => {
               <div className="col-12 col-lg-6">
                 <PackageRankingCard
                   title="Prospect Rankings"
-                  items={prospectRankings}
+                  items={__prospectRankings}
                   type="prospects"
                 />
               </div>
@@ -135,7 +135,7 @@ const AnalyticsPage = () => {
               <div className="col-12 col-lg-6">
                 <PackageRankingCard
                   title="Customer Rankings"
-                  items={customerRankings}
+                  items={__customerRankings}
                   type="customers"
                 />
               </div>

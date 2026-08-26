@@ -40,23 +40,26 @@ const RoleForm = ({
   isLoading,
   actions: { onSubmit, onCancel },
 }: RoleFormProps) => {
-  const { values, handleChange } = useForm(initialValues);
+  const { __values, __handleChange } = useForm(initialValues);
 
-  const toggleAction = (permissionId: string, action: PermissionAction) => {
-    handleChange("grants", {
-      ...values.grants,
-      [permissionId]: toggleInArray(values.grants[permissionId] ?? [], action),
+  const _toggleAction = (permissionId: string, action: PermissionAction) => {
+    __handleChange("grants", {
+      ...__values.grants,
+      [permissionId]: toggleInArray(
+        __values.grants[permissionId] ?? [],
+        action,
+      ),
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const _handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    onSubmit(values);
+    onSubmit(__values);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
+    <form onSubmit={_handleSubmit} className="d-flex flex-column h-100">
       <OffcanvasPanelHeader
         title={isEditing ? "Edit Role" : "Add Role"}
         onClose={onCancel}
@@ -69,8 +72,8 @@ const RoleForm = ({
           id="role-name"
           label="Role Name"
           placeholder="Enter role name here"
-          value={values.name}
-          onChange={(value) => handleChange("name", value)}
+          value={__values.name}
+          onChange={(value) => __handleChange("name", value)}
           isRequired
         />
 
@@ -78,8 +81,8 @@ const RoleForm = ({
           id="role-description"
           label="Description"
           placeholder="Describe this role"
-          value={values.description}
-          onChange={(value) => handleChange("description", value)}
+          value={__values.description}
+          onChange={(value) => __handleChange("description", value)}
         />
 
         <OffcanvasSectionLabel>Permissions</OffcanvasSectionLabel>
@@ -123,7 +126,7 @@ const RoleForm = ({
                           className="form-check-input"
                           aria-label={`${permission.name} - ${PERMISSION_ACTION_LABEL[action]}`}
                           checked={(
-                            values.grants[permission.id] ?? []
+                            __values.grants[permission.id] ?? []
                           ).includes(action)}
                           disabled={isGloballyDisabled}
                           title={
@@ -131,7 +134,7 @@ const RoleForm = ({
                               ? "This action is globally disabled in Permission Management."
                               : undefined
                           }
-                          onChange={() => toggleAction(permission.id, action)}
+                          onChange={() => _toggleAction(permission.id, action)}
                         />
                       </td>
                     );

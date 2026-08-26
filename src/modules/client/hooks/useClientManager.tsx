@@ -28,14 +28,14 @@ const useClientManager = <TItem extends { id: string }>({
   emptyFormData,
 }: UseClientManagerConfig<TItem>) => {
   // Hooks CRUD
-  const { items, isLoading, add, update, remove } = useCrud<TItem>(
-    storageKey,
-    initialItems,
-  );
+  const { __items, __isLoading, __handleAdd, __handleUpdate, __handleRemove } =
+    useCrud<TItem>(storageKey, initialItems);
 
   // Offcanvas
   const formOffcanvas = createOffcanvasControls(useRef<OffcanvasHandle>(null));
-  const detailOffcanvas = createOffcanvasControls(useRef<OffcanvasHandle>(null));
+  const detailOffcanvas = createOffcanvasControls(
+    useRef<OffcanvasHandle>(null),
+  );
 
   // Modal
   const deleteModal = createModalControls(useRef<ModalHandle>(null));
@@ -43,56 +43,56 @@ const useClientManager = <TItem extends { id: string }>({
   // Selected item
   const [selectedItem, setSelectedItem] = useState<TItem | null>(null);
 
-  const handleOpenAdd = () => {
+  const _handleOpenAdd = () => {
     setSelectedItem(null);
     formOffcanvas.open();
   };
 
-  const handleOpenEdit = (item: TItem) => {
+  const _handleOpenEdit = (item: TItem) => {
     setSelectedItem(item);
     formOffcanvas.open();
   };
 
-  const handleOpenDetail = (item: TItem) => {
+  const _handleOpenDetail = (item: TItem) => {
     setSelectedItem(item);
     detailOffcanvas.open();
   };
 
-  const handleCloseDetail = () => {
+  const _handleCloseDetail = () => {
     detailOffcanvas.close();
     setSelectedItem(null);
   };
 
-  const handleSubmitForm = async (data: Omit<TItem, "id">) => {
+  const _handleSubmitForm = async (data: Omit<TItem, "id">) => {
     if (selectedItem) {
-      await update(selectedItem.id, data);
+      await __handleUpdate(selectedItem.id, data);
       showAlert(`${clientLabel} updated successfully.`);
     } else {
-      await add(data);
+      await __handleAdd(data);
       showAlert(`${clientLabel} added successfully.`);
     }
 
-    handleCloseForm();
+    _handleCloseForm();
   };
 
-  const handleCloseForm = () => {
+  const _handleCloseForm = () => {
     formOffcanvas.close();
     setSelectedItem(null);
   };
 
-  const handleOpenDelete = (item: TItem) => {
+  const _handleOpenDelete = (item: TItem) => {
     setSelectedItem(item);
     deleteModal.open();
   };
 
-  const handleConfirmDelete = async () => {
+  const _handleConfirmDelete = async () => {
     if (!selectedItem) return;
 
-    await remove(selectedItem.id);
-    handleCloseDelete();
+    await __handleRemove(selectedItem.id);
+    _handleCloseDelete();
   };
 
-  const handleCloseDelete = () => {
+  const _handleCloseDelete = () => {
     deleteModal.close();
     setSelectedItem(null);
   };
@@ -103,30 +103,30 @@ const useClientManager = <TItem extends { id: string }>({
 
   return {
     // Data
-    items,
-    isLoading,
+    __items,
+    __isLoading,
 
     // Selected
-    selectedItem,
+    __selectedItem: selectedItem,
 
     // Form
-    formInitialValues,
-    formOffcanvasRef: formOffcanvas.ref,
-    handleOpenAdd,
-    handleOpenEdit,
-    handleSubmitForm,
-    handleCloseForm,
+    __formInitialValues: formInitialValues,
+    __formOffcanvasRef: formOffcanvas.ref,
+    __handleOpenAdd: _handleOpenAdd,
+    __handleOpenEdit: _handleOpenEdit,
+    __handleSubmitForm: _handleSubmitForm,
+    __handleCloseForm: _handleCloseForm,
 
     // Delete
-    deleteModalRef: deleteModal.ref,
-    handleOpenDelete,
-    handleConfirmDelete,
-    handleCloseDelete,
+    __deleteModalRef: deleteModal.ref,
+    __handleOpenDelete: _handleOpenDelete,
+    __handleConfirmDelete: _handleConfirmDelete,
+    __handleCloseDelete: _handleCloseDelete,
 
     // Detail
-    detailOffcanvasRef: detailOffcanvas.ref,
-    handleOpenDetail,
-    handleCloseDetail,
+    __detailOffcanvasRef: detailOffcanvas.ref,
+    __handleOpenDetail: _handleOpenDetail,
+    __handleCloseDetail: _handleCloseDetail,
   };
 };
 

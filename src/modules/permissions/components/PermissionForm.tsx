@@ -25,22 +25,25 @@ const PermissionForm = ({
   isLoading,
   actions: { onSubmit, onCancel },
 }: PermissionFormProps) => {
-  const { values, handleChange } = useForm({
+  const { __values, __handleChange } = useForm({
     activeActions: permission.activeActions,
   });
 
-  const toggleAction = (action: PermissionAction) => {
-    handleChange("activeActions", toggleInArray(values.activeActions, action));
+  const _toggleAction = (action: PermissionAction) => {
+    __handleChange(
+      "activeActions",
+      toggleInArray(__values.activeActions, action),
+    );
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const _handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    onSubmit(values.activeActions);
+    onSubmit(__values.activeActions);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
+    <form onSubmit={_handleSubmit} className="d-flex flex-column h-100">
       <OffcanvasPanelHeader title="Edit Permission" onClose={onCancel} />
 
       <OffcanvasPanelBody>
@@ -49,8 +52,8 @@ const PermissionForm = ({
           title={permission.name}
           description={permission.description}
           actions={permission.actions}
-          selectedActions={values.activeActions}
-          onToggle={toggleAction}
+          selectedActions={__values.activeActions}
+          onToggle={_toggleAction}
           getActionState={(action) => {
             // Guard against a Super Admin locking themselves out of this
             // very screen by disabling the action that controls it.

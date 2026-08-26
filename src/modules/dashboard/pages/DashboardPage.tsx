@@ -7,8 +7,8 @@ import { IconAnalytics } from "../../../shared/components/icons/Icons";
 const formatPercentage = (value: number) => `${value.toFixed(1)}%`;
 
 const DashboardPage = () => {
-  const { session } = useAuth();
-  const { overview } = useAnalytics();
+  const { __session } = useAuth();
+  const { __overview } = useAnalytics();
   const navigate = useNavigate();
 
   return (
@@ -17,7 +17,7 @@ const DashboardPage = () => {
       <div className="card border rounded-3 bg-body-tertiary mb-4">
         <div className="card-body">
           <h1 className="h4 mb-1">
-            Welcome back, {session?.name ?? "User"}
+            Welcome back, {__session?.name ?? "User"}
           </h1>
           <p className="text-body-secondary mb-0">
             Here's a summary of GX App activity today.
@@ -46,12 +46,21 @@ const DashboardPage = () => {
         </div>
 
         <div className="row g-3">
-          <StatCard title="Total Prospect" value={overview.totalProspects} />
-          <StatCard title="Total Customer" value={overview.totalCustomers} />
-          <StatCard title="Active Customers" value={overview.activeCustomers} />
+          <StatCard
+            title="Total Prospect"
+            value={__overview.totalProspects}
+          />
+          <StatCard
+            title="Total Customer"
+            value={__overview.totalCustomers}
+          />
+          <StatCard
+            title="Active Customers"
+            value={__overview.activeCustomers}
+          />
           <StatCard
             title="Conversion Rate"
-            value={formatPercentage(overview.conversionRate)}
+            value={formatPercentage(__overview.conversionRate)}
           />
         </div>
       </section>

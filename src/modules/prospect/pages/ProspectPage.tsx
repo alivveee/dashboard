@@ -10,27 +10,26 @@ import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
 const ProspectPage = () => {
-  const { isAddAllowed, isEditAllowed, isDeleteAllowed } = usePermissionFlags(
-    PERMISSION_ID.PROSPECT,
-  );
+  const { __isAddAllowed, __isEditAllowed, __isDeleteAllowed } =
+    usePermissionFlags(PERMISSION_ID.PROSPECT);
 
   const {
-    items: prospects,
-    isLoading,
+    __items,
+    __isLoading,
 
-    selectedItem: selectedProspect,
+    __selectedItem,
 
-    formInitialValues,
-    formOffcanvasRef,
-    handleOpenAdd,
-    handleOpenEdit,
-    handleSubmitForm,
-    handleCloseForm,
+    __formInitialValues,
+    __formOffcanvasRef,
+    __handleOpenAdd,
+    __handleOpenEdit,
+    __handleSubmitForm,
+    __handleCloseForm,
 
-    deleteModalRef,
-    handleOpenDelete,
-    handleConfirmDelete,
-    handleCloseDelete,
+    __deleteModalRef,
+    __handleOpenDelete,
+    __handleConfirmDelete,
+    __handleCloseDelete,
   } = useProspect();
 
   return (
@@ -38,42 +37,45 @@ const ProspectPage = () => {
       <PageHeader
         title="Prospect List"
         action={
-          isAddAllowed
+          __isAddAllowed
             ? {
                 label: "Add Prospect",
                 icon: <IconPlus />,
-                onClick: handleOpenAdd,
+                onClick: __handleOpenAdd,
               }
             : undefined
         }
       />
 
       <ClientTable
-        items={prospects}
+        items={__items}
         clientLabelLower="prospect"
         statusOptions={prospectStatusOptions}
-        actions={{ onEdit: handleOpenEdit, onDelete: handleOpenDelete }}
-        isEditAllowed={isEditAllowed}
-        isDeleteAllowed={isDeleteAllowed}
+        actions={{ onEdit: __handleOpenEdit, onDelete: __handleOpenDelete }}
+        isEditAllowed={__isEditAllowed}
+        isDeleteAllowed={__isDeleteAllowed}
       />
 
       <ClientFormOffcanvas
-        offcanvasRef={formOffcanvasRef}
-        initialValues={formInitialValues}
+        offcanvasRef={__formOffcanvasRef}
+        initialValues={__formInitialValues}
         clientLabel="Prospect"
         namePrefix="prospect"
         statusOptions={prospectStatusOptions}
-        isEditing={!!selectedProspect}
-        isLoading={isLoading}
-        actions={{ onSubmit: handleSubmitForm, onCancel: handleCloseForm }}
+        isEditing={!!__selectedItem}
+        isLoading={__isLoading}
+        actions={{ onSubmit: __handleSubmitForm, onCancel: __handleCloseForm }}
       />
 
       <ConfirmDeleteModal
-        modalRef={deleteModalRef}
+        modalRef={__deleteModalRef}
         entityName="Prospect"
-        itemName={selectedProspect?.name ?? ""}
-        isLoading={isLoading}
-        actions={{ onConfirm: handleConfirmDelete, onCancel: handleCloseDelete }}
+        itemName={__selectedItem?.name ?? ""}
+        isLoading={__isLoading}
+        actions={{
+          onConfirm: __handleConfirmDelete,
+          onCancel: __handleCloseDelete,
+        }}
       />
     </>
   );

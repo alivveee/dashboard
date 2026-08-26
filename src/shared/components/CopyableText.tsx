@@ -6,7 +6,7 @@ interface CopyableTextProps {
 }
 
 const CopyableText = ({ text, className }: CopyableTextProps) => {
-  const handleCopy = async () => {
+  const _handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(text);
       showAlert(`Copied "${text}" to clipboard.`);
@@ -19,7 +19,7 @@ const CopyableText = ({ text, className }: CopyableTextProps) => {
     <span
       role="button"
       title="Click to copy"
-      onClick={handleCopy}
+      onClick={_handleCopy}
       className={className}
       style={{ cursor: "pointer" }}
     >

@@ -5,11 +5,11 @@ import Navbar from "./Navbar";
 import useTheme from "../hooks/useTheme";
 
 const MainLayout = () => {
-  const { theme } = useTheme();
+  const { __theme } = useTheme();
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-bs-theme", theme);
-  }, [theme]);
+    document.documentElement.setAttribute("data-bs-theme", __theme);
+  }, [__theme]);
 
   return (
     <div className="d-flex min-vh-100 bg-body text-body">

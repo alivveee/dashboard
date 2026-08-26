@@ -61,9 +61,9 @@ const useRole = () => {
 
   // Live permission list, so a permission toggled off/on in Permission
   // Management is reflected immediately when building role grants.
-  const { permissions } = usePermission();
+  const { __permissions } = usePermission();
 
-  return { ...manager, roles: manager.items, permissions };
+  return { ...manager, __roles: manager.__items, __permissions };
 };
 
 export default useRole;

@@ -74,7 +74,7 @@ export function useTableShellState({
   const isSearching =
     searchableColumnIndexes.length > 0 && searchQuery.trim() !== "";
 
-  const handleSort = (columnIndex: number) => {
+  const _handleSort = (columnIndex: number) => {
     setSort((prev) => {
       if (!prev || prev.columnIndex !== columnIndex) {
         return { columnIndex, direction: "asc" };
@@ -88,34 +88,34 @@ export function useTableShellState({
     });
   };
 
-  const handlePreviousPage = () => {
+  const _handlePreviousPage = () => {
     setPage((page) => Math.max(1, page - 1));
   };
 
-  const handleNextPage = () => {
+  const _handleNextPage = () => {
     setPage((page) => Math.min(totalPages, page + 1));
   };
 
   return {
-    pagedRows,
-    totalItems,
-    totalPages,
-    currentPage,
-    startIndex,
+    __pagedRows: pagedRows,
+    __totalItems: totalItems,
+    __totalPages: totalPages,
+    __currentPage: currentPage,
+    __startIndex: startIndex,
 
-    pageSize,
-    setPageSize,
+    __pageSize: pageSize,
+    __setPageSize: setPageSize,
 
-    sort,
-    handleSort,
+    __sort: sort,
+    __handleSort: _handleSort,
 
-    searchQuery,
-    setSearchQuery,
-    isSearching,
-    isSearchableColumnsPresent: searchableColumnIndexes.length > 0,
+    __searchQuery: searchQuery,
+    __setSearchQuery: setSearchQuery,
+    __isSearching: isSearching,
+    __isSearchableColumnsPresent: searchableColumnIndexes.length > 0,
 
-    handlePreviousPage,
-    handleNextPage,
-    goToPage: setPage,
+    __handlePreviousPage: _handlePreviousPage,
+    __handleNextPage: _handleNextPage,
+    __goToPage: setPage,
   };
 }

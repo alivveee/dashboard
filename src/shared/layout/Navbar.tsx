@@ -8,16 +8,16 @@ import { routes } from "../../routes/routes.config";
 import UserMenu from "./UserMenu";
 
 const Navbar = () => {
-  const { toggle } = useSidebar();
-  const { theme, toggle: toggleTheme } = useTheme();
-  const { session, logout } = useAuth();
+  const sidebar = useSidebar();
+  const theme = useTheme();
+  const { __session, __logout } = useAuth();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const activeRoute = findActiveRoute(routes, pathname);
 
-  const handleLogout = () => {
-    logout();
+  const _handleLogout = () => {
+    __logout();
     navigate("/login", { replace: true });
   };
 
@@ -28,7 +28,7 @@ const Navbar = () => {
           <button
             type="button"
             className="btn btn-sidebar-toggle p-2"
-            onClick={toggle}
+            onClick={sidebar.__toggle}
             aria-label="Toggle sidebar"
           >
             <IconMenu />
@@ -42,13 +42,13 @@ const Navbar = () => {
           <button
             type="button"
             className="btn btn-sidebar-toggle p-2"
-            onClick={toggleTheme}
+            onClick={theme.__toggle}
             aria-label="Toggle dark mode"
           >
-            {theme === "dark" ? <IconSun /> : <IconMoon />}
+            {theme.__theme === "dark" ? <IconSun /> : <IconMoon />}
           </button>
 
-          <UserMenu session={session} onLogout={handleLogout} />
+          <UserMenu session={__session} onLogout={_handleLogout} />
         </div>
       </div>
     </nav>

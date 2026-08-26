@@ -3,10 +3,10 @@ import useAuth from "../hooks/useAuth";
 import LoginForm from "../components/LoginForm";
 
 const LoginPage = () => {
-  const { isAuthenticated, login } = useAuth();
+  const { __isAuthenticated, __login } = useAuth();
   const location = useLocation();
 
-  if (isAuthenticated) {
+  if (__isAuthenticated) {
     const redirectTo = (location.state as { from?: string })?.from ?? "/";
 
     return <Navigate to={redirectTo} replace />;
@@ -30,7 +30,7 @@ const LoginPage = () => {
             </p>
           </div>
 
-          <LoginForm onSubmit={login} />
+          <LoginForm onSubmit={__login} />
         </div>
       </div>
     </div>

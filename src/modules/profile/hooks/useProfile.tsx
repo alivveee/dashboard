@@ -25,17 +25,16 @@ const emptyForm: ProfileFormData = {
 };
 
 const useProfile = () => {
-  const { session, role, updateSession } = useAuth();
-  const {
-    items: users,
-    isLoading,
-    update,
-  } = useCrud<User>(USERS_KEY, INITIAL_USERS);
+  const { __session, __role, __updateSession } = useAuth();
+  const { __items, __isLoading, __handleUpdate } = useCrud<User>(
+    USERS_KEY,
+    INITIAL_USERS,
+  );
 
   const currentUser =
-    users.find((user) => user.email === session?.email) ?? null;
+    __items.find((user) => user.email === __session?.email) ?? null;
 
-  const updateProfile = async (data: ProfileFormData) => {
+  const _updateProfile = async (data: ProfileFormData) => {
     if (!currentUser) return;
 
     const updated: Omit<User, "id"> = {
@@ -49,9 +48,9 @@ const useProfile = () => {
       password: data.password ? data.password : currentUser.password,
     };
 
-    await update(currentUser.id, updated);
+    await __handleUpdate(currentUser.id, updated);
 
-    updateSession({
+    __updateSession({
       email: updated.email,
       name: updated.name,
       role: updated.role,
@@ -73,12 +72,12 @@ const useProfile = () => {
     : emptyForm;
 
   return {
-    currentUser,
-    roleLabel: role?.name ?? "",
-    isLoading,
+    __currentUser: currentUser,
+    __roleLabel: __role?.name ?? "",
+    __isLoading,
 
-    formInitialValues,
-    updateProfile,
+    __formInitialValues: formInitialValues,
+    __updateProfile: _updateProfile,
   };
 };
 

@@ -32,26 +32,26 @@ function TableShell({
   searchPlaceholder = "Search...",
 }: TableShellProps) {
   const {
-    pagedRows,
-    totalItems,
-    totalPages,
-    currentPage,
-    startIndex,
+    __pagedRows,
+    __totalItems,
+    __totalPages,
+    __currentPage,
+    __startIndex,
 
-    pageSize,
-    setPageSize,
+    __pageSize,
+    __setPageSize,
 
-    sort,
-    handleSort,
+    __sort,
+    __handleSort,
 
-    searchQuery,
-    setSearchQuery,
-    isSearching,
-    isSearchableColumnsPresent,
+    __searchQuery,
+    __setSearchQuery,
+    __isSearching,
+    __isSearchableColumnsPresent,
 
-    handlePreviousPage,
-    handleNextPage,
-    goToPage,
+    __handlePreviousPage,
+    __handleNextPage,
+    __goToPage,
   } = useTableShellState({ headers, rows, defaultPageSize });
 
   const colSpan = headers.length;
@@ -59,11 +59,11 @@ function TableShell({
   return (
     <div className={`card border-0 shadow-sm ${className ?? ""}`.trim()}>
       {/* Search */}
-      {isSearchableColumnsPresent ? (
+      {__isSearchableColumnsPresent ? (
         <div className="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
           <TableSearchBox
-            value={searchQuery}
-            onChange={setSearchQuery}
+            value={__searchQuery}
+            onChange={__setSearchQuery}
             placeholder={searchPlaceholder}
           />
         </div>
@@ -75,15 +75,19 @@ function TableShell({
         style={{ maxHeight: "65vh", overflowY: "auto" }}
       >
         <table className="table align-middle mb-0">
-          <TableShellHead headers={headers} sort={sort} onSort={handleSort} />
+          <TableShellHead
+            headers={headers}
+            sort={__sort}
+            onSort={__handleSort}
+          />
 
           <TableShellBody
-            rows={pagedRows}
+            rows={__pagedRows}
             colSpan={colSpan}
             isLoading={isLoading}
             emptyMessage={
-              isSearching
-                ? `No results found for "${searchQuery.trim()}".`
+              __isSearching
+                ? `No results found for "${__searchQuery.trim()}".`
                 : emptyMessage
             }
           />
@@ -91,19 +95,19 @@ function TableShell({
       </div>
 
       {/* Pagination */}
-      {totalItems > 0 ? (
+      {__totalItems > 0 ? (
         <TableShellPagination
-          pageSize={pageSize}
+          pageSize={__pageSize}
           pageSizeOptions={pageSizeOptions}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          startIndex={startIndex}
-          totalItems={totalItems}
+          currentPage={__currentPage}
+          totalPages={__totalPages}
+          startIndex={__startIndex}
+          totalItems={__totalItems}
           actions={{
-            onPageSizeChange: setPageSize,
-            onPrevious: handlePreviousPage,
-            onNext: handleNextPage,
-            onGoToPage: goToPage,
+            onPageSizeChange: __setPageSize,
+            onPrevious: __handlePreviousPage,
+            onNext: __handleNextPage,
+            onGoToPage: __goToPage,
           }}
         />
       ) : null}

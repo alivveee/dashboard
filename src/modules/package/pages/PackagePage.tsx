@@ -8,27 +8,26 @@ import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
 const PackagePage = () => {
-  const { isAddAllowed, isEditAllowed, isDeleteAllowed } = usePermissionFlags(
-    PERMISSION_ID.PACKAGE,
-  );
+  const { __isAddAllowed, __isEditAllowed, __isDeleteAllowed } =
+    usePermissionFlags(PERMISSION_ID.PACKAGE);
 
   const {
-    packages,
-    isLoading,
+    __packages,
+    __isLoading,
 
-    selectedItem,
+    __selectedItem,
 
-    formInitialValues,
-    formOffcanvasRef,
-    handleOpenAdd,
-    handleOpenEdit,
-    handleSubmitForm,
-    handleCloseForm,
+    __formInitialValues,
+    __formOffcanvasRef,
+    __handleOpenAdd,
+    __handleOpenEdit,
+    __handleSubmitForm,
+    __handleCloseForm,
 
-    deleteModalRef,
-    handleOpenDelete,
-    handleConfirmDelete,
-    handleCloseDelete,
+    __deleteModalRef,
+    __handleOpenDelete,
+    __handleConfirmDelete,
+    __handleCloseDelete,
   } = usePackage();
 
   return (
@@ -36,37 +35,40 @@ const PackagePage = () => {
       <PageHeader
         title="Package Management"
         action={
-          isAddAllowed
+          __isAddAllowed
             ? {
                 label: "Add Package",
                 icon: <IconPlus />,
-                onClick: handleOpenAdd,
+                onClick: __handleOpenAdd,
               }
             : undefined
         }
       />
 
       <PackagesTable
-        packages={packages}
-        actions={{ onEdit: handleOpenEdit, onDelete: handleOpenDelete }}
-        isEditAllowed={isEditAllowed}
-        isDeleteAllowed={isDeleteAllowed}
+        packages={__packages}
+        actions={{ onEdit: __handleOpenEdit, onDelete: __handleOpenDelete }}
+        isEditAllowed={__isEditAllowed}
+        isDeleteAllowed={__isDeleteAllowed}
       />
 
       <PackageFormOffcanvas
-        offcanvasRef={formOffcanvasRef}
-        initialValues={formInitialValues}
-        isEditing={!!selectedItem}
-        isLoading={isLoading}
-        actions={{ onSubmit: handleSubmitForm, onCancel: handleCloseForm }}
+        offcanvasRef={__formOffcanvasRef}
+        initialValues={__formInitialValues}
+        isEditing={!!__selectedItem}
+        isLoading={__isLoading}
+        actions={{ onSubmit: __handleSubmitForm, onCancel: __handleCloseForm }}
       />
 
       <ConfirmDeleteModal
-        modalRef={deleteModalRef}
+        modalRef={__deleteModalRef}
         entityName="Package"
-        itemName={selectedItem?.name ?? ""}
-        isLoading={isLoading}
-        actions={{ onConfirm: handleConfirmDelete, onCancel: handleCloseDelete }}
+        itemName={__selectedItem?.name ?? ""}
+        isLoading={__isLoading}
+        actions={{
+          onConfirm: __handleConfirmDelete,
+          onCancel: __handleCloseDelete,
+        }}
       />
     </>
   );

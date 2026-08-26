@@ -12,9 +12,9 @@ const RequirePermission = ({
   permission,
   children,
 }: RequirePermissionProps) => {
-  const { hasPermission } = useAuth();
+  const { __hasPermission } = useAuth();
 
-  if (permission && !hasPermission(permission)) {
+  if (permission && !__hasPermission(permission)) {
     return <Navigate to={path.dashboard} replace />;
   }
 

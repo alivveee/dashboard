@@ -41,21 +41,21 @@ const UserForm = ({
   isLoading,
   actions: { onSubmit, onCancel },
 }: UserFormProps) => {
-  const { values, handleChange } = useForm(initialValues);
+  const { __values, __handleChange } = useForm(initialValues);
   const roles = useRoles();
   const roleOptions = roles.map((role) => ({
     value: role.id,
     label: role.name,
   }));
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const _handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    onSubmit(values);
+    onSubmit(__values);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
+    <form onSubmit={_handleSubmit} className="d-flex flex-column h-100">
       <OffcanvasPanelHeader
         title={isEditing ? "Edit User" : "Add User"}
         onClose={onCancel}
@@ -68,8 +68,8 @@ const UserForm = ({
           id="user-name"
           label="Name"
           placeholder="Enter user name here"
-          value={values.name}
-          onChange={(value) => handleChange("name", value)}
+          value={__values.name}
+          onChange={(value) => __handleChange("name", value)}
           isRequired
         />
 
@@ -79,8 +79,8 @@ const UserForm = ({
               id="user-birthday"
               label="Date of Birth"
               type="date"
-              value={values.birthday}
-              onChange={(value) => handleChange("birthday", value)}
+              value={__values.birthday}
+              onChange={(value) => __handleChange("birthday", value)}
               icon={<IconCalendar />}
               isRequired
             />
@@ -98,8 +98,8 @@ const UserForm = ({
                       className="form-check-input"
                       id={`user-gender-${option.value}`}
                       name="user-gender"
-                      checked={values.gender === option.value}
-                      onChange={() => handleChange("gender", option.value)}
+                      checked={__values.gender === option.value}
+                      onChange={() => __handleChange("gender", option.value)}
                       required
                     />
                     <label
@@ -119,8 +119,8 @@ const UserForm = ({
           id="user-address"
           label="Address"
           placeholder="Enter address here"
-          value={values.address}
-          onChange={(value) => handleChange("address", value)}
+          value={__values.address}
+          onChange={(value) => __handleChange("address", value)}
           icon={<IconMapPin />}
           isRequired
         />
@@ -136,8 +136,8 @@ const UserForm = ({
               label="Email"
               type="email"
               placeholder="name@email.com"
-              value={values.email}
-              onChange={(value) => handleChange("email", value)}
+              value={__values.email}
+              onChange={(value) => __handleChange("email", value)}
               icon={<IconMail />}
               isRequired
             />
@@ -149,8 +149,8 @@ const UserForm = ({
               label="Phone"
               type="tel"
               placeholder="08xxxxxxxxxx"
-              value={values.phone}
-              onChange={(value) => handleChange("phone", value)}
+              value={__values.phone}
+              onChange={(value) => __handleChange("phone", value)}
               icon={<IconPhone />}
               isRequired
             />
@@ -158,8 +158,8 @@ const UserForm = ({
         </div>
 
         <PasswordInput
-          value={values.password}
-          onChange={(value) => handleChange("password", value)}
+          value={__values.password}
+          onChange={(value) => __handleChange("password", value)}
         />
 
         <br />
@@ -170,8 +170,8 @@ const UserForm = ({
           id="user-role"
           label="Role"
           placeholder="Select role"
-          value={values.role}
-          onChange={(value) => handleChange("role", value)}
+          value={__values.role}
+          onChange={(value) => __handleChange("role", value)}
           options={roleOptions}
           isRequired
         />

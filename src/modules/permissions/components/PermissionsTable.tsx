@@ -41,7 +41,7 @@ const PermissionsTable = ({
         ),
       },
       item.description,
-      <div className="d-flex flex-wrap gap-2">
+      <div className="d-flex  gap-2">
         {item.actions
           .filter((action) => isActionActive(item, action))
           .map((action) => (

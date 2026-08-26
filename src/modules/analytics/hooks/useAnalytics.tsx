@@ -8,29 +8,29 @@ const PACKAGE_LABELS: Record<string, string> = {
 };
 
 const useAnalytics = () => {
-  const { items: prospects } = useProspect();
-  const { items: customers } = useCustomer();
+  const prospectManager = useProspect();
+  const customerManager = useCustomer();
 
-  const analytics = () => {
+  const _analytics = () => {
     // Prospect
-    const totalProspects = prospects.length;
+    const totalProspects = prospectManager.__items.length;
 
-    const pendingProspects = prospects.filter(
+    const pendingProspects = prospectManager.__items.filter(
       (prospect) => prospect.status === "pending",
     ).length;
 
-    const completedProspects = prospects.filter(
+    const completedProspects = prospectManager.__items.filter(
       (prospect) => prospect.status === "completed",
     ).length;
 
     // Customer
-    const totalCustomers = customers.length;
+    const totalCustomers = customerManager.__items.length;
 
-    const activeCustomers = customers.filter(
+    const activeCustomers = customerManager.__items.filter(
       (customer) => customer.status === "active",
     ).length;
 
-    const blockedCustomers = customers.filter(
+    const blockedCustomers = customerManager.__items.filter(
       (customer) => customer.status === "blocked",
     ).length;
 
@@ -40,16 +40,16 @@ const useAnalytics = () => {
 
     // Package
     const packageIds = new Set([
-      ...prospects.map((prospect) => prospect.packageId),
-      ...customers.map((customer) => customer.packageId),
+      ...prospectManager.__items.map((prospect) => prospect.packageId),
+      ...customerManager.__items.map((customer) => customer.packageId),
     ]);
 
     const packageRankings = Array.from(packageIds).map((packageId) => {
-      const prospectsCount = prospects.filter(
+      const prospectsCount = prospectManager.__items.filter(
         (prospect) => prospect.packageId === packageId,
       ).length;
 
-      const customersCount = customers.filter(
+      const customersCount = customerManager.__items.filter(
         (customer) => customer.packageId === packageId,
       ).length;
 
@@ -70,7 +70,7 @@ const useAnalytics = () => {
     );
 
     return {
-      overview: {
+      __overview: {
         totalProspects,
         completedProspects,
         conversionRate,
@@ -79,22 +79,22 @@ const useAnalytics = () => {
         blockedCustomers,
       },
 
-      prospectStatus: {
+      __prospectStatus: {
         pending: pendingProspects,
         completed: completedProspects,
       },
 
-      customerStatus: {
+      __customerStatus: {
         active: activeCustomers,
         blocked: blockedCustomers,
       },
 
-      prospectRankings,
-      customerRankings,
+      __prospectRankings: prospectRankings,
+      __customerRankings: customerRankings,
     };
   };
 
-  return analytics();
+  return _analytics();
 };
 
 export default useAnalytics;

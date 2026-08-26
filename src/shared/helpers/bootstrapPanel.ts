@@ -33,8 +33,8 @@ export const setupBootstrapPanel = <T extends BootstrapPanelInstance>({
   });
 
   const hiddenEvent = `hidden.bs.${eventNamespace}`;
-  const handleHidden = () => onClose();
-  element.addEventListener(hiddenEvent, handleHidden);
+  const _handleHidden = () => onClose();
+  element.addEventListener(hiddenEvent, _handleHidden);
 
   return {
     handle: {
@@ -42,7 +42,7 @@ export const setupBootstrapPanel = <T extends BootstrapPanelInstance>({
       hide: () => instance.hide(),
     },
     teardown: () => {
-      element.removeEventListener(hiddenEvent, handleHidden);
+      element.removeEventListener(hiddenEvent, _handleHidden);
       instance.dispose();
     },
   };

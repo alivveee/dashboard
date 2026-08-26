@@ -20,9 +20,9 @@ const CHART_THEME = {
 };
 
 const useChartTheme = () => {
-  const { theme } = useTheme();
+  const { __theme } = useTheme();
 
-  return CHART_THEME[theme];
+  return CHART_THEME[__theme];
 };
 
 export default useChartTheme;

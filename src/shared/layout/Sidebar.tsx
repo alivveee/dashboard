@@ -6,16 +6,16 @@ import { routes } from "../../routes/routes.config";
 import SidebarMenuItem from "./SidebarMenuItem";
 
 const Sidebar = () => {
-  const { isOpen } = useSidebar();
+  const { __isOpen } = useSidebar();
   const { pathname } = useLocation();
-  const { hasPermission } = useAuth();
+  const { __hasPermission } = useAuth();
 
-  const visibleRoutes = filterRoutesByPermission(routes, hasPermission);
+  const visibleRoutes = filterRoutesByPermission(routes, __hasPermission);
 
   return (
     <aside
       className={`bg-body-tertiary border-end min-vh-100 sidebar ${
-        isOpen ? "sidebar-open" : "sidebar-closed"
+        __isOpen ? "sidebar-open" : "sidebar-closed"
       }`}
     >
       <div className="sidebar-brand d-flex align-items-center justify-content-center gap-2 p-3 h3 mb-0">

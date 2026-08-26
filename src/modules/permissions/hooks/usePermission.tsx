@@ -76,43 +76,42 @@ export const INITIAL_PERMISSIONS: Permission[] = [
 ];
 
 const usePermission = () => {
-  const {
-    items: permissions,
-    isLoading,
-    update,
-  } = useCrud<Permission>(PERMISSIONS_KEY, INITIAL_PERMISSIONS);
+  const { __items, __isLoading, __handleUpdate } = useCrud<Permission>(
+    PERMISSIONS_KEY,
+    INITIAL_PERMISSIONS,
+  );
 
   const formOffcanvas = createOffcanvasControls(useRef<OffcanvasHandle>(null));
   const [selectedItem, setSelectedItem] = useState<Permission | null>(null);
 
-  const handleOpenEdit = (item: Permission) => {
+  const _handleOpenEdit = (item: Permission) => {
     setSelectedItem(item);
     formOffcanvas.open();
   };
 
-  const handleCloseForm = () => {
+  const _handleCloseForm = () => {
     formOffcanvas.close();
     setSelectedItem(null);
   };
 
-  const handleSubmitForm = async (activeActions: PermissionAction[]) => {
+  const _handleSubmitForm = async (activeActions: PermissionAction[]) => {
     if (!selectedItem) return;
 
     const { id, ...rest } = selectedItem;
 
-    await update(id, { ...rest, activeActions });
-    handleCloseForm();
+    await __handleUpdate(id, { ...rest, activeActions });
+    _handleCloseForm();
   };
 
   return {
-    permissions,
-    isLoading,
+    __permissions: __items,
+    __isLoading,
 
-    selectedItem,
-    formOffcanvasRef: formOffcanvas.ref,
-    handleOpenEdit,
-    handleSubmitForm,
-    handleCloseForm,
+    __selectedItem: selectedItem,
+    __formOffcanvasRef: formOffcanvas.ref,
+    __handleOpenEdit: _handleOpenEdit,
+    __handleSubmitForm: _handleSubmitForm,
+    __handleCloseForm: _handleCloseForm,
   };
 };
 

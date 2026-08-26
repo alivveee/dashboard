@@ -7,17 +7,17 @@ import useProfile, { ProfileFormData } from "../hooks/useProfile";
 
 const ProfilePage = () => {
   const {
-    roleLabel,
-    isLoading,
+    __roleLabel,
+    __isLoading,
 
-    formInitialValues,
-    updateProfile,
+    __formInitialValues,
+    __updateProfile,
   } = useProfile();
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleSubmit = async (data: ProfileFormData) => {
-    await updateProfile(data);
+  const _handleSubmit = async (data: ProfileFormData) => {
+    await __updateProfile(data);
     setIsEditing(false);
   };
 
@@ -41,7 +41,7 @@ const ProfilePage = () => {
                 type="button"
                 className="btn btn-outline-secondary"
                 onClick={() => setIsEditing(false)}
-                disabled={isLoading}
+                disabled={__isLoading}
               >
                 Cancel
               </button>
@@ -50,9 +50,9 @@ const ProfilePage = () => {
                 type="submit"
                 form="profile-form"
                 className="btn btn-primary"
-                disabled={isLoading}
+                disabled={__isLoading}
               >
-                {isLoading ? "Saving..." : "Save Changes"}
+                {__isLoading ? "Saving..." : "Save Changes"}
               </button>
             </div>
           ) : undefined
@@ -61,19 +61,19 @@ const ProfilePage = () => {
 
       {isEditing ? (
         <ProfileForm
-          initialValues={formInitialValues}
-          roleLabel={roleLabel}
-          onSubmit={handleSubmit}
+          initialValues={__formInitialValues}
+          roleLabel={__roleLabel}
+          onSubmit={_handleSubmit}
         />
       ) : (
         <ProfileView
-          name={formInitialValues.name}
-          email={formInitialValues.email}
-          phone={formInitialValues.phone}
-          address={formInitialValues.address}
-          birthday={formInitialValues.birthday}
-          gender={formInitialValues.gender}
-          roleLabel={roleLabel}
+          name={__formInitialValues.name}
+          email={__formInitialValues.email}
+          phone={__formInitialValues.phone}
+          address={__formInitialValues.address}
+          birthday={__formInitialValues.birthday}
+          gender={__formInitialValues.gender}
+          roleLabel={__roleLabel}
         />
       )}
     </>

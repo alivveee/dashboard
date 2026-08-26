@@ -23,14 +23,14 @@ export interface Session {
 export const AUTH_KEY = "gx-auth";
 
 interface AuthContextValue {
-  session: Session | null;
-  isAuthenticated: boolean;
-  role: Role | undefined;
-  can: (permissionId: string, action: PermissionAction) => boolean;
-  hasPermission: (key: string) => boolean;
-  login: (email: string, password: string) => boolean;
-  logout: () => void;
-  updateSession: (session: Session) => void;
+  __session: Session | null;
+  __isAuthenticated: boolean;
+  __role: Role | undefined;
+  __can: (permissionId: string, action: PermissionAction) => boolean;
+  __hasPermission: (key: string) => boolean;
+  __login: (email: string, password: string) => boolean;
+  __logout: () => void;
+  __updateSession: (session: Session) => void;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -48,13 +48,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const role = session ? roles.find((r) => r.id === session.role) : undefined;
 
-  const can = (permissionId: string, action: PermissionAction) => {
+  const _can = (permissionId: string, action: PermissionAction) => {
     if (!role) return false;
     const permission = permissionsById.get(permissionId);
     if (!permission || !isActionActive(permission, action)) return false;
     return role.grants[permissionId]?.includes(action) ?? false;
   };
-  const hasPermission = (key: string) => {
+  const _hasPermission = (key: string) => {
     if (!role) return false;
     const relevantPermissions = permissions.filter((p) => p.key === key);
 
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const login = (email: string, password: string) => {
+  const _login = (email: string, password: string) => {
     const user = users.find(
       (u) => u.email === email && u.password === password,
     );
@@ -78,19 +78,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return true;
   };
 
-  const logout = () => {
+  const _logout = () => {
     setSession(null);
   };
 
   const value = () => ({
-    session,
-    isAuthenticated: !!session,
-    role,
-    can,
-    hasPermission,
-    login,
-    logout,
-    updateSession: setSession,
+    __session: session,
+    __isAuthenticated: !!session,
+    __role: role,
+    __can: _can,
+    __hasPermission: _hasPermission,
+    __login: _login,
+    __logout: _logout,
+    __updateSession: setSession,
   });
 
   return (

@@ -19,24 +19,24 @@ const initialForm: LoginFormData = {
 };
 
 const LoginForm = ({ onSubmit }: LoginFormProps) => {
-  const { values, handleChange, resetForm } = useForm(initialForm);
+  const { __values, __handleChange, __resetForm } = useForm(initialForm);
 
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: SubmitEvent) => {
+  const _handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
-    const success = onSubmit(values.email.trim(), values.password);
+    const success = onSubmit(__values.email.trim(), __values.password);
 
     if (!success) {
       setError("Invalid email or password.");
       return;
     }
 
-    resetForm();
+    __resetForm();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={_handleSubmit}>
       {error ? (
         <div className="alert alert-danger py-2" role="alert">
           {error}
@@ -48,15 +48,15 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
         label="Email"
         type="email"
         placeholder="name@email.com"
-        value={values.email}
-        onChange={(value) => handleChange("email", value)}
+        value={__values.email}
+        onChange={(value) => __handleChange("email", value)}
         icon={<IconUser />}
         isRequired
       />
 
       <PasswordInput
-        value={values.password}
-        onChange={(value) => handleChange("password", value)}
+        value={__values.password}
+        onChange={(value) => __handleChange("password", value)}
       />
 
       <button type="submit" className="btn btn-primary w-100 mt-2">

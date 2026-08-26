@@ -10,27 +10,26 @@ import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
 const CustomerPage = () => {
-  const { isAddAllowed, isEditAllowed, isDeleteAllowed } = usePermissionFlags(
-    PERMISSION_ID.CUSTOMER,
-  );
+  const { __isAddAllowed, __isEditAllowed, __isDeleteAllowed } =
+    usePermissionFlags(PERMISSION_ID.CUSTOMER);
 
   const {
-    items: customers,
-    isLoading,
+    __items,
+    __isLoading,
 
-    selectedItem: selectedCustomer,
+    __selectedItem,
 
-    formInitialValues,
-    formOffcanvasRef,
-    handleOpenAdd,
-    handleOpenEdit,
-    handleSubmitForm,
-    handleCloseForm,
+    __formInitialValues,
+    __formOffcanvasRef,
+    __handleOpenAdd,
+    __handleOpenEdit,
+    __handleSubmitForm,
+    __handleCloseForm,
 
-    deleteModalRef,
-    handleOpenDelete,
-    handleConfirmDelete,
-    handleCloseDelete,
+    __deleteModalRef,
+    __handleOpenDelete,
+    __handleConfirmDelete,
+    __handleCloseDelete,
   } = useCustomer();
 
   return (
@@ -38,42 +37,45 @@ const CustomerPage = () => {
       <PageHeader
         title="Customer List"
         action={
-          isAddAllowed
+          __isAddAllowed
             ? {
                 label: "Add Customer",
                 icon: <IconPlus />,
-                onClick: handleOpenAdd,
+                onClick: __handleOpenAdd,
               }
             : undefined
         }
       />
 
       <ClientTable
-        items={customers}
+        items={__items}
         clientLabelLower="customer"
         statusOptions={customerStatusOptions}
-        actions={{ onEdit: handleOpenEdit, onDelete: handleOpenDelete }}
-        isEditAllowed={isEditAllowed}
-        isDeleteAllowed={isDeleteAllowed}
+        actions={{ onEdit: __handleOpenEdit, onDelete: __handleOpenDelete }}
+        isEditAllowed={__isEditAllowed}
+        isDeleteAllowed={__isDeleteAllowed}
       />
 
       <ClientFormOffcanvas
-        offcanvasRef={formOffcanvasRef}
-        initialValues={formInitialValues}
+        offcanvasRef={__formOffcanvasRef}
+        initialValues={__formInitialValues}
         clientLabel="Customer"
         namePrefix="customer"
         statusOptions={customerStatusOptions}
-        isEditing={!!selectedCustomer}
-        isLoading={isLoading}
-        actions={{ onSubmit: handleSubmitForm, onCancel: handleCloseForm }}
+        isEditing={!!__selectedItem}
+        isLoading={__isLoading}
+        actions={{ onSubmit: __handleSubmitForm, onCancel: __handleCloseForm }}
       />
 
       <ConfirmDeleteModal
-        modalRef={deleteModalRef}
+        modalRef={__deleteModalRef}
         entityName="Customer"
-        itemName={selectedCustomer?.name ?? ""}
-        isLoading={isLoading}
-        actions={{ onConfirm: handleConfirmDelete, onCancel: handleCloseDelete }}
+        itemName={__selectedItem?.name ?? ""}
+        isLoading={__isLoading}
+        actions={{
+          onConfirm: __handleConfirmDelete,
+          onCancel: __handleCloseDelete,
+        }}
       />
     </>
   );

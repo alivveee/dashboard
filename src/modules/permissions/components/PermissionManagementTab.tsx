@@ -6,17 +6,17 @@ import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
 const PermissionManagementTab = () => {
-  const { isEditAllowed } = usePermissionFlags(PERMISSION_ID.PERMISSIONS);
+  const { __isEditAllowed } = usePermissionFlags(PERMISSION_ID.PERMISSIONS);
 
   const {
-    permissions,
-    isLoading,
+    __permissions,
+    __isLoading,
 
-    selectedItem,
-    formOffcanvasRef,
-    handleOpenEdit,
-    handleSubmitForm,
-    handleCloseForm,
+    __selectedItem,
+    __formOffcanvasRef,
+    __handleOpenEdit,
+    __handleSubmitForm,
+    __handleCloseForm,
   } = usePermission();
 
   return (
@@ -24,16 +24,16 @@ const PermissionManagementTab = () => {
       <PageHeader title="Permission List" />
 
       <PermissionsTable
-        permissions={permissions}
-        isEditAllowed={isEditAllowed}
-        onEdit={handleOpenEdit}
+        permissions={__permissions}
+        isEditAllowed={__isEditAllowed}
+        onEdit={__handleOpenEdit}
       />
 
       <PermissionFormOffcanvas
-        offcanvasRef={formOffcanvasRef}
-        permission={selectedItem}
-        isLoading={isLoading}
-        actions={{ onSubmit: handleSubmitForm, onCancel: handleCloseForm }}
+        offcanvasRef={__formOffcanvasRef}
+        permission={__selectedItem}
+        isLoading={__isLoading}
+        actions={{ onSubmit: __handleSubmitForm, onCancel: __handleCloseForm }}
       />
     </>
   );

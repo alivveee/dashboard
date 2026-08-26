@@ -9,31 +9,34 @@ import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
 const UserListTab = () => {
-  const { isAddAllowed, isViewAllowed, isEditAllowed, isDeleteAllowed } = usePermissionFlags(
-    PERMISSION_ID.USERS,
-  );
+  const {
+    __isAddAllowed,
+    __isViewAllowed,
+    __isEditAllowed,
+    __isDeleteAllowed,
+  } = usePermissionFlags(PERMISSION_ID.USERS);
 
   const {
-    users,
-    isLoading,
+    __users,
+    __isLoading,
 
-    selectedItem: selectedUser,
+    __selectedItem,
 
-    formInitialValues,
-    formOffcanvasRef,
-    handleOpenAdd,
-    handleOpenEdit,
-    handleSubmitForm,
-    handleCloseForm,
+    __formInitialValues,
+    __formOffcanvasRef,
+    __handleOpenAdd,
+    __handleOpenEdit,
+    __handleSubmitForm,
+    __handleCloseForm,
 
-    deleteModalRef,
-    handleOpenDelete,
-    handleConfirmDelete,
-    handleCloseDelete,
+    __deleteModalRef,
+    __handleOpenDelete,
+    __handleConfirmDelete,
+    __handleCloseDelete,
 
-    detailOffcanvasRef,
-    handleOpenDetail,
-    handleCloseDetail,
+    __detailOffcanvasRef,
+    __handleOpenDetail,
+    __handleCloseDetail,
   } = useUser();
 
   return (
@@ -41,48 +44,51 @@ const UserListTab = () => {
       <PageHeader
         title="User List"
         action={
-          isAddAllowed
+          __isAddAllowed
             ? {
                 label: "Add User",
                 icon: <IconPlus />,
-                onClick: handleOpenAdd,
+                onClick: __handleOpenAdd,
               }
             : undefined
         }
       />
 
       <UsersTable
-        users={users}
+        users={__users}
         actions={{
-          onView: handleOpenDetail,
-          onEdit: handleOpenEdit,
-          onDelete: handleOpenDelete,
+          onView: __handleOpenDetail,
+          onEdit: __handleOpenEdit,
+          onDelete: __handleOpenDelete,
         }}
-        isViewAllowed={isViewAllowed}
-        isEditAllowed={isEditAllowed}
-        isDeleteAllowed={isDeleteAllowed}
+        isViewAllowed={__isViewAllowed}
+        isEditAllowed={__isEditAllowed}
+        isDeleteAllowed={__isDeleteAllowed}
       />
 
       <UserFormOffcanvas
-        offcanvasRef={formOffcanvasRef}
-        initialValues={formInitialValues}
-        isEditing={!!selectedUser}
-        isLoading={isLoading}
-        actions={{ onSubmit: handleSubmitForm, onCancel: handleCloseForm }}
+        offcanvasRef={__formOffcanvasRef}
+        initialValues={__formInitialValues}
+        isEditing={!!__selectedItem}
+        isLoading={__isLoading}
+        actions={{ onSubmit: __handleSubmitForm, onCancel: __handleCloseForm }}
       />
 
       <ConfirmDeleteModal
-        modalRef={deleteModalRef}
+        modalRef={__deleteModalRef}
         entityName="User"
-        itemName={selectedUser?.name ?? ""}
-        isLoading={isLoading}
-        actions={{ onConfirm: handleConfirmDelete, onCancel: handleCloseDelete }}
+        itemName={__selectedItem?.name ?? ""}
+        isLoading={__isLoading}
+        actions={{
+          onConfirm: __handleConfirmDelete,
+          onCancel: __handleCloseDelete,
+        }}
       />
 
       <UserDetailOffcanvas
-        offcanvasRef={detailOffcanvasRef}
-        user={selectedUser}
-        onClose={handleCloseDetail}
+        offcanvasRef={__detailOffcanvasRef}
+        user={__selectedItem}
+        onClose={__handleCloseDetail}
       />
     </>
   );

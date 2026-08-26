@@ -3,26 +3,26 @@ import { useState } from "react";
 const useForm = <T extends object>(initialValues: T) => {
   const [values, setValues] = useState<T>(initialValues);
 
-  const handleChange = (field: keyof T, value: T[keyof T]) => {
+  const _handleChange = (field: keyof T, value: T[keyof T]) => {
     setValues((prev) => ({
       ...prev,
       [field]: value,
     }));
   };
 
-  const setForm = (values: T) => {
+  const _setForm = (values: T) => {
     setValues(values);
   };
 
-  const resetForm = () => {
+  const _resetForm = () => {
     setValues(initialValues);
   };
 
   return {
-    values,
-    setForm,
-    handleChange,
-    resetForm,
+    __values: values,
+    __setForm: _setForm,
+    __handleChange: _handleChange,
+    __resetForm: _resetForm,
   };
 };
 

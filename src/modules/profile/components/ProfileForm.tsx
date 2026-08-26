@@ -21,23 +21,23 @@ interface ProfileFormProps {
 }
 
 const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) => {
-  const { values, handleChange } = useForm(initialValues);
+  const { __values, __handleChange } = useForm(initialValues);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const _handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    onSubmit(values);
+    onSubmit(__values);
   };
 
   return (
-    <form id="profile-form" onSubmit={handleSubmit} className="card">
+    <form id="profile-form" onSubmit={_handleSubmit} className="card">
       <div className="card-body">
         <FormInput
           id="profile-name"
           label="Name"
           placeholder="Enter your name here"
-          value={values.name}
-          onChange={(value) => handleChange("name", value)}
+          value={__values.name}
+          onChange={(value) => __handleChange("name", value)}
           isRequired
         />
 
@@ -46,8 +46,8 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
           label="Email"
           type="email"
           placeholder="name@email.com"
-          value={values.email}
-          onChange={(value) => handleChange("email", value)}
+          value={__values.email}
+          onChange={(value) => __handleChange("email", value)}
           icon={<IconMail />}
           isRequired
         />
@@ -57,8 +57,8 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
           label="Phone"
           type="tel"
           placeholder="08xxxxxxxxxx"
-          value={values.phone}
-          onChange={(value) => handleChange("phone", value)}
+          value={__values.phone}
+          onChange={(value) => __handleChange("phone", value)}
           icon={<IconPhone />}
           isRequired
         />
@@ -67,8 +67,8 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
           id="profile-address"
           label="Address"
           placeholder="Enter address here"
-          value={values.address}
-          onChange={(value) => handleChange("address", value)}
+          value={__values.address}
+          onChange={(value) => __handleChange("address", value)}
           isRequired
         />
 
@@ -76,8 +76,8 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
           id="profile-birthday"
           label="Date of Birth"
           type="date"
-          value={values.birthday}
-          onChange={(value) => handleChange("birthday", value)}
+          value={__values.birthday}
+          onChange={(value) => __handleChange("birthday", value)}
           isRequired
         />
 
@@ -85,15 +85,15 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
           id="profile-gender"
           label="Gender"
           placeholder="Select gender"
-          value={values.gender}
-          onChange={(value) => handleChange("gender", value)}
+          value={__values.gender}
+          onChange={(value) => __handleChange("gender", value)}
           options={genderOptions}
           isRequired
         />
 
         <PasswordInput
-          value={values.password}
-          onChange={(value) => handleChange("password", value)}
+          value={__values.password}
+          onChange={(value) => __handleChange("password", value)}
           label="New Password"
           placeholder="Leave blank to keep current password"
           isRequired={false}

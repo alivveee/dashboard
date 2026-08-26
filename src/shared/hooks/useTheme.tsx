@@ -5,8 +5,8 @@ const useTheme = () => {
   const toggle = useThemeStore((state) => state.toggle);
 
   return {
-    theme,
-    toggle,
+    __theme: theme,
+    __toggle: toggle,
   };
 };
 

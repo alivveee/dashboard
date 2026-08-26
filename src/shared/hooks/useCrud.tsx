@@ -11,7 +11,7 @@ const useCrud = <T extends { id: string }>(
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const add = (data: Omit<T, "id">) => {
+  const _handleAdd = (data: Omit<T, "id">) => {
     setIsLoading(true);
 
     return new Promise<T>((resolve) => {
@@ -29,7 +29,7 @@ const useCrud = <T extends { id: string }>(
     });
   };
 
-  const update = (id: string, data: Omit<T, "id">) => {
+  const _handleUpdate = (id: string, data: Omit<T, "id">) => {
     setIsLoading(true);
 
     return new Promise<void>((resolve) => {
@@ -44,7 +44,7 @@ const useCrud = <T extends { id: string }>(
     });
   };
 
-  const remove = (id: string) => {
+  const _handleRemove = (id: string) => {
     setIsLoading(true);
 
     return new Promise<void>((resolve) => {
@@ -58,11 +58,11 @@ const useCrud = <T extends { id: string }>(
   };
 
   return {
-    items,
-    isLoading,
-    add,
-    update,
-    remove,
+    __items: items,
+    __isLoading: isLoading,
+    __handleAdd: _handleAdd,
+    __handleUpdate: _handleUpdate,
+    __handleRemove: _handleRemove,
   };
 };
 

@@ -26,24 +26,24 @@ const PackageForm = ({
   isLoading,
   actions: { onSubmit, onCancel },
 }: PackageFormProps) => {
-  const { values, handleChange } = useForm({
+  const { __values, __handleChange } = useForm({
     name: initialValues.name,
     speed: initialValues.speed,
     price: String(initialValues.price),
   });
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const _handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     onSubmit({
-      name: values.name,
-      speed: values.speed,
-      price: Number(values.price) || 0,
+      name: __values.name,
+      speed: __values.speed,
+      price: Number(__values.price) || 0,
     });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
+    <form onSubmit={_handleSubmit} className="d-flex flex-column h-100">
       <OffcanvasPanelHeader
         title={isEditing ? "Edit Package" : "Add Package"}
         onClose={onCancel}
@@ -54,8 +54,8 @@ const PackageForm = ({
           id="package-name"
           label="Package Name"
           placeholder="Enter package name here"
-          value={values.name}
-          onChange={(value) => handleChange("name", value)}
+          value={__values.name}
+          onChange={(value) => __handleChange("name", value)}
           isRequired
         />
 
@@ -63,8 +63,8 @@ const PackageForm = ({
           id="package-speed"
           label="Speed"
           placeholder="Example: 100Mbps"
-          value={values.speed}
-          onChange={(value) => handleChange("speed", value)}
+          value={__values.speed}
+          onChange={(value) => __handleChange("speed", value)}
           isRequired
         />
 
@@ -73,8 +73,8 @@ const PackageForm = ({
           label="Price per Month"
           type="number"
           placeholder="Example: 300000"
-          value={values.price}
-          onChange={(value) => handleChange("price", value)}
+          value={__values.price}
+          onChange={(value) => __handleChange("price", value)}
           isRequired
         />
       </OffcanvasPanelBody>

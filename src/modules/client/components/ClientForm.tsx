@@ -43,24 +43,24 @@ function ClientForm<TFormData extends ClientFormData>({
   isEditing,
   isLoading,
 }: ClientFormProps<TFormData>) {
-  const { values, handleChange } = useForm(initialValues);
+  const { __values, __handleChange } = useForm(initialValues);
   const [packages] = useLocalStorage<PackageOption[]>(
     PACKAGES_KEY,
     INITIAL_PACKAGES,
   );
 
-  const setField = (field: keyof TFormData, value: string) => {
-    handleChange(field, value as TFormData[keyof TFormData]);
+  const _setField = (field: keyof TFormData, value: string) => {
+    __handleChange(field, value as TFormData[keyof TFormData]);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const _handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    onSubmit(values);
+    onSubmit(__values);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
+    <form onSubmit={_handleSubmit} className="d-flex flex-column h-100">
       <OffcanvasPanelHeader
         title={isEditing ? `Edit ${clientLabel}` : `Add ${clientLabel}`}
         onClose={onCancel}
@@ -73,8 +73,8 @@ function ClientForm<TFormData extends ClientFormData>({
           id={`${namePrefix}-name`}
           label="Name"
           placeholder={`Enter ${namePrefix} name here`}
-          value={values.name}
-          onChange={(value) => setField("name", value)}
+          value={__values.name}
+          onChange={(value) => _setField("name", value)}
           isRequired
         />
 
@@ -83,8 +83,8 @@ function ClientForm<TFormData extends ClientFormData>({
           label="Email"
           type="email"
           placeholder="name@email.com"
-          value={values.email}
-          onChange={(value) => setField("email", value)}
+          value={__values.email}
+          onChange={(value) => _setField("email", value)}
           icon={<IconMail />}
           isRequired
         />
@@ -94,8 +94,8 @@ function ClientForm<TFormData extends ClientFormData>({
           label="Phone"
           type="tel"
           placeholder="08xxxxxxxxxx"
-          value={values.phone}
-          onChange={(value) => setField("phone", value)}
+          value={__values.phone}
+          onChange={(value) => _setField("phone", value)}
           icon={<IconPhone />}
           isRequired
         />
@@ -108,8 +108,8 @@ function ClientForm<TFormData extends ClientFormData>({
           id={`${namePrefix}-package`}
           label="Package"
           placeholder="Select package"
-          value={values.packageId}
-          onChange={(value) => setField("packageId", value)}
+          value={__values.packageId}
+          onChange={(value) => _setField("packageId", value)}
           options={packages.map((pkg) => ({
             value: pkg.id,
             label: `${pkg.name} ${pkg.speed} - ${formatCurrency(pkg.price)}/month`,
@@ -120,8 +120,8 @@ function ClientForm<TFormData extends ClientFormData>({
           id={`${namePrefix}-status`}
           label="Status"
           placeholder="Select status"
-          value={values.status}
-          onChange={(value) => setField("status", value)}
+          value={__values.status}
+          onChange={(value) => _setField("status", value)}
           options={statusOptions}
         />
       </OffcanvasPanelBody>

@@ -84,11 +84,11 @@ const useUser = () => {
     emptyFormData: emptyForm,
   });
 
-  const users = manager.items.map((user) =>
+  const users = manager.__items.map((user) =>
     user.phone ? user : { ...user, phone: seedPhoneById.get(user.id) ?? "" },
   );
 
-  return { ...manager, users };
+  return { ...manager, __users: users };
 };
 
 export default useUser;

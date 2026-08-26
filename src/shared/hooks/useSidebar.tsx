@@ -5,8 +5,8 @@ const useSidebar = () => {
   const toggle = useSidebarStore((state) => state.toggle);
 
   return {
-    isOpen,
-    toggle,
+    __isOpen: isOpen,
+    __toggle: toggle,
   };
 };
 

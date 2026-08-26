@@ -8,28 +8,27 @@ import usePermissionFlags from "../../auth/hooks/usePermissionFlags";
 import { PERMISSION_ID } from "../../../shared/constants/permissions";
 
 const RoleManagementTab = () => {
-  const { isAddAllowed, isEditAllowed, isDeleteAllowed } = usePermissionFlags(
-    PERMISSION_ID.ROLES,
-  );
+  const { __isAddAllowed, __isEditAllowed, __isDeleteAllowed } =
+    usePermissionFlags(PERMISSION_ID.ROLES);
 
   const {
-    roles,
-    permissions,
-    isLoading,
+    __roles,
+    __permissions,
+    __isLoading,
 
-    selectedItem,
+    __selectedItem,
 
-    formInitialValues,
-    formOffcanvasRef,
-    handleOpenAdd,
-    handleOpenEdit,
-    handleSubmitForm,
-    handleCloseForm,
+    __formInitialValues,
+    __formOffcanvasRef,
+    __handleOpenAdd,
+    __handleOpenEdit,
+    __handleSubmitForm,
+    __handleCloseForm,
 
-    deleteModalRef,
-    handleOpenDelete,
-    handleConfirmDelete,
-    handleCloseDelete,
+    __deleteModalRef,
+    __handleOpenDelete,
+    __handleConfirmDelete,
+    __handleCloseDelete,
   } = useRole();
 
   return (
@@ -37,38 +36,41 @@ const RoleManagementTab = () => {
       <PageHeader
         title="Role List"
         action={
-          isAddAllowed
+          __isAddAllowed
             ? {
                 label: "Add Role",
                 icon: <IconPlus />,
-                onClick: handleOpenAdd,
+                onClick: __handleOpenAdd,
               }
             : undefined
         }
       />
 
       <RolesTable
-        roles={roles}
-        actions={{ onEdit: handleOpenEdit, onDelete: handleOpenDelete }}
-        isEditAllowed={isEditAllowed}
-        isDeleteAllowed={isDeleteAllowed}
+        roles={__roles}
+        actions={{ onEdit: __handleOpenEdit, onDelete: __handleOpenDelete }}
+        isEditAllowed={__isEditAllowed}
+        isDeleteAllowed={__isDeleteAllowed}
       />
 
       <RoleFormOffcanvas
-        offcanvasRef={formOffcanvasRef}
-        initialValues={formInitialValues}
-        permissions={permissions}
-        isEditing={!!selectedItem}
-        isLoading={isLoading}
-        actions={{ onSubmit: handleSubmitForm, onCancel: handleCloseForm }}
+        offcanvasRef={__formOffcanvasRef}
+        initialValues={__formInitialValues}
+        permissions={__permissions}
+        isEditing={!!__selectedItem}
+        isLoading={__isLoading}
+        actions={{ onSubmit: __handleSubmitForm, onCancel: __handleCloseForm }}
       />
 
       <ConfirmDeleteModal
-        modalRef={deleteModalRef}
+        modalRef={__deleteModalRef}
         entityName="Role"
-        itemName={selectedItem?.name ?? ""}
-        isLoading={isLoading}
-        actions={{ onConfirm: handleConfirmDelete, onCancel: handleCloseDelete }}
+        itemName={__selectedItem?.name ?? ""}
+        isLoading={__isLoading}
+        actions={{
+          onConfirm: __handleConfirmDelete,
+          onCancel: __handleCloseDelete,
+        }}
       />
     </>
   );

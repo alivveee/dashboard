@@ -23,7 +23,7 @@ const usePackage = () => {
     emptyFormData: emptyForm,
   });
 
-  return { ...manager, packages: manager.items };
+  return { ...manager, __packages: manager.__items };
 };
 
 export default usePackage;
