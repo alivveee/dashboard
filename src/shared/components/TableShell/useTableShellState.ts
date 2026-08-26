@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { TableShellHeader, TableShellRow, TableShellSortState } from "./types";
 import {
   compareSortValues,
@@ -22,17 +22,13 @@ export function useTableShellState({
   const [sort, setSort] = useState<TableShellSortState | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const searchableColumnIndexes = useMemo(
-    () =>
-      headers
-        .map((header, index) =>
-          isHeaderConfig(header) && header.isSearchable ? index : -1,
-        )
-        .filter((index) => index !== -1),
-    [headers],
-  );
+  const searchableColumnIndexes = headers
+    .map((header, index) =>
+      isHeaderConfig(header) && header.isSearchable ? index : -1,
+    )
+    .filter((index) => index !== -1);
 
-  const filteredRows = useMemo(() => {
+  const filteredRows = (() => {
     const trimmedQuery = searchQuery.trim().toLowerCase();
 
     if (!trimmedQuery || searchableColumnIndexes.length === 0) {
@@ -46,9 +42,9 @@ export function useTableShellState({
           .includes(trimmedQuery),
       ),
     );
-  }, [rows, searchQuery, searchableColumnIndexes]);
+  })();
 
-  const sortedRows = useMemo(() => {
+  const sortedRows = (() => {
     if (!sort) {
       return filteredRows;
     }
@@ -62,17 +58,14 @@ export function useTableShellState({
           getRowSortValue(b, sort.columnIndex),
         ) * factor,
     );
-  }, [filteredRows, sort]);
+  })();
 
   const totalItems = sortedRows.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
   const currentPage = Math.min(page, totalPages);
   const startIndex = (currentPage - 1) * pageSize;
 
-  const pagedRows = useMemo(
-    () => sortedRows.slice(startIndex, startIndex + pageSize),
-    [sortedRows, startIndex, pageSize],
-  );
+  const pagedRows = sortedRows.slice(startIndex, startIndex + pageSize);
 
   useEffect(() => {
     setPage(1);

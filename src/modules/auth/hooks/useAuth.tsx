@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, type ReactNode } from "react";
 import useLocalStorage from "../../../shared/hooks/useLocalStorage";
 import { INITIAL_USERS, USERS_KEY } from "../../users/hooks/useUser";
 import { INITIAL_ROLES, ROLES_KEY } from "../../roles/hooks/useRole";
@@ -50,73 +44,55 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     INITIAL_PERMISSIONS,
   );
 
-  const permissionsById = useMemo(
-    () => new Map(permissions.map((p) => [p.id, p])),
-    [permissions],
-  );
+  const permissionsById = () => new Map(permissions.map((p) => [p.id, p]));
 
-  const role = useMemo(
-    () => (session ? roles.find((r) => r.id === session.role) : undefined),
-    [session, roles],
-  );
+  const role = () =>
+    session ? roles.find((r) => r.id === session.role) : undefined;
 
-  const can = useCallback(
-    (permissionId: string, action: PermissionAction) => {
-      if (!role) return false;
-      const permission = permissionsById.get(permissionId);
-      if (!permission || !isActionActive(permission, action)) return false;
-      return role.grants[permissionId]?.includes(action) ?? false;
-    },
-    [role, permissionsById],
-  );
+  const can = (permissionId: string, action: PermissionAction) => {
+    if (!role) return false;
+    const permission = permissionsById.get(permissionId);
+    if (!permission || !isActionActive(permission, action)) return false;
+    return role.grants[permissionId]?.includes(action) ?? false;
+  };
+  const hasPermission = (key: string) => {
+    if (!role) return false;
+    const relevantPermissions = permissions.filter((p) => p.key === key);
 
-  const hasPermission = useCallback(
-    (key: string) => {
-      if (!role) return false;
-      const relevantPermissions = permissions.filter((p) => p.key === key);
+    if (relevantPermissions.length === 0) return true;
+    return relevantPermissions.some((p) => {
+      const granted = role.grants[p.id] ?? [];
+      return granted.some((action) => isActionActive(p, action));
+    });
+  };
 
-      if (relevantPermissions.length === 0) return true;
-      return relevantPermissions.some((p) => {
-        const granted = role.grants[p.id] ?? [];
-        return granted.some((action) => isActionActive(p, action));
-      });
-    },
-    [role, permissions],
-  );
+  const login = (email: string, password: string) => {
+    const user = users.find(
+      (u) => u.email === email && u.password === password,
+    );
+    if (!user) return false;
+    setSession({
+      email: user.email,
+      name: user.name,
+      role: user.role,
+    });
+    return true;
+  };
 
-  const login = useCallback(
-    (email: string, password: string) => {
-      const user = users.find(
-        (u) => u.email === email && u.password === password,
-      );
-      if (!user) return false;
-      setSession({
-        email: user.email,
-        name: user.name,
-        role: user.role,
-      });
-      return true;
-    },
-    [users, setSession],
-  );
-
-  const logout = useCallback(() => {
+  const logout = () => {
     setSession(null);
-  }, [setSession]);
+  };
 
-  const value = useMemo<AuthContextValue>(
-    () => ({
-      session,
-      isAuthenticated: !!session,
-      role,
-      can,
-      hasPermission,
-      login,
-      logout,
-      updateSession: setSession,
-    }),
-    [session, role, can, hasPermission, login, logout, setSession],
-  );
+  const value = () => ({
+    session,
+    isAuthenticated: !!session,
+    role,
+    can,
+    hasPermission,
+    login,
+    logout,
+    updateSession: setSession,
+  });
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

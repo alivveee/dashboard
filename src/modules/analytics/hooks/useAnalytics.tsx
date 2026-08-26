@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import useProspect from "../../prospect/hooks/useProspect";
 import useCustomer from "../../customer/hooks/useCustomer";
 
@@ -12,7 +11,7 @@ const useAnalytics = () => {
   const { items: prospects } = useProspect();
   const { items: customers } = useCustomer();
 
-  const analytics = useMemo(() => {
+  const analytics = () => {
     // Prospect
     const totalProspects = prospects.length;
 
@@ -93,7 +92,7 @@ const useAnalytics = () => {
       prospectRankings,
       customerRankings,
     };
-  }, [prospects, customers]);
+  };
 
   return analytics;
 };

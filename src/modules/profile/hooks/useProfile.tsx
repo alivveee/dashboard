@@ -1,4 +1,3 @@
-import { useCallback, useMemo } from "react";
 import useCrud from "../../../shared/hooks/useCrud";
 import { showAlert } from "../../../shared/helpers/alert";
 import useAuth from "../../auth/hooks/useAuth";
@@ -31,37 +30,32 @@ const useProfile = () => {
     update,
   } = useCrud<User>(USERS_KEY, INITIAL_USERS);
 
-  const currentUser = useMemo(
-    () => users.find((user) => user.email === session?.email) ?? null,
-    [users, session],
-  );
+  const currentUser = () =>
+    users.find((user) => user.email === session?.email) ?? null;
 
-  const updateProfile = useCallback(
-    async (data: ProfileFormData) => {
-      if (!currentUser) return;
+  const updateProfile = async (data: ProfileFormData) => {
+    if (!currentUser) return;
 
-      const updated: Omit<User, "id"> = {
-        name: data.name,
-        email: data.email,
-        address: data.address,
-        birthday: data.birthday,
-        gender: data.gender,
-        role: currentUser.role,
-        password: data.password ? data.password : currentUser.password,
-      };
+    const updated: Omit<User, "id"> = {
+      name: data.name,
+      email: data.email,
+      address: data.address,
+      birthday: data.birthday,
+      gender: data.gender,
+      role: currentUser.role,
+      password: data.password ? data.password : currentUser.password,
+    };
 
-      await update(currentUser.id, updated);
+    await update(currentUser.id, updated);
 
-      updateSession({
-        email: updated.email,
-        name: updated.name,
-        role: updated.role,
-      });
+    updateSession({
+      email: updated.email,
+      name: updated.name,
+      role: updated.role,
+    });
 
-      showAlert("Profile updated successfully.");
-    },
-    [currentUser, update, updateSession],
-  );
+    showAlert("Profile updated successfully.");
+  };
 
   const formInitialValues: ProfileFormData = currentUser
     ? {
