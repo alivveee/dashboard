@@ -4,8 +4,9 @@ import { Permission, PermissionAction } from "../../../shared/types/Permission.t
 import PermissionActionsFieldset from "../../../shared/components/form/PermissionActionsFieldset";
 import { toggleInArray } from "../../../shared/helpers/array.helper";
 import {
-  OffcanvasFormHeader,
+  OffcanvasPanelHeader,
   OffcanvasPanelBody,
+  OffcanvasFormActions,
 } from "../../../shared/components/OffcanvasPanel";
 
 interface PermissionFormActions {
@@ -40,12 +41,7 @@ const PermissionForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
-      <OffcanvasFormHeader
-        title="Edit Permission"
-        onCancel={onCancel}
-        isLoading={isLoading}
-        submitLabel={isLoading ? "Saving..." : "Save Changes"}
-      />
+      <OffcanvasPanelHeader title="Edit Permission" onClose={onCancel} />
 
       <OffcanvasPanelBody>
         <PermissionActionsFieldset
@@ -70,6 +66,12 @@ const PermissionForm = ({
           }}
         />
       </OffcanvasPanelBody>
+
+      <OffcanvasFormActions
+        onCancel={onCancel}
+        isLoading={isLoading}
+        submitLabel={isLoading ? "Saving..." : "Save Changes"}
+      />
     </form>
   );
 };

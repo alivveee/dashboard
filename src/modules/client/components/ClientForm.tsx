@@ -8,8 +8,9 @@ import { PackageOption } from "../../package/types/Package.types";
 import FormInput from "../../../shared/components/form/FormInput";
 import FormSelect from "../../../shared/components/form/FormSelect";
 import {
-  OffcanvasFormHeader,
+  OffcanvasPanelHeader,
   OffcanvasPanelBody,
+  OffcanvasFormActions,
   OffcanvasSectionLabel,
 } from "../../../shared/components/OffcanvasPanel";
 import { IconMail, IconPhone } from "../../../shared/components/icons/Icons";
@@ -60,13 +61,9 @@ function ClientForm<TFormData extends ClientFormData>({
 
   return (
     <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
-      <OffcanvasFormHeader
+      <OffcanvasPanelHeader
         title={isEditing ? `Edit ${clientLabel}` : `Add ${clientLabel}`}
-        onCancel={onCancel}
-        isLoading={isLoading}
-        submitLabel={
-          isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"
-        }
+        onClose={onCancel}
       />
 
       <OffcanvasPanelBody>
@@ -128,6 +125,14 @@ function ClientForm<TFormData extends ClientFormData>({
           options={statusOptions}
         />
       </OffcanvasPanelBody>
+
+      <OffcanvasFormActions
+        onCancel={onCancel}
+        isLoading={isLoading}
+        submitLabel={
+          isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"
+        }
+      />
     </form>
   );
 }

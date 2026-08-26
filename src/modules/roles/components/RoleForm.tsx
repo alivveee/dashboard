@@ -14,8 +14,9 @@ import {
 } from "../../../shared/constants/permissions";
 import { toggleInArray } from "../../../shared/helpers/array.helper";
 import {
-  OffcanvasFormHeader,
+  OffcanvasPanelHeader,
   OffcanvasPanelBody,
+  OffcanvasFormActions,
   OffcanvasSectionLabel,
 } from "../../../shared/components/OffcanvasPanel";
 
@@ -56,13 +57,9 @@ const RoleForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
-      <OffcanvasFormHeader
+      <OffcanvasPanelHeader
         title={isEditing ? "Edit Role" : "Add Role"}
-        onCancel={onCancel}
-        isLoading={isLoading}
-        submitLabel={
-          isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"
-        }
+        onClose={onCancel}
       />
 
       <OffcanvasPanelBody>
@@ -145,6 +142,14 @@ const RoleForm = ({
           </table>
         </div>
       </OffcanvasPanelBody>
+
+      <OffcanvasFormActions
+        onCancel={onCancel}
+        isLoading={isLoading}
+        submitLabel={
+          isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"
+        }
+      />
     </form>
   );
 };

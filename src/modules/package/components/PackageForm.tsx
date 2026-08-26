@@ -3,8 +3,9 @@ import useForm from "../../../shared/hooks/useForm";
 import { PackageOption } from "../types/Package.types";
 import FormInput from "../../../shared/components/form/FormInput";
 import {
-  OffcanvasFormHeader,
+  OffcanvasPanelHeader,
   OffcanvasPanelBody,
+  OffcanvasFormActions,
 } from "../../../shared/components/OffcanvasPanel";
 
 interface PackageFormActions {
@@ -43,11 +44,9 @@ const PackageForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
-      <OffcanvasFormHeader
+      <OffcanvasPanelHeader
         title={isEditing ? "Edit Package" : "Add Package"}
-        onCancel={onCancel}
-        isLoading={isLoading}
-        submitLabel={isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
+        onClose={onCancel}
       />
 
       <OffcanvasPanelBody>
@@ -79,6 +78,12 @@ const PackageForm = ({
           isRequired
         />
       </OffcanvasPanelBody>
+
+      <OffcanvasFormActions
+        onCancel={onCancel}
+        isLoading={isLoading}
+        submitLabel={isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"}
+      />
     </form>
   );
 };

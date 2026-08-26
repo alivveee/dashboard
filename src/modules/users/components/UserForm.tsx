@@ -6,8 +6,9 @@ import FormInput from "../../../shared/components/form/FormInput";
 import FormSelect from "../../../shared/components/form/FormSelect";
 import PasswordInput from "../../../shared/components/form/PasswordInput";
 import {
-  OffcanvasFormHeader,
+  OffcanvasPanelHeader,
   OffcanvasPanelBody,
+  OffcanvasFormActions,
   OffcanvasSectionLabel,
 } from "../../../shared/components/OffcanvasPanel";
 import {
@@ -54,13 +55,9 @@ const UserForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="d-flex flex-column h-100">
-      <OffcanvasFormHeader
+      <OffcanvasPanelHeader
         title={isEditing ? "Edit User" : "Add User"}
-        onCancel={onCancel}
-        isLoading={isLoading}
-        submitLabel={
-          isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"
-        }
+        onClose={onCancel}
       />
 
       <OffcanvasPanelBody>
@@ -163,6 +160,14 @@ const UserForm = ({
           onChange={(value) => handleChange("password", value)}
         />
       </OffcanvasPanelBody>
+
+      <OffcanvasFormActions
+        onCancel={onCancel}
+        isLoading={isLoading}
+        submitLabel={
+          isLoading ? "Saving..." : isEditing ? "Save Changes" : "Add"
+        }
+      />
     </form>
   );
 };
