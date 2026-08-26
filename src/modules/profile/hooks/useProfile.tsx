@@ -7,6 +7,7 @@ import { User } from "../../users/types/User.types";
 export interface ProfileFormData {
   name: string;
   email: string;
+  phone: string;
   address: string;
   birthday: string;
   gender: string;
@@ -16,6 +17,7 @@ export interface ProfileFormData {
 const emptyForm: ProfileFormData = {
   name: "",
   email: "",
+  phone: "",
   address: "",
   birthday: "",
   gender: "",
@@ -39,6 +41,7 @@ const useProfile = () => {
     const updated: Omit<User, "id"> = {
       name: data.name,
       email: data.email,
+      phone: data.phone,
       address: data.address,
       birthday: data.birthday,
       gender: data.gender,
@@ -61,6 +64,7 @@ const useProfile = () => {
     ? {
         name: currentUser.name,
         email: currentUser.email,
+        phone: currentUser.phone,
         address: currentUser.address,
         birthday: currentUser.birthday,
         gender: currentUser.gender,

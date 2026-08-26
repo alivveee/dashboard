@@ -2,6 +2,7 @@ import { User } from "../types/User.types";
 import useRoles from "../../roles/hooks/useRoles";
 import TableShell from "../../../shared/components/TableShell";
 import TableRowActions from "../../../shared/components/TableRowActions";
+import CopyableText from "../../../shared/components/CopyableText";
 
 interface UserTableActions {
   onView: (user: User) => void;
@@ -34,6 +35,7 @@ const UsersTable = ({
         "#",
         { content: "Name", isSortable: true, isSearchable: true },
         { content: "Email", isSortable: true },
+        { content: "Phone", isSortable: true },
         { content: "Address", isSortable: true },
         { content: "Role", isSortable: true },
         { className: "text-end", content: "Actions" },
@@ -41,7 +43,14 @@ const UsersTable = ({
       rows={users.map((user, index) => [
         index + 1,
         user.name,
-        user.email,
+        {
+          sortValue: user.email,
+          content: <CopyableText text={user.email} />,
+        },
+        {
+          sortValue: user.phone,
+          content: <CopyableText text={user.phone} />,
+        },
         user.address,
         roles.find((role) => role.id === user.role)?.name ?? user.role,
         {

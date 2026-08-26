@@ -69,6 +69,7 @@ const ProfilePage = () => {
         <ProfileView
           name={formInitialValues.name}
           email={formInitialValues.email}
+          phone={formInitialValues.phone}
           address={formInitialValues.address}
           birthday={formInitialValues.birthday}
           gender={formInitialValues.gender}

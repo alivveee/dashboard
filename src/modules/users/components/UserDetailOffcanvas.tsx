@@ -10,6 +10,7 @@ import {
   OffcanvasPanelFooter,
   OffcanvasSectionLabel,
 } from "../../../shared/components/OffcanvasPanel";
+import CopyableText from "../../../shared/components/CopyableText";
 
 interface UserDetailOffcanvasProps {
   offcanvasRef: RefObject<OffcanvasHandle | null>;
@@ -71,14 +72,12 @@ const UserDetailOffcanvas = ({
 
             <DetailField
               label="Email"
-              value={
-                <a
-                  href={`mailto:${user.email}`}
-                  className="text-decoration-none"
-                >
-                  {user.email}
-                </a>
-              }
+              value={user.email && <CopyableText text={user.email} />}
+            />
+
+            <DetailField
+              label="Phone"
+              value={user.phone && <CopyableText text={user.phone} />}
             />
 
             <DetailField

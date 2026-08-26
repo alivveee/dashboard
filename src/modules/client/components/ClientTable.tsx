@@ -5,6 +5,7 @@ import { BaseClient, StatusOption } from "../types/Client.types";
 import { PackageOption } from "../../package/types/Package.types";
 import TableShell from "../../../shared/components/TableShell";
 import TableRowActions from "../../../shared/components/TableRowActions";
+import CopyableText from "../../../shared/components/CopyableText";
 
 interface ClientWithStatus extends BaseClient {
   status: string;
@@ -64,19 +65,15 @@ function ClientTable<TItem extends ClientWithStatus>({
               <>
                 <div>{item.name}</div>
 
-                <a
-                  href={`mailto:${item.email}`}
+                <CopyableText
+                  text={item.email}
                   className="text-muted small contact-link d-block"
-                >
-                  {item.email}
-                </a>
+                />
 
-                <a
-                  href={`tel:${item.phone}`}
+                <CopyableText
+                  text={item.phone}
                   className="text-muted small contact-link d-block"
-                >
-                  {item.phone}
-                </a>
+                />
               </>
             ),
           },

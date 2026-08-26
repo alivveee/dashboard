@@ -1,6 +1,9 @@
+import CopyableText from "../../../shared/components/CopyableText";
+
 interface ProfileViewProps {
   name: string;
   email: string;
+  phone: string;
   address: string;
   birthday: string;
   gender: string;
@@ -10,6 +13,7 @@ interface ProfileViewProps {
 const ProfileView = ({
   name,
   email,
+  phone,
   address,
   birthday,
   gender,
@@ -27,7 +31,16 @@ const ProfileView = ({
 
         <div className="mb-3">
           <div className="form-label text-muted mb-1">Email</div>
-          <div>{email}</div>
+          <div>
+            <CopyableText text={email} />
+          </div>
+        </div>
+
+        <div className="mb-3">
+          <div className="form-label text-muted mb-1">Phone</div>
+          <div>
+            <CopyableText text={phone} />
+          </div>
         </div>
 
         <div className="mb-3">

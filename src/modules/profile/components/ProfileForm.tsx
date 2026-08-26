@@ -4,6 +4,10 @@ import { ProfileFormData } from "../hooks/useProfile";
 import FormInput from "../../../shared/components/form/FormInput";
 import FormSelect from "../../../shared/components/form/FormSelect";
 import PasswordInput from "../../../shared/components/form/PasswordInput";
+import {
+  IconMail,
+  IconPhone,
+} from "../../../shared/components/icons/Icons";
 
 const genderOptions = [
   { value: "L", label: "Male" },
@@ -44,6 +48,18 @@ const ProfileForm = ({ initialValues, roleLabel, onSubmit }: ProfileFormProps) =
           placeholder="name@email.com"
           value={values.email}
           onChange={(value) => handleChange("email", value)}
+          icon={<IconMail />}
+          isRequired
+        />
+
+        <FormInput
+          id="profile-phone"
+          label="Phone"
+          type="tel"
+          placeholder="08xxxxxxxxxx"
+          value={values.phone}
+          onChange={(value) => handleChange("phone", value)}
+          icon={<IconPhone />}
           isRequired
         />
 

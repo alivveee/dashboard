@@ -13,6 +13,7 @@ import {
 } from "../../../shared/components/OffcanvasPanel";
 import {
   IconMail,
+  IconPhone,
   IconMapPin,
   IconCalendar,
 } from "../../../shared/components/icons/Icons";
@@ -143,17 +144,28 @@ const UserForm = ({
           </div>
 
           <div className="col-md-6">
-            <FormSelect
-              id="user-role"
-              label="Role"
-              placeholder="Select role"
-              value={values.role}
-              onChange={(value) => handleChange("role", value)}
-              options={roleOptions}
+            <FormInput
+              id="user-phone"
+              label="Phone"
+              type="tel"
+              placeholder="08xxxxxxxxxx"
+              value={values.phone}
+              onChange={(value) => handleChange("phone", value)}
+              icon={<IconPhone />}
               isRequired
             />
           </div>
         </div>
+
+        <FormSelect
+          id="user-role"
+          label="Role"
+          placeholder="Select role"
+          value={values.role}
+          onChange={(value) => handleChange("role", value)}
+          options={roleOptions}
+          isRequired
+        />
 
         <PasswordInput
           value={values.password}
