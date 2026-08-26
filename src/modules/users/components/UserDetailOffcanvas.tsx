@@ -53,7 +53,7 @@ const UserDetailOffcanvas = ({
 
   return (
     <Offcanvas offcanvasRef={offcanvasRef} onClose={onClose}>
-      {user && (
+      {user ? (
         <>
           <OffcanvasPanelHeader title="User Detail" onClose={onClose} />
 
@@ -99,7 +99,7 @@ const UserDetailOffcanvas = ({
             </button>
           </OffcanvasPanelFooter>
         </>
-      )}
+      ) : null}
     </Offcanvas>
   );
 };

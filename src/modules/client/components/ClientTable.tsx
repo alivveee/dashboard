@@ -85,21 +85,21 @@ function ClientTable<TItem extends ClientWithStatus>({
             content: (
               <>
                 <div>{pkg ? `${pkg.name} ${pkg.speed}` : "-"}</div>
-                {pkg && (
+                {pkg ? (
                   <div className="text-muted small">
                     {formatCurrency(pkg.price)}
                   </div>
-                )}
+                ) : null}
               </>
             ),
           },
           {
             sortValue: status?.label ?? "",
-            content: status && (
+            content: status ? (
               <span className={`badge ${status.badgeClass}`}>
                 {status.label}
               </span>
-            ),
+            ) : null,
           },
           {
             className: "text-end",

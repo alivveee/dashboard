@@ -94,7 +94,7 @@ const useAnalytics = () => {
     };
   };
 
-  return analytics;
+  return analytics();
 };
 
 export default useAnalytics;

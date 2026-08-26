@@ -19,7 +19,7 @@ const PageHeader = ({ title, action, actions }: PageHeaderProps) => {
 
       {actions}
 
-      {!actions && action && (
+      {!actions && action ? (
         <button
           type="button"
           className="btn btn-primary d-flex align-items-center gap-2"
@@ -28,7 +28,7 @@ const PageHeader = ({ title, action, actions }: PageHeaderProps) => {
           {action.icon}
           {action.label}
         </button>
-      )}
+      ) : null}
     </div>
   );
 };

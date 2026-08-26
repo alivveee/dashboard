@@ -59,7 +59,7 @@ function TableShell({
   return (
     <div className={`card border-0 shadow-sm ${className ?? ""}`.trim()}>
       {/* Search */}
-      {isSearchableColumnsPresent && (
+      {isSearchableColumnsPresent ? (
         <div className="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
           <TableSearchBox
             value={searchQuery}
@@ -67,7 +67,7 @@ function TableShell({
             placeholder={searchPlaceholder}
           />
         </div>
-      )}
+      ) : null}
 
       {/* Table */}
       <div
@@ -91,7 +91,7 @@ function TableShell({
       </div>
 
       {/* Pagination */}
-      {totalItems > 0 && (
+      {totalItems > 0 ? (
         <TableShellPagination
           pageSize={pageSize}
           pageSizeOptions={pageSizeOptions}
@@ -106,7 +106,7 @@ function TableShell({
             onGoToPage: goToPage,
           }}
         />
-      )}
+      ) : null}
     </div>
   );
 }

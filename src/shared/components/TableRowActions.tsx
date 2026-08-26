@@ -27,7 +27,7 @@ function TableRowActions<T>({
 
   return (
     <div className="d-flex justify-content-end gap-2">
-      {onView && isViewAllowed && (
+      {onView && isViewAllowed ? (
         <button
           type="button"
           className="btn btn-sm text-secondary border-0 d-flex align-items-center"
@@ -36,9 +36,9 @@ function TableRowActions<T>({
         >
           <IconEye />
         </button>
-      )}
+      ) : null}
 
-      {onEdit && isEditAllowed && (
+      {onEdit && isEditAllowed ? (
         <button
           type="button"
           className="btn btn-sm text-secondary border-0 d-flex align-items-center"
@@ -47,9 +47,9 @@ function TableRowActions<T>({
         >
           <IconEdit />
         </button>
-      )}
+      ) : null}
 
-      {onDelete && isDeleteAllowed && (
+      {onDelete && isDeleteAllowed ? (
         <button
           type="button"
           className="btn btn-sm text-danger border-0 d-flex align-items-center"
@@ -58,7 +58,7 @@ function TableRowActions<T>({
         >
           <IconTrash />
         </button>
-      )}
+      ) : null}
     </div>
   );
 }

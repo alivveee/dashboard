@@ -37,11 +37,11 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {error && (
+      {error ? (
         <div className="alert alert-danger py-2" role="alert">
           {error}
         </div>
-      )}
+      ) : null}
 
       <FormInput
         id="email"

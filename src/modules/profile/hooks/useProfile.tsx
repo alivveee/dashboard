@@ -30,7 +30,7 @@ const useProfile = () => {
     update,
   } = useCrud<User>(USERS_KEY, INITIAL_USERS);
 
-  const currentUser = () =>
+  const currentUser =
     users.find((user) => user.email === session?.email) ?? null;
 
   const updateProfile = async (data: ProfileFormData) => {

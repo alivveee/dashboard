@@ -35,11 +35,11 @@ const FormSelect = ({
         onChange={(e) => onChange(e.target.value)}
         required={isRequired}
       >
-        {placeholder && (
+        {placeholder ? (
           <option value="" disabled hidden>
             {placeholder}
           </option>
-        )}
+        ): null}
 
         {options.map((option) => (
           <option key={option.value} value={option.value}>

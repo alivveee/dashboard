@@ -1,6 +1,11 @@
 import type { RefObject } from "react";
-import { Permission, PermissionAction } from "../../../shared/types/Permission.types";
-import Offcanvas, { type OffcanvasHandle } from "../../../shared/components/Offcanvas";
+import {
+  Permission,
+  PermissionAction,
+} from "../../../shared/types/Permission.types";
+import Offcanvas, {
+  type OffcanvasHandle,
+} from "../../../shared/components/Offcanvas";
 import PermissionForm from "./PermissionForm";
 
 interface PermissionFormOffcanvasActions {
@@ -22,14 +27,14 @@ const PermissionFormOffcanvas = ({
   actions,
 }: PermissionFormOffcanvasProps) => (
   <Offcanvas offcanvasRef={offcanvasRef} onClose={actions.onCancel}>
-    {permission && (
+    {permission ? (
       <PermissionForm
         key={permission.id}
         permission={permission}
         isLoading={isLoading}
         actions={actions}
       />
-    )}
+    ) : null}
   </Offcanvas>
 );
 

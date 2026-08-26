@@ -29,9 +29,9 @@ const PermissionActionsFieldset = ({
     <div className="card-body">
       <div className="fw-semibold">{title}</div>
 
-      {description && (
+      {description ? (
         <div className="text-muted small mb-2">{description}</div>
-      )}
+      ) : null}
 
       <div className="row row-cols-2 g-2 mt-1">
         {actions.map((action) => {
@@ -57,7 +57,9 @@ const PermissionActionsFieldset = ({
                 >
                   {PERMISSION_ACTION_LABEL[action]}
 
-                  {disabled && <span className="text-muted"> (disabled)</span>}
+                  {disabled ? (
+                    <span className="text-muted"> (disabled)</span>
+                  ) : null}
                 </label>
               </div>
             </div>

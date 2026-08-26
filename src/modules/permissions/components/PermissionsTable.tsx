@@ -45,14 +45,17 @@ const PermissionsTable = ({
         {item.actions
           .filter((action) => isActionActive(item, action))
           .map((action) => (
-            <span key={action} className={`badge ${PERMISSION_ACTION_BADGE_CLASS[action]}`}>
+            <span
+              key={action}
+              className={`badge ${PERMISSION_ACTION_BADGE_CLASS[action]}`}
+            >
               {PERMISSION_ACTION_LABEL[action]}
             </span>
           ))}
 
-        {item.activeActions.length === 0 && (
+        {item.activeActions.length === 0 ? (
           <span className="text-muted">No active actions</span>
-        )}
+        ) : null}
       </div>,
       {
         className: "text-end",

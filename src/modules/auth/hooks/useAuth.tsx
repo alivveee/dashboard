@@ -44,10 +44,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     INITIAL_PERMISSIONS,
   );
 
-  const permissionsById = () => new Map(permissions.map((p) => [p.id, p]));
+  const permissionsById = new Map(permissions.map((p) => [p.id, p]));
 
-  const role = () =>
-    session ? roles.find((r) => r.id === session.role) : undefined;
+  const role = session ? roles.find((r) => r.id === session.role) : undefined;
 
   const can = (permissionId: string, action: PermissionAction) => {
     if (!role) return false;
@@ -94,7 +93,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     updateSession: setSession,
   });
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value()}>{children}</AuthContext.Provider>
+  );
 };
 
 const useAuth = () => {

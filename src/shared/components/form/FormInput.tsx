@@ -28,7 +28,7 @@ const FormInput = ({
       </label>
 
       <div className="input-group">
-        {icon && <span className="input-group-text">{icon}</span>}
+        {icon ? <span className="input-group-text">{icon}</span> : null}
 
         <input
           id={id}
