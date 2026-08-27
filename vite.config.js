@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default {
   root: resolve(__dirname, 'src'),
+  envDir: __dirname,
   plugins: [react()],
   build: {
     outDir: '../dist'
