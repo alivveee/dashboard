@@ -1,22 +1,18 @@
 import { useEffect, useState } from "react";
-import { TableShellHeader, TableShellRow, TableShellSortState } from "./types";
-import {
-  compareSortValues,
-  getRowSortValue,
-  isHeaderConfig,
-} from "./table.helper";
+import { TableShellHeader, TableShellSortState } from "./types";
+import { compareSortValues, getRowValue, isHeaderConfig } from "./table.helper";
 
-interface UseTableShellStateOptions {
-  headers: TableShellHeader[];
-  rows: TableShellRow[];
+interface UseTableShellStateOptions<T> {
+  headers: TableShellHeader<T>[];
+  rows: T[];
   defaultPageSize: number;
 }
 
-export function useTableShellState({
+export function useTableShellState<T>({
   headers,
   rows,
   defaultPageSize,
-}: UseTableShellStateOptions) {
+}: UseTableShellStateOptions<T>) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(defaultPageSize);
   const [sort, setSort] = useState<TableShellSortState | null>(null);
@@ -37,7 +33,7 @@ export function useTableShellState({
 
     return rows.filter((row) =>
       searchableColumnIndexes.some((columnIndex) =>
-        String(getRowSortValue(row, columnIndex))
+        String(getRowValue(row, columnIndex, headers))
           .toLowerCase()
           .includes(trimmedQuery),
       ),
@@ -54,8 +50,8 @@ export function useTableShellState({
     return [...filteredRows].sort(
       (a, b) =>
         compareSortValues(
-          getRowSortValue(a, sort.columnIndex),
-          getRowSortValue(b, sort.columnIndex),
+          getRowValue(a, sort.columnIndex, headers),
+          getRowValue(b, sort.columnIndex, headers),
         ) * factor,
     );
   })();

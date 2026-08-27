@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { TableShellHeader, TableShellRow } from "./types";
 import { useTableShellState } from "./useTableShellState";
 import TableSearchBox from "./TableSearchBox";
@@ -5,9 +6,9 @@ import TableShellHead from "./TableShellHead";
 import TableShellBody from "./TableShellBody";
 import TableShellPagination from "./TableShellPagination";
 
-interface TableShellProps {
-  headers: TableShellHeader[];
-  rows: TableShellRow[];
+interface TableShellProps<T = TableShellRow> {
+  headers: TableShellHeader<T>[];
+  rows: T[];
   emptyMessage: string;
 
   isLoading?: boolean;
@@ -17,9 +18,10 @@ interface TableShellProps {
   defaultPageSize?: number;
 
   searchPlaceholder?: string;
+  children?: (pagedRows: T[], startIndex: number) => ReactNode;
 }
 
-function TableShell({
+function TableShell<T = TableShellRow>({
   headers,
   rows,
   emptyMessage,
@@ -30,7 +32,9 @@ function TableShell({
   defaultPageSize = pageSizeOptions[0],
 
   searchPlaceholder = "Search...",
-}: TableShellProps) {
+
+  children,
+}: TableShellProps<T>) {
   const {
     __pagedRows,
     __totalItems,
@@ -85,6 +89,8 @@ function TableShell({
             rows={__pagedRows}
             colSpan={colSpan}
             isLoading={isLoading}
+            startIndex={__startIndex}
+            children={children}
             emptyMessage={
               __isSearching
                 ? `No results found for "${__searchQuery.trim()}".`

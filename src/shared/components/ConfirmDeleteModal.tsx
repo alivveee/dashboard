@@ -19,10 +19,10 @@ const ConfirmDeleteModal = ({
   entityName,
   itemName,
   isLoading,
-  actions: { onConfirm, onCancel },
+  actions,
 }: ConfirmDeleteModalProps) => {
   return (
-    <Modal modalRef={modalRef} onClose={onCancel} closable>
+    <Modal modalRef={modalRef} onClose={actions.onCancel} closable>
       <div className="modal-header">
         <h5 className="modal-title">Delete {entityName}</h5>
 
@@ -30,7 +30,7 @@ const ConfirmDeleteModal = ({
           type="button"
           className="btn-close"
           aria-label="Close"
-          onClick={onCancel}
+          onClick={actions.onCancel}
         />
       </div>
 
@@ -45,7 +45,7 @@ const ConfirmDeleteModal = ({
         <button
           type="button"
           className="btn btn-outline-secondary"
-          onClick={onCancel}
+          onClick={actions.onCancel}
           disabled={isLoading}
         >
           Cancel
@@ -54,7 +54,7 @@ const ConfirmDeleteModal = ({
         <button
           type="button"
           className="btn btn-danger"
-          onClick={onConfirm}
+          onClick={actions.onConfirm}
           disabled={isLoading}
         >
           {isLoading ? "Deleting..." : "Delete"}

@@ -1,8 +1,7 @@
 import { User } from "../types/User.types";
 import useRoles from "../../roles/hooks/useRoles";
 import TableShell from "../../../shared/components/TableShell";
-import TableRowActions from "../../../shared/components/TableRowActions";
-import CopyableText from "../../../shared/components/CopyableText";
+import TableRowUser from "./TableRowUser";
 
 interface UserTableActions {
   onView: (user: User) => void;
@@ -26,69 +25,40 @@ const UsersTable = ({
   isDeleteAllowed,
 }: UserTableProps) => {
   const roles = useRoles();
+  const roleName = (user: User) =>
+    roles.find((role) => role.id === user.role)?.name ?? user.role;
 
   return (
     <TableShell
       emptyMessage="No user data yet."
       searchPlaceholder="search by name..."
+      rows={users}
       headers={[
         "#",
-        { content: "Personal Data", isSortable: true, isSearchable: true },
-        { content: "Account", isSortable: true },
-        { content: "Role", isSortable: true },
+        {
+          content: "Personal Data",
+          isSortable: true,
+          isSearchable: true,
+          sortValue: (user) => user.name,
+        },
+        { content: "Account", isSortable: true, sortValue: (user) => user.email },
+        { content: "Role", isSortable: true, sortValue: roleName },
         { className: "text-end", content: "Actions" },
       ]}
-      rows={users.map((user, index) => [
-        index + 1,
-        {
-          sortValue: user.name,
-          content: (
-            <>
-              <div>{user.name}</div>
-              <div className="text-muted small">{user.address}</div>
-            </>
-          ),
-        },
-        {
-          sortValue: user.email,
-          content: (
-            <>
-              <CopyableText
-                text={user.email}
-                className="text-muted small contact-link d-block"
-              />
-
-              <CopyableText
-                text={user.phone}
-                className="text-muted small contact-link d-block"
-              />
-            </>
-          ),
-        },
-        {
-          sortValue:
-            roles.find((role) => role.id === user.role)?.name ?? user.role,
-          content: (
-            <span className="badge text-bg-secondary">
-              {roles.find((role) => role.id === user.role)?.name ?? user.role}
-            </span>
-          ),
-        },
-        {
-          className: "text-end",
-          content: (
-            <TableRowActions
-              item={user}
-              actions={actions}
-              isViewAllowed={isViewAllowed}
-              isEditAllowed={isEditAllowed}
-              isDeleteAllowed={isDeleteAllowed}
-              label={user.name}
-            />
-          ),
-        },
-      ])}
-    />
+    >
+      {(pagedUsers, startIndex) =>
+        pagedUsers.map((user, index) => (
+          <TableRowUser
+            key={user.id}
+            user={user}
+            index={startIndex + index}
+            roles={roles}
+            actions={actions}
+            permissions={{ isViewAllowed, isEditAllowed, isDeleteAllowed }}
+          />
+        ))
+      }
+    </TableShell>
   );
 };
 

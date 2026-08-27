@@ -1,12 +1,13 @@
 import { ReactNode } from "react";
 
-export type TableShellHeader =
+export type TableShellHeader<T = unknown> =
   | string
   | {
       className?: string;
       content: ReactNode;
       isSortable?: boolean;
       isSearchable?: boolean;
+      sortValue?: (row: T) => string | number;
     };
 
 export type TableShellCell =

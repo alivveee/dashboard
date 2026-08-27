@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setSession(null);
   };
 
-  const value = () => ({
+  const value = {
     __session: session,
     __isAuthenticated: !!session,
     __role: role,
@@ -91,10 +91,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     __login: _login,
     __logout: _logout,
     __updateSession: setSession,
-  });
+  };
 
   return (
-    <AuthContext.Provider value={value()}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
   );
 };
 

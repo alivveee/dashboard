@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { TableShellRow } from "./types";
+import { TableShellHeader, TableShellRow } from "./types";
 
 export const PAGE_ELLIPSIS = "...";
 
@@ -38,12 +38,10 @@ export function getPageNumbers(
   return result;
 }
 
-export function isHeaderConfig(value: unknown): value is {
-  className?: string;
-  content: ReactNode;
-  isSortable?: boolean;
-  isSearchable?: boolean;
-} {
+export function isHeaderConfig<T>(value: TableShellHeader<T>): value is Exclude<
+  TableShellHeader<T>,
+  string
+> {
   return typeof value === "object" && value !== null && "content" in value;
 }
 
@@ -53,8 +51,18 @@ export function isCellConfig(
   return typeof value === "object" && value !== null && "content" in value;
 }
 
-export function getRowSortValue(row: TableShellRow, columnIndex: number): string | number {
-  const cell = row[columnIndex];
+export function getRowValue<T>(
+  row: T,
+  columnIndex: number,
+  headers: TableShellHeader<T>[],
+): string | number {
+  const header = headers[columnIndex];
+
+  if (isHeaderConfig(header) && header.sortValue) {
+    return header.sortValue(row);
+  }
+
+  const cell = (row as unknown as TableShellRow)[columnIndex];
 
   if (isCellConfig(cell)) {
     if (cell.sortValue !== undefined) {
