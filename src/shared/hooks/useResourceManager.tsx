@@ -1,13 +1,13 @@
 import { useRef, useState } from "react";
-import useCrud from "../../../shared/hooks/useCrud";
-import { createOffcanvasControls } from "../../../shared/helpers/offcanvas";
-import type { OffcanvasHandle } from "../../../shared/components/Offcanvas";
-import { createModalControls } from "../../../shared/helpers/modal";
-import type { ModalHandle } from "../../../shared/components/Modal";
-import { showAlert } from "../../../shared/helpers/alert";
+import useCrud from "./useCrud";
+import { createOffcanvasControls } from "../helpers/offcanvas";
+import type { OffcanvasHandle } from "../components/Offcanvas";
+import { createModalControls } from "../helpers/modal";
+import type { ModalHandle } from "../components/Modal";
+import { showAlert } from "../helpers/alert";
 
-interface UseClientManagerConfig<TItem extends { id: string }> {
-  clientLabel: string;
+interface UseResourceManagerConfig<TItem extends { id: string }> {
+  resourceLabel: string;
   storageKey: string;
   initialItems: TItem[];
   emptyFormData: Omit<TItem, "id">;
@@ -21,12 +21,12 @@ const toFormData = <TItem extends { id: string }>(
   return rest;
 };
 
-const useClientManager = <TItem extends { id: string }>({
-  clientLabel,
+const useResourceManager = <TItem extends { id: string }>({
+  resourceLabel,
   storageKey,
   initialItems,
   emptyFormData,
-}: UseClientManagerConfig<TItem>) => {
+}: UseResourceManagerConfig<TItem>) => {
   // Hooks CRUD
   const { __items, __isLoading, __handleAdd, __handleUpdate, __handleRemove } =
     useCrud<TItem>(storageKey, initialItems);
@@ -66,10 +66,10 @@ const useClientManager = <TItem extends { id: string }>({
   const _handleSubmitForm = async (data: Omit<TItem, "id">) => {
     if (selectedItem) {
       await __handleUpdate(selectedItem.id, data);
-      showAlert(`${clientLabel} updated successfully.`);
+      showAlert(`${resourceLabel} updated successfully.`);
     } else {
       await __handleAdd(data);
-      showAlert(`${clientLabel} added successfully.`);
+      showAlert(`${resourceLabel} added successfully.`);
     }
 
     _handleCloseForm();
@@ -130,4 +130,4 @@ const useClientManager = <TItem extends { id: string }>({
   };
 };
 
-export default useClientManager;
+export default useResourceManager;

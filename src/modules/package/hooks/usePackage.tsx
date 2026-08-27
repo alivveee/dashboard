@@ -1,4 +1,4 @@
-import useClientManager from "../../client/hooks/useClientManager";
+import useResourceManager from "../../../shared/hooks/useResourceManager";
 import { PackageOption, PackageFormData } from "../types/Package.types";
 
 export const PACKAGES_KEY = "gx-packages";
@@ -16,8 +16,8 @@ const emptyForm: PackageFormData = {
 };
 
 const usePackage = () => {
-  const manager = useClientManager<PackageOption>({
-    clientLabel: "Package",
+  const manager = useResourceManager<PackageOption>({
+    resourceLabel: "Package",
     storageKey: PACKAGES_KEY,
     initialItems: INITIAL_PACKAGES,
     emptyFormData: emptyForm,

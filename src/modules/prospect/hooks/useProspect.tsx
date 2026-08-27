@@ -3,7 +3,7 @@ import {
   Prospect,
   ProspectFormData,
 } from "../../client/types/Client.types";
-import useClientManager from "../../client/hooks/useClientManager";
+import useResourceManager from "../../../shared/hooks/useResourceManager";
 import { INITIAL_PACKAGES } from "../../package/hooks/usePackage";
 
 const initialProspects: Prospect[] = [
@@ -47,8 +47,8 @@ export const prospectStatusOptions: StatusOption<Prospect["status"]>[] = [
 ];
 
 const useProspect = () =>
-  useClientManager<Prospect>({
-    clientLabel: "Prospect",
+  useResourceManager<Prospect>({
+    resourceLabel: "Prospect",
     storageKey: "gx-prospects",
     initialItems: initialProspects,
     emptyFormData: emptyForm,

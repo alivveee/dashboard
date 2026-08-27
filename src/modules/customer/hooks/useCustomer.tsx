@@ -4,7 +4,7 @@ import {
   CustomerFormData,
   StatusOption,
 } from "../../client/types/Client.types";
-import useClientManager from "../../client/hooks/useClientManager";
+import useResourceManager from "../../../shared/hooks/useResourceManager";
 
 const initialCustomers: Customer[] = [
   {
@@ -143,8 +143,8 @@ export const customerStatusOptions: StatusOption<Customer["status"]>[] = [
 ];
 
 const useCustomer = () =>
-  useClientManager<Customer>({
-    clientLabel: "Customer",
+  useResourceManager<Customer>({
+    resourceLabel: "Customer",
     storageKey: "gx-customers",
     initialItems: initialCustomers,
     emptyFormData: emptyForm,

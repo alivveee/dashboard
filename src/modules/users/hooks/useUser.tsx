@@ -1,4 +1,4 @@
-import useClientManager from "../../client/hooks/useClientManager";
+import useResourceManager from "../../../shared/hooks/useResourceManager";
 import { User, UserFormData } from "../types/User.types";
 
 export const USERS_KEY = "gx-users";
@@ -77,8 +77,8 @@ const seedPhoneById = new Map(
 );
 
 const useUser = () => {
-  const manager = useClientManager<User>({
-    clientLabel: "User",
+  const manager = useResourceManager<User>({
+    resourceLabel: "User",
     storageKey: USERS_KEY,
     initialItems: INITIAL_USERS,
     emptyFormData: emptyForm,

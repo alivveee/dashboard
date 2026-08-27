@@ -1,4 +1,4 @@
-import useClientManager from "../../client/hooks/useClientManager";
+import useResourceManager from "../../../shared/hooks/useResourceManager";
 import usePermission from "../../permissions/hooks/usePermission";
 import { Role, RoleFormData } from "../types/Role.types";
 import {
@@ -52,8 +52,8 @@ const emptyForm: RoleFormData = {
 };
 
 const useRole = () => {
-  const manager = useClientManager<Role>({
-    clientLabel: "Role",
+  const manager = useResourceManager<Role>({
+    resourceLabel: "Role",
     storageKey: ROLES_KEY,
     initialItems: INITIAL_ROLES,
     emptyFormData: emptyForm,
