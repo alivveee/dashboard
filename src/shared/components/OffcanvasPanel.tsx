@@ -42,7 +42,7 @@ interface OffcanvasPanelFooterProps {
 export const OffcanvasPanelFooter = ({
   children,
 }: OffcanvasPanelFooterProps) => (
-  <div className="d-flex justify-content-end gap-2 border-top p-3 mt-3">
+  <div className="d-flex justify-content-start gap-2 border-top p-3 mt-3">
     {children}
   </div>
 );
@@ -61,6 +61,10 @@ export const OffcanvasFormActions = ({
   cancelLabel = "Cancel",
 }: OffcanvasFormActionsProps) => (
   <OffcanvasPanelFooter>
+    <button type="submit" className="btn btn-primary" disabled={isLoading}>
+      {submitLabel}
+    </button>
+
     <button
       type="button"
       className="btn btn-outline-secondary"
@@ -68,10 +72,6 @@ export const OffcanvasFormActions = ({
       disabled={isLoading}
     >
       {cancelLabel}
-    </button>
-
-    <button type="submit" className="btn btn-primary" disabled={isLoading}>
-      {submitLabel}
     </button>
   </OffcanvasPanelFooter>
 );
