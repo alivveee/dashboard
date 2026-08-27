@@ -12,11 +12,11 @@ const MainLayout = () => {
   }, [__theme]);
 
   return (
-    <div className="d-flex min-vh-100 bg-body text-body">
+    <div className="d-flex min-vh-100 overflow-hidden bg-body text-body">
       <Sidebar />
-      <div className="flex-grow-1 d-flex flex-column">
+      <div className="flex-grow-1 d-flex flex-column vh-100 overflow-hidden">
         <Navbar />
-        <main className="p-4">
+        <main className="p-4 flex-grow-1 overflow-y-auto">
           <Outlet />
         </main>
       </div>
