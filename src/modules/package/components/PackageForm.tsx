@@ -1,6 +1,6 @@
 import type { FormEvent } from "react";
 import useForm from "../../../shared/hooks/useForm";
-import { PackageOption } from "../types/Package.types";
+import { PackageFormData } from "../types/Package.types";
 import FormInput from "../../../shared/components/form/FormInput";
 import {
   OffcanvasPanelHeader,
@@ -9,12 +9,12 @@ import {
 } from "../../../shared/components/OffcanvasPanel";
 
 interface PackageFormActions {
-  onSubmit: (data: Omit<PackageOption, "id">) => void;
+  onSubmit: (data: PackageFormData) => void;
   onCancel: () => void;
 }
 
 interface PackageFormProps {
-  initialValues: Omit<PackageOption, "id">;
+  initialValues: PackageFormData;
   isEditing: boolean;
   isLoading: boolean;
   actions: PackageFormActions;

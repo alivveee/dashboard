@@ -1,5 +1,5 @@
 import useClientManager from "../../client/hooks/useClientManager";
-import { User } from "../types/User.types";
+import { User, UserFormData } from "../types/User.types";
 
 export const USERS_KEY = "gx-users";
 
@@ -61,7 +61,7 @@ export const INITIAL_USERS: User[] = [
   },
 ];
 
-const emptyForm: Omit<User, "id"> = {
+const emptyForm: UserFormData = {
   name: "",
   role: "",
   email: "",

@@ -3,7 +3,7 @@ import { formatCurrency } from "../../../shared/helpers/format";
 import { INITIAL_PACKAGES, PACKAGES_KEY } from "../../package/hooks/usePackage";
 import useForm from "../../../shared/hooks/useForm";
 import useLocalStorage from "../../../shared/hooks/useLocalStorage";
-import { BaseClient, StatusOption } from "../types/Client.types";
+import { ClientFormData, StatusOption } from "../types/Client.types";
 import { PackageOption } from "../../package/types/Package.types";
 import FormInput from "../../../shared/components/form/FormInput";
 import FormSelect from "../../../shared/components/form/FormSelect";
@@ -14,10 +14,6 @@ import {
   OffcanvasSectionLabel,
 } from "../../../shared/components/OffcanvasPanel";
 import { IconMail, IconPhone } from "../../../shared/components/icons/Icons";
-
-interface ClientFormData extends Omit<BaseClient, "id"> {
-  status: string;
-}
 
 interface ClientFormActions<TFormData> {
   onSubmit: (data: TFormData) => void;

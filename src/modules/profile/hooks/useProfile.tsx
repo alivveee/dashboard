@@ -2,7 +2,7 @@ import useCrud from "../../../shared/hooks/useCrud";
 import { showAlert } from "../../../shared/helpers/alert";
 import useAuth from "../../auth/hooks/useAuth";
 import { INITIAL_USERS, USERS_KEY } from "../../users/hooks/useUser";
-import { User } from "../../users/types/User.types";
+import { User, UserFormData } from "../../users/types/User.types";
 
 export interface ProfileFormData {
   name: string;
@@ -37,7 +37,7 @@ const useProfile = () => {
   const _updateProfile = async (data: ProfileFormData) => {
     if (!currentUser) return;
 
-    const updated: Omit<User, "id"> = {
+    const updated: UserFormData = {
       name: data.name,
       email: data.email,
       phone: data.phone,

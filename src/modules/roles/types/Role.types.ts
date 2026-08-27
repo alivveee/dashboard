@@ -10,3 +10,9 @@ export interface Role {
   description: string;
   grants: RoleGrants;
 }
+
+export interface RoleFormData {
+  name: string;
+  description: string;
+  grants: RoleGrants;
+}

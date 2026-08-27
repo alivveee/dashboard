@@ -1,5 +1,5 @@
 import useClientManager from "../../client/hooks/useClientManager";
-import { PackageOption } from "../types/Package.types";
+import { PackageOption, PackageFormData } from "../types/Package.types";
 
 export const PACKAGES_KEY = "gx-packages";
 
@@ -9,7 +9,7 @@ export const INITIAL_PACKAGES: PackageOption[] = [
   { id: "dedicated", name: "Dedicated", speed: "100Mbps", price: 1000000 },
 ];
 
-const emptyForm: Omit<PackageOption, "id"> = {
+const emptyForm: PackageFormData = {
   name: "",
   speed: "",
   price: 0,

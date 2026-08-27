@@ -23,5 +23,26 @@ export type Customer = BaseClient & {
   status: CustomerStatus;
 };
 
-export type ProspectFormData = Omit<Prospect, "id">;
-export type CustomerFormData = Omit<Customer, "id">;
+export interface ClientFormData {
+  name: string;
+  email: string;
+  phone: string;
+  packageId: string;
+  status: string;
+}
+
+export interface ProspectFormData {
+  name: string;
+  email: string;
+  phone: string;
+  packageId: string;
+  status: ProspectStatus;
+}
+
+export interface CustomerFormData {
+  name: string;
+  email: string;
+  phone: string;
+  packageId: string;
+  status: CustomerStatus;
+}

@@ -1,16 +1,16 @@
 import type { RefObject } from "react";
-import { PackageOption } from "../types/Package.types";
+import { PackageFormData } from "../types/Package.types";
 import Offcanvas, { type OffcanvasHandle } from "../../../shared/components/Offcanvas";
 import PackageForm from "./PackageForm";
 
 interface PackageFormOffcanvasActions {
-  onSubmit: (data: Omit<PackageOption, "id">) => void;
+  onSubmit: (data: PackageFormData) => void;
   onCancel: () => void;
 }
 
 interface PackageFormOffcanvasProps {
   offcanvasRef: RefObject<OffcanvasHandle | null>;
-  initialValues: Omit<PackageOption, "id">;
+  initialValues: PackageFormData;
   isEditing: boolean;
   isLoading: boolean;
   actions: PackageFormOffcanvasActions;

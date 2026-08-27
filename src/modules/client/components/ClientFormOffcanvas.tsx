@@ -1,11 +1,7 @@
 import type { RefObject } from "react";
-import { StatusOption, BaseClient } from "../types/Client.types";
+import { StatusOption, ClientFormData } from "../types/Client.types";
 import Offcanvas, { type OffcanvasHandle } from "../../../shared/components/Offcanvas";
 import ClientForm from "./ClientForm";
-
-interface ClientFormData extends Omit<BaseClient, "id"> {
-  status: string;
-}
 
 interface ClientFormOffcanvasActions<TFormData> {
   onSubmit: (data: TFormData) => void;

@@ -9,3 +9,14 @@ export interface User {
   gender: string;
   password: string;
 }
+
+export interface UserFormData {
+  name: string;
+  role: string;
+  email: string;
+  phone: string;
+  address: string;
+  birthday: string;
+  gender: string;
+  password: string;
+}

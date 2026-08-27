@@ -1,6 +1,6 @@
 import type { FormEvent } from "react";
 import useForm from "../../../shared/hooks/useForm";
-import { Role } from "../types/Role.types";
+import { RoleFormData } from "../types/Role.types";
 import {
   Permission,
   PermissionAction,
@@ -21,12 +21,12 @@ import {
 } from "../../../shared/components/OffcanvasPanel";
 
 interface RoleFormActions {
-  onSubmit: (data: Omit<Role, "id">) => void;
+  onSubmit: (data: RoleFormData) => void;
   onCancel: () => void;
 }
 
 interface RoleFormProps {
-  initialValues: Omit<Role, "id">;
+  initialValues: RoleFormData;
   permissions: Permission[];
   isEditing: boolean;
   isLoading: boolean;

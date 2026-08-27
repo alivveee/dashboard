@@ -1,6 +1,6 @@
 import useClientManager from "../../client/hooks/useClientManager";
 import usePermission from "../../permissions/hooks/usePermission";
-import { Role } from "../types/Role.types";
+import { Role, RoleFormData } from "../types/Role.types";
 import {
   CRUD_ACTIONS,
   PERMISSION_ID,
@@ -45,7 +45,7 @@ export const INITIAL_ROLES: Role[] = [
   },
 ];
 
-const emptyForm: Omit<Role, "id"> = {
+const emptyForm: RoleFormData = {
   name: "",
   description: "",
   grants: {},

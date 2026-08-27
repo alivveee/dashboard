@@ -1,16 +1,16 @@
 import type { RefObject } from "react";
-import { User } from "../types/User.types";
+import { UserFormData } from "../types/User.types";
 import Offcanvas, { type OffcanvasHandle } from "../../../shared/components/Offcanvas";
 import UserForm from "./UserForm";
 
 interface UserFormOffcanvasActions {
-  onSubmit: (data: Omit<User, "id">) => void;
+  onSubmit: (data: UserFormData) => void;
   onCancel: () => void;
 }
 
 interface UserFormOffcanvasProps {
   offcanvasRef: RefObject<OffcanvasHandle | null>;
-  initialValues: Omit<User, "id">;
+  initialValues: UserFormData;
   isEditing: boolean;
   isLoading: boolean;
   actions: UserFormOffcanvasActions;

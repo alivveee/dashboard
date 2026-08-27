@@ -1,17 +1,17 @@
 import type { RefObject } from "react";
-import { Role } from "../types/Role.types";
+import { RoleFormData } from "../types/Role.types";
 import { Permission } from "../../../shared/types/Permission.types";
 import Offcanvas, { type OffcanvasHandle } from "../../../shared/components/Offcanvas";
 import RoleForm from "./RoleForm";
 
 interface RoleFormOffcanvasActions {
-  onSubmit: (data: Omit<Role, "id">) => void;
+  onSubmit: (data: RoleFormData) => void;
   onCancel: () => void;
 }
 
 interface RoleFormOffcanvasProps {
   offcanvasRef: RefObject<OffcanvasHandle | null>;
-  initialValues: Omit<Role, "id">;
+  initialValues: RoleFormData;
   permissions: Permission[];
   isEditing: boolean;
   isLoading: boolean;

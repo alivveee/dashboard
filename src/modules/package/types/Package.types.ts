@@ -4,3 +4,9 @@ export interface PackageOption {
   speed: string;
   price: number;
 }
+
+export interface PackageFormData {
+  name: string;
+  speed: string;
+  price: number;
+}

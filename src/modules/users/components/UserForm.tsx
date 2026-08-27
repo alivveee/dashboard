@@ -1,7 +1,7 @@
 import type { FormEvent } from "react";
 import useForm from "../../../shared/hooks/useForm";
 import useRoles from "../../roles/hooks/useRoles";
-import { User } from "../types/User.types";
+import { UserFormData } from "../types/User.types";
 import FormInput from "../../../shared/components/form/FormInput";
 import FormSelect from "../../../shared/components/form/FormSelect";
 import PasswordInput from "../../../shared/components/form/PasswordInput";
@@ -24,12 +24,12 @@ const genderOptions = [
 ];
 
 interface UserFormActions {
-  onSubmit: (data: Omit<User, "id">) => void;
+  onSubmit: (data: UserFormData) => void;
   onCancel: () => void;
 }
 
 interface UserFormProps {
-  initialValues: Omit<User, "id">;
+  initialValues: UserFormData;
   isEditing: boolean;
   isLoading: boolean;
   actions: UserFormActions;
