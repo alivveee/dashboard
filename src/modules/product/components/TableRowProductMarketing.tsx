@@ -89,9 +89,9 @@ const TableRowProductMarketing = ({ item }: TableRowProductMarketingProps) => {
 
         {hasChips ? (
           <div className="d-flex flex-wrap gap-1 mt-2">
-            {item.popular ? (
+            {/* {item.popular ? (
               <span className="badge text-bg-warning">Popular</span>
-            ) : null}
+            ) : null} */}
             {validAddOns.map((addOn) => (
               <span
                 key={addOn.id}
@@ -103,6 +103,21 @@ const TableRowProductMarketing = ({ item }: TableRowProductMarketingProps) => {
             ))}
           </div>
         ) : null}
+
+        <div className="d-flex flex-wrap gap-1 mt-2">
+          <StatusBadge
+            isOn={item.active}
+            onLabel="Active"
+            offLabel="Inactive"
+            onClassName="text-bg-success"
+          />
+          <StatusBadge
+            isOn={item.publish}
+            onLabel="Published"
+            offLabel="Unpublished"
+            onClassName="text-bg-info"
+          />
+        </div>
       </td>
 
       <td className={CELL_CLASS} style={{ width: "24%" }}>
@@ -216,23 +231,6 @@ const TableRowProductMarketing = ({ item }: TableRowProductMarketingProps) => {
         ) : (
           "-"
         )}
-      </td>
-
-      <td className={CELL_CLASS} style={{ width: "14%" }}>
-        <div className="d-flex flex-wrap gap-1 mb-2">
-          <StatusBadge
-            isOn={item.active}
-            onLabel="Active"
-            offLabel="Inactive"
-            onClassName="text-bg-success"
-          />
-          <StatusBadge
-            isOn={item.publish}
-            onLabel="Published"
-            offLabel="Unpublished"
-            onClassName="text-bg-info"
-          />
-        </div>
       </td>
     </tr>
   );

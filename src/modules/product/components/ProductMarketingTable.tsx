@@ -21,7 +21,6 @@ const ProductMarketingTable = ({
       "Product",
       "Pricing",
       "Branches",
-      "Status",
     ].map((content) => ({ content, className: "py-3" }))}
   >
     {(pagedItems) =>
