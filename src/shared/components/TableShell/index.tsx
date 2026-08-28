@@ -6,6 +6,13 @@ import TableShellHead from "./TableShellHead";
 import TableShellBody from "./TableShellBody";
 import TableShellPagination from "./TableShellPagination";
 
+interface TableShellSearch {
+  value: string;
+  appliedValue?: string;
+  onChange: (value: string) => void;
+  onSubmit: () => void;
+}
+
 interface TableShellProps<T = TableShellRow> {
   headers: TableShellHeader<T>[];
   rows: T[];
@@ -19,6 +26,7 @@ interface TableShellProps<T = TableShellRow> {
   isPaginationHidden?: boolean;
 
   searchPlaceholder?: string;
+  search?: TableShellSearch;
   children?: (pagedRows: T[], startIndex: number) => ReactNode;
 }
 
@@ -34,6 +42,7 @@ function TableShell<T = TableShellRow>({
   isPaginationHidden = false,
 
   searchPlaceholder = "Search...",
+  search,
 
   children,
 }: TableShellProps<T>) {
@@ -68,14 +77,22 @@ function TableShell<T = TableShellRow>({
 
   const colSpan = headers.length;
 
+  // Search is either external (server-side, controlled by the consumer) or
+  // internal (client-side filtering driven by isSearchable headers).
+  const appliedSearchQuery = search
+    ? (search.appliedValue ?? "").trim()
+    : __searchQuery.trim();
+  const isSearchApplied = search ? appliedSearchQuery !== "" : __isSearching;
+
   return (
     <div className={`card border-0 shadow-sm ${className ?? ""}`.trim()}>
       {/* Search */}
-      {__isSearchableColumnsPresent ? (
+      {search || __isSearchableColumnsPresent ? (
         <div className="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
           <TableSearchBox
-            value={__searchQuery}
-            onChange={__setSearchQuery}
+            value={search ? search.value : __searchQuery}
+            onChange={search ? search.onChange : __setSearchQuery}
+            onSubmit={search ? search.onSubmit : undefined}
             placeholder={searchPlaceholder}
           />
         </div>
@@ -104,8 +121,8 @@ function TableShell<T = TableShellRow>({
             startIndex={__startIndex}
             children={children}
             emptyMessage={
-              __isSearching
-                ? `No results found for "${__searchQuery.trim()}".`
+              isSearchApplied
+                ? `No results found for "${appliedSearchQuery}".`
                 : emptyMessage
             }
           />
@@ -133,4 +150,5 @@ function TableShell<T = TableShellRow>({
   );
 }
 
+export type { TableShellSearch };
 export default TableShell;

@@ -5,8 +5,15 @@ import useProductMarketing from "../hooks/useProductMarketing";
 import ProductMarketingTable from "../components/ProductMarketingTable";
 
 const ProductMarketingPage = () => {
-  const { __productMarketings, __isLoading, __errorMessage } =
-    useProductMarketing();
+  const {
+    __productMarketings,
+    __isLoading,
+    __errorMessage,
+    __searchQuery,
+    __setSearchQuery,
+    __appliedSearch,
+    __handleSubmitSearch,
+  } = useProductMarketing();
   const { __close } = useSidebar();
 
   useEffect(() => {
@@ -24,6 +31,12 @@ const ProductMarketingPage = () => {
       <ProductMarketingTable
         items={__productMarketings}
         isLoading={__isLoading}
+        search={{
+          value: __searchQuery,
+          appliedValue: __appliedSearch,
+          onChange: __setSearchQuery,
+          onSubmit: __handleSubmitSearch,
+        }}
       />
     </>
   );
