@@ -28,6 +28,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Search,
+  FunnelPlus,
   Mail,
   Phone,
   MapPin,
@@ -148,6 +149,10 @@ export const IconChevronLeft = ({ className }: IconProps) => (
 
 export const IconSearch = ({ className }: IconProps) => (
   <Search size={16} className={className} />
+);
+
+export const IconFilter = ({ className }: IconProps) => (
+  <FunnelPlus size={16} className={className} />
 );
 
 export const IconChevronRight = ({ className }: IconProps) => (

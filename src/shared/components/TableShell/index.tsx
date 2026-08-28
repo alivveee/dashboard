@@ -27,6 +27,7 @@ interface TableShellProps<T = TableShellRow> {
 
   searchPlaceholder?: string;
   search?: TableShellSearch;
+  advanceSearch?: ReactNode;
   children?: (pagedRows: T[], startIndex: number) => ReactNode;
 }
 
@@ -43,6 +44,7 @@ function TableShell<T = TableShellRow>({
 
   searchPlaceholder = "Search...",
   search,
+  advanceSearch,
 
   children,
 }: TableShellProps<T>) {
@@ -77,8 +79,6 @@ function TableShell<T = TableShellRow>({
 
   const colSpan = headers.length;
 
-  // Search is either external (server-side, controlled by the consumer) or
-  // internal (client-side filtering driven by isSearchable headers).
   const appliedSearchQuery = search
     ? (search.appliedValue ?? "").trim()
     : __searchQuery.trim();
@@ -87,14 +87,18 @@ function TableShell<T = TableShellRow>({
   return (
     <div className={`card border-0 shadow-sm ${className ?? ""}`.trim()}>
       {/* Search */}
-      {search || __isSearchableColumnsPresent ? (
+      {search || advanceSearch || __isSearchableColumnsPresent ? (
         <div className="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
-          <TableSearchBox
-            value={search ? search.value : __searchQuery}
-            onChange={search ? search.onChange : __setSearchQuery}
-            onSubmit={search ? search.onSubmit : undefined}
-            placeholder={searchPlaceholder}
-          />
+          <div className="d-flex align-items-center gap-2">
+            <TableSearchBox
+              value={search ? search.value : __searchQuery}
+              onChange={search ? search.onChange : __setSearchQuery}
+              onSubmit={search ? search.onSubmit : undefined}
+              placeholder={searchPlaceholder}
+            />
+
+            {advanceSearch}
+          </div>
         </div>
       ) : null}
 

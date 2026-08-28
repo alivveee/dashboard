@@ -82,3 +82,10 @@ export type ProductVariantMarketing = {
   techvisitFree: number;
   includeTax: boolean;
 };
+
+export type ProductMarketingFilter = {
+  search: string;
+  productIds: string[];
+  billingCycleIds: string[];
+  publish: string;
+};

@@ -30,6 +30,11 @@ $font-family-sans-serif: "Inter", sans-serif;
   display: none;
 }
 
+.sidebar-brand {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .sidebar-brand-short {
   display: none;
 }

@@ -7,6 +7,9 @@ const PRODUCT_MARKETING_ENDPOINT =
 
 export interface FetchProductVariantMarketingsParams {
   search?: string;
+  productIds?: string[];
+  billingCycleIds?: string[];
+  publish?: string;
 }
 
 export const fetchProductVariantMarketings = async (
@@ -16,7 +19,13 @@ export const fetchProductVariantMarketings = async (
   const response = await api.get<ApiResponse<ProductVariantMarketing[]>>(
     PRODUCT_MARKETING_ENDPOINT,
     {
-      params: { search: params.search?.trim() || undefined, all: true },
+      params: {
+        search: params.search?.trim() || undefined,
+        productIds: params.productIds?.join(",") || undefined,
+        billingCycleIds: params.billingCycleIds?.join(",") || undefined,
+        publish: params.publish || undefined,
+        all: true,
+      },
       signal,
     },
   );
