@@ -3,6 +3,7 @@ export const path = {
   prospect: "/prospect",
   customer: "/customer",
   analytics: "/analytics",
+  productMarketing: "/product-marketing",
   settings: {
     root: "/settings",
     users: "/settings/users",

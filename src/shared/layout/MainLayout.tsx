@@ -16,8 +16,10 @@ const MainLayout = () => {
       <Sidebar />
       <div className="flex-grow-1 d-flex flex-column vh-100 overflow-hidden">
         <Navbar />
-        <main className="p-4 flex-grow-1 overflow-y-auto">
-          <Outlet />
+        <main className="flex-grow-1 overflow-y-auto">
+          <div className="p-4">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

@@ -16,6 +16,7 @@ interface TableShellProps<T = TableShellRow> {
 
   pageSizeOptions?: number[];
   defaultPageSize?: number;
+  isPaginationHidden?: boolean;
 
   searchPlaceholder?: string;
   children?: (pagedRows: T[], startIndex: number) => ReactNode;
@@ -30,6 +31,7 @@ function TableShell<T = TableShellRow>({
 
   pageSizeOptions = [10, 25, 50],
   defaultPageSize = pageSizeOptions[0],
+  isPaginationHidden = false,
 
   searchPlaceholder = "Search...",
 
@@ -56,7 +58,13 @@ function TableShell<T = TableShellRow>({
     __handlePreviousPage,
     __handleNextPage,
     __goToPage,
-  } = useTableShellState({ headers, rows, defaultPageSize });
+  } = useTableShellState({
+    headers,
+    rows,
+    defaultPageSize: isPaginationHidden
+      ? Number.MAX_SAFE_INTEGER
+      : defaultPageSize,
+  });
 
   const colSpan = headers.length;
 
@@ -76,7 +84,11 @@ function TableShell<T = TableShellRow>({
       {/* Table */}
       <div
         className="card-body p-0 table-responsive"
-        style={{ maxHeight: "65vh", overflowY: "auto" }}
+        style={
+          isPaginationHidden
+            ? { overflow: "visible" }
+            : { maxHeight: "65vh", overflowY: "auto" }
+        }
       >
         <table className="table align-middle mb-0">
           <TableShellHead
@@ -101,7 +113,7 @@ function TableShell<T = TableShellRow>({
       </div>
 
       {/* Pagination */}
-      {__totalItems > 0 ? (
+      {!isPaginationHidden && __totalItems > 0 ? (
         <TableShellPagination
           pageSize={__pageSize}
           pageSizeOptions={pageSizeOptions}
