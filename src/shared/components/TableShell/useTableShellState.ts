@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
-import { TableShellHeader, TableShellSortState } from "./types";
+import {
+  TableShellHeader,
+  TableShellPaginationState,
+  TableShellSearch,
+  TableShellSortState,
+} from "./types";
 import { compareSortValues, getRowValue, isHeaderConfig } from "./table.helper";
 
 interface UseTableShellStateOptions<T> {
   headers: TableShellHeader<T>[];
   rows: T[];
   defaultPageSize: number;
+  isPaginationExternal: boolean;
 }
 
 export function useTableShellState<T>({
   headers,
   rows,
   defaultPageSize,
+  isPaginationExternal,
 }: UseTableShellStateOptions<T>) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(defaultPageSize);
@@ -61,11 +68,18 @@ export function useTableShellState<T>({
   const currentPage = Math.min(page, totalPages);
   const startIndex = (currentPage - 1) * pageSize;
 
-  const pagedRows = sortedRows.slice(startIndex, startIndex + pageSize);
+  // Externally paginated rows are already a single server page.
+  const pagedRows = isPaginationExternal
+    ? sortedRows
+    : sortedRows.slice(startIndex, startIndex + pageSize);
 
   useEffect(() => {
+    if (isPaginationExternal) {
+      return;
+    }
+
     setPage(1);
-  }, [rows, pageSize, sort, searchQuery]);
+  }, [rows, pageSize, sort, searchQuery, isPaginationExternal]);
 
   const isSearching =
     searchableColumnIndexes.length > 0 && searchQuery.trim() !== "";
@@ -84,34 +98,31 @@ export function useTableShellState<T>({
     });
   };
 
-  const _handlePreviousPage = () => {
-    setPage((page) => Math.max(1, page - 1));
+  const clientPagination: TableShellPaginationState = {
+    page: currentPage,
+    pageSize,
+    totalItems,
+    totalPages,
+    onPageChange: setPage,
+    onPageSizeChange: setPageSize,
   };
 
-  const _handleNextPage = () => {
-    setPage((page) => Math.min(totalPages, page + 1));
+  // No onSubmit: client-side search filters as you type
+  const clientSearch: TableShellSearch = {
+    value: searchQuery,
+    appliedValue: isSearching ? searchQuery : "",
+    onChange: setSearchQuery,
   };
 
   return {
     __pagedRows: pagedRows,
-    __totalItems: totalItems,
-    __totalPages: totalPages,
-    __currentPage: currentPage,
-    __startIndex: startIndex,
-
-    __pageSize: pageSize,
-    __setPageSize: setPageSize,
 
     __sort: sort,
     __handleSort: _handleSort,
 
-    __searchQuery: searchQuery,
-    __setSearchQuery: setSearchQuery,
-    __isSearching: isSearching,
     __isSearchableColumnsPresent: searchableColumnIndexes.length > 0,
 
-    __handlePreviousPage: _handlePreviousPage,
-    __handleNextPage: _handleNextPage,
-    __goToPage: setPage,
+    __clientPagination: clientPagination,
+    __clientSearch: clientSearch,
   };
 }

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { ModalHandle } from "../../../shared/components/Modal";
 import { createModalControls } from "../../../shared/helpers/modal";
 import useForm from "../../../shared/hooks/useForm";
+import usePagination from "../../../shared/hooks/usePagination";
 import { EMPTY_PRODUCT_MARKETING_FILTER } from "../constants/productMarketingFilter";
 import { fetchProductVariantMarketings } from "../services/productMarketing.service";
 import {
@@ -18,6 +19,9 @@ const useProductMarketing = () => {
     EMPTY_PRODUCT_MARKETING_FILTER,
   );
 
+  const { __page, __pageSize, __pagination, __setPaginationMeta, __resetPage } =
+    usePagination();
+
   const {
     __values: filterDraft,
     __setForm: _setFilterDraft,
@@ -30,34 +34,37 @@ const useProductMarketing = () => {
   useEffect(() => {
     const controller = new AbortController();
 
-    const loadData = async () => {
-      setIsLoading(true);
-      setErrorMessage(null);
+    setIsLoading(true);
+    setErrorMessage(null);
 
-      try {
-        const result = await fetchProductVariantMarketings(
-          appliedFilters,
-          controller.signal,
-        );
-
-        setItems(result);
-      } catch {
-        if (!controller.signal.aborted) {
-          setErrorMessage("Failed to load product marketing data.");
+    fetchProductVariantMarketings(
+      { ...appliedFilters, page: __page, limit: __pageSize },
+      controller.signal,
+    )
+      .then((result) => {
+        setItems(result.items);
+        __setPaginationMeta(result.pagination);
+      })
+      .catch(() => {
+        if (controller.signal.aborted) {
+          return;
         }
-      } finally {
-        if (!controller.signal.aborted) {
-          setIsLoading(false);
-        }
-      }
-    };
 
-    loadData();
+        setErrorMessage("Failed to load product marketing data.");
+      })
+      .finally(() => {
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        setIsLoading(false);
+      });
 
     return () => controller.abort();
-  }, [appliedFilters]);
+  }, [appliedFilters, __page, __pageSize]);
 
   const _handleSubmitSearch = () => {
+    __resetPage();
     setAppliedFilters({ ...appliedFilters, search: searchQuery.trim() });
   };
 
@@ -69,12 +76,14 @@ const useProductMarketing = () => {
   const _handleSubmitFilter = () => {
     const search = filterDraft.search.trim();
 
+    __resetPage();
     setSearchQuery(search);
     setAppliedFilters({ ...filterDraft, search });
     filterModal.close();
   };
 
   const _handleResetFilter = () => {
+    __resetPage();
     setSearchQuery("");
     setAppliedFilters(EMPTY_PRODUCT_MARKETING_FILTER);
     _resetFilterDraft();
@@ -110,13 +119,15 @@ const useProductMarketing = () => {
     __filterDraft: filterDraft,
     __filterModalRef: filterModal.ref,
     __activeFilterCount: activeFilterCount,
-    __hasActiveFilter:
-      activeFilterCount > 0 || appliedFilters.search !== "",
+    __hasActiveFilter: activeFilterCount > 0 || appliedFilters.search !== "",
     __handleOpenFilter: _handleOpenFilter,
     __handleChangeFilter: _handleChangeFilter,
     __handleSubmitFilter: _handleSubmitFilter,
     __handleResetFilter: _handleResetFilter,
     __handleCloseFilter: _handleCloseFilter,
+
+    // Pagination
+    __pagination,
   };
 };
 

@@ -1,32 +1,23 @@
 import { getPageNumbers, PAGE_ELLIPSIS } from "./table.helper";
-
-interface TableShellPaginationActions {
-  onPageSizeChange: (size: number) => void;
-  onPrevious: () => void;
-  onNext: () => void;
-  onGoToPage: (page: number) => void;
-}
+import { TableShellPaginationState } from "./types";
 
 interface TableShellPaginationProps {
-  pageSize: number;
+  pagination: TableShellPaginationState;
   pageSizeOptions: number[];
-
-  currentPage: number;
-  totalPages: number;
   startIndex: number;
-  totalItems: number;
-
-  actions: TableShellPaginationActions;
 }
 
 const TableShellPagination = ({
-  pageSize,
+  pagination: {
+    page,
+    pageSize,
+    totalItems,
+    totalPages,
+    onPageChange,
+    onPageSizeChange,
+  },
   pageSizeOptions,
-  currentPage,
-  totalPages,
   startIndex,
-  totalItems,
-  actions: { onPageSizeChange, onPrevious, onNext, onGoToPage },
 }: TableShellPaginationProps) => (
   <div className="card-footer d-flex flex-wrap justify-content-between align-items-center gap-2">
     {/* Page Size */}
@@ -49,19 +40,19 @@ const TableShellPagination = ({
     {/* Pagination */}
     <div className="d-flex align-items-center gap-3">
       <span className="text-muted small">
-        Showing {startIndex + 1}-
-        {Math.min(startIndex + pageSize, totalItems)} of {totalItems} entries
+        Showing {startIndex + 1}-{Math.min(startIndex + pageSize, totalItems)}{" "}
+        of {totalItems} entries
       </span>
 
       <nav aria-label="Page navigation">
         <ul className="pagination pagination-sm mb-0">
           {/* Previous */}
-          <li className={`page-item ${currentPage <= 1 ? "disabled" : ""}`}>
+          <li className={`page-item ${page <= 1 ? "disabled" : ""}`}>
             <button
               type="button"
               className="page-link"
-              onClick={onPrevious}
-              disabled={currentPage <= 1}
+              onClick={() => onPageChange(page - 1)}
+              disabled={page <= 1}
               aria-label="Previous page"
             >
               &laquo;
@@ -69,41 +60,35 @@ const TableShellPagination = ({
           </li>
 
           {/* Page Numbers */}
-          {getPageNumbers(currentPage, totalPages).map((page, index) =>
-            page === PAGE_ELLIPSIS ? (
+          {getPageNumbers(page, totalPages).map((pageNumber, index) =>
+            pageNumber === PAGE_ELLIPSIS ? (
               <li key={`ellipsis-${index}`} className="page-item disabled">
                 <span className="page-link">{PAGE_ELLIPSIS}</span>
               </li>
             ) : (
               <li
-                key={page}
-                className={`page-item ${
-                  page === currentPage ? "active" : ""
-                }`}
-                aria-current={page === currentPage ? "page" : undefined}
+                key={pageNumber}
+                className={`page-item ${pageNumber === page ? "active" : ""}`}
+                aria-current={pageNumber === page ? "page" : undefined}
               >
                 <button
                   type="button"
                   className="page-link"
-                  onClick={() => onGoToPage(page)}
+                  onClick={() => onPageChange(pageNumber)}
                 >
-                  {page}
+                  {pageNumber}
                 </button>
               </li>
             ),
           )}
 
           {/* Next */}
-          <li
-            className={`page-item ${
-              currentPage >= totalPages ? "disabled" : ""
-            }`}
-          >
+          <li className={`page-item ${page >= totalPages ? "disabled" : ""}`}>
             <button
               type="button"
               className="page-link"
-              onClick={onNext}
-              disabled={currentPage >= totalPages}
+              onClick={() => onPageChange(page + 1)}
+              disabled={page >= totalPages}
               aria-label="Next page"
             >
               &raquo;

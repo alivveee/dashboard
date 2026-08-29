@@ -25,6 +25,8 @@ const ProductMarketingPage = () => {
     __handleSubmitFilter,
     __handleResetFilter,
     __handleCloseFilter,
+
+    __pagination,
   } = useProductMarketing();
   const { __close } = useSidebar();
 
@@ -55,6 +57,7 @@ const ProductMarketingPage = () => {
           onOpen: __handleOpenFilter,
           onReset: __handleResetFilter,
         }}
+        pagination={__pagination}
       />
 
       <ProductMarketingFilterModal

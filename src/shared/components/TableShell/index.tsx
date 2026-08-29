@@ -1,17 +1,16 @@
 import { ReactNode } from "react";
-import { TableShellHeader, TableShellRow } from "./types";
+import { PAGE_SIZE_OPTIONS } from "../../constants/table";
+import {
+  TableShellHeader,
+  TableShellPaginationState,
+  TableShellRow,
+  TableShellSearch,
+} from "./types";
 import { useTableShellState } from "./useTableShellState";
 import TableSearchBox from "./TableSearchBox";
 import TableShellHead from "./TableShellHead";
 import TableShellBody from "./TableShellBody";
 import TableShellPagination from "./TableShellPagination";
-
-interface TableShellSearch {
-  value: string;
-  appliedValue?: string;
-  onChange: (value: string) => void;
-  onSubmit: () => void;
-}
 
 interface TableShellProps<T = TableShellRow> {
   headers: TableShellHeader<T>[];
@@ -23,7 +22,7 @@ interface TableShellProps<T = TableShellRow> {
 
   pageSizeOptions?: number[];
   defaultPageSize?: number;
-  isPaginationHidden?: boolean;
+  pagination?: TableShellPaginationState;
 
   searchPlaceholder?: string;
   search?: TableShellSearch;
@@ -38,9 +37,9 @@ function TableShell<T = TableShellRow>({
   isLoading,
   className,
 
-  pageSizeOptions = [10, 25, 50],
+  pageSizeOptions = PAGE_SIZE_OPTIONS,
   defaultPageSize = pageSizeOptions[0],
-  isPaginationHidden = false,
+  pagination,
 
   searchPlaceholder = "Search...",
   search,
@@ -50,39 +49,23 @@ function TableShell<T = TableShellRow>({
 }: TableShellProps<T>) {
   const {
     __pagedRows,
-    __totalItems,
-    __totalPages,
-    __currentPage,
-    __startIndex,
-
-    __pageSize,
-    __setPageSize,
-
     __sort,
     __handleSort,
-
-    __searchQuery,
-    __setSearchQuery,
-    __isSearching,
     __isSearchableColumnsPresent,
-
-    __handlePreviousPage,
-    __handleNextPage,
-    __goToPage,
+    __clientPagination,
+    __clientSearch,
   } = useTableShellState({
     headers,
     rows,
-    defaultPageSize: isPaginationHidden
-      ? Number.MAX_SAFE_INTEGER
-      : defaultPageSize,
+    defaultPageSize,
+    isPaginationExternal: pagination !== undefined,
   });
 
-  const colSpan = headers.length;
+  const activePagination = pagination ?? __clientPagination;
+  const activeSearch = search ?? __clientSearch;
 
-  const appliedSearchQuery = search
-    ? (search.appliedValue ?? "").trim()
-    : __searchQuery.trim();
-  const isSearchApplied = search ? appliedSearchQuery !== "" : __isSearching;
+  const startIndex = (activePagination.page - 1) * activePagination.pageSize;
+  const appliedSearchQuery = (activeSearch.appliedValue ?? "").trim();
 
   return (
     <div className={`card border-0 shadow-sm ${className ?? ""}`.trim()}>
@@ -91,9 +74,9 @@ function TableShell<T = TableShellRow>({
         <div className="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
           <div className="d-flex align-items-center gap-2">
             <TableSearchBox
-              value={search ? search.value : __searchQuery}
-              onChange={search ? search.onChange : __setSearchQuery}
-              onSubmit={search ? search.onSubmit : undefined}
+              value={activeSearch.value}
+              onChange={activeSearch.onChange}
+              onSubmit={activeSearch.onSubmit}
               placeholder={searchPlaceholder}
             />
 
@@ -105,11 +88,7 @@ function TableShell<T = TableShellRow>({
       {/* Table */}
       <div
         className="card-body p-0 table-responsive"
-        style={
-          isPaginationHidden
-            ? { overflow: "visible" }
-            : { maxHeight: "65vh", overflowY: "auto" }
-        }
+        style={{ overflow: "visible" }}
       >
         <table className="table align-middle mb-0">
           <TableShellHead
@@ -120,12 +99,12 @@ function TableShell<T = TableShellRow>({
 
           <TableShellBody
             rows={__pagedRows}
-            colSpan={colSpan}
+            colSpan={headers.length}
             isLoading={isLoading}
-            startIndex={__startIndex}
+            startIndex={startIndex}
             children={children}
             emptyMessage={
-              isSearchApplied
+              appliedSearchQuery
                 ? `No results found for "${appliedSearchQuery}".`
                 : emptyMessage
             }
@@ -134,25 +113,16 @@ function TableShell<T = TableShellRow>({
       </div>
 
       {/* Pagination */}
-      {!isPaginationHidden && __totalItems > 0 ? (
+      {!isLoading && activePagination.totalItems > 0 ? (
         <TableShellPagination
-          pageSize={__pageSize}
+          pagination={activePagination}
           pageSizeOptions={pageSizeOptions}
-          currentPage={__currentPage}
-          totalPages={__totalPages}
-          startIndex={__startIndex}
-          totalItems={__totalItems}
-          actions={{
-            onPageSizeChange: __setPageSize,
-            onPrevious: __handlePreviousPage,
-            onNext: __handleNextPage,
-            onGoToPage: __goToPage,
-          }}
+          startIndex={startIndex}
         />
       ) : null}
     </div>
   );
 }
 
-export type { TableShellSearch };
+export type { TableShellSearch, TableShellPaginationState };
 export default TableShell;

@@ -1,4 +1,5 @@
 import TableShell, {
+  TableShellPaginationState,
   TableShellSearch,
 } from "../../../shared/components/TableShell";
 import { IconFilter } from "../../../shared/components/icons/Icons";
@@ -17,6 +18,7 @@ interface ProductMarketingTableProps {
   isLoading: boolean;
   search: TableShellSearch;
   filter: ProductMarketingTableFilter;
+  pagination: TableShellPaginationState;
 }
 
 const ProductMarketingTable = ({
@@ -24,12 +26,13 @@ const ProductMarketingTable = ({
   isLoading,
   search,
   filter,
+  pagination,
 }: ProductMarketingTableProps) => (
   <TableShell
     emptyMessage="No product marketing data yet."
     isLoading={isLoading}
-    isPaginationHidden
     rows={items}
+    pagination={pagination}
     search={search}
     searchPlaceholder="Search product marketing..."
     advanceSearch={

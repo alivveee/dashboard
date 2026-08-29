@@ -1,5 +1,5 @@
 import api from "../../../shared/lib/axios";
-import { ApiResponse } from "../../../shared/types/Api.types";
+import { ApiPagination, ApiResponse } from "../../../shared/types/Api.types";
 import { ProductVariantMarketing } from "../types/Product.types";
 
 const PRODUCT_MARKETING_ENDPOINT =
@@ -10,12 +10,19 @@ export interface FetchProductVariantMarketingsParams {
   productIds?: string[];
   billingCycleIds?: string[];
   publish?: string;
+  page?: number;
+  limit?: number;
+}
+
+export interface FetchProductVariantMarketingsResult {
+  items: ProductVariantMarketing[];
+  pagination: ApiPagination | null;
 }
 
 export const fetchProductVariantMarketings = async (
   params: FetchProductVariantMarketingsParams = {},
   signal?: AbortSignal,
-): Promise<ProductVariantMarketing[]> => {
+): Promise<FetchProductVariantMarketingsResult> => {
   const response = await api.get<ApiResponse<ProductVariantMarketing[]>>(
     PRODUCT_MARKETING_ENDPOINT,
     {
@@ -24,11 +31,16 @@ export const fetchProductVariantMarketings = async (
         productIds: params.productIds?.join(",") || undefined,
         billingCycleIds: params.billingCycleIds?.join(",") || undefined,
         publish: params.publish || undefined,
+        page: params.page,
+        limit: params.limit,
         all: true,
       },
       signal,
     },
   );
 
-  return response.data.result ?? [];
+  return {
+    items: response.data.result ?? [],
+    pagination: response.data.pagination ?? null,
+  };
 };

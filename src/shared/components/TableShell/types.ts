@@ -22,3 +22,20 @@ export interface TableShellSortState {
   columnIndex: number;
   direction: SortDirection;
 }
+
+export interface TableShellPaginationState {
+  page: number;
+  pageSize: number;
+  totalItems: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  onPageSizeChange: (size: number) => void;
+}
+
+/** Same idea as TableShellPaginationState, for the search box. */
+export interface TableShellSearch {
+  value: string;
+  appliedValue?: string;
+  onChange: (value: string) => void;
+  onSubmit?: () => void;
+}
