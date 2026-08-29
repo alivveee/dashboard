@@ -1,8 +1,8 @@
 import { getPageNumbers, PAGE_ELLIPSIS } from "./table.helper";
-import { TableShellPaginationState } from "./types";
+import { PaginationState } from "../../types/Pagination.types";
 
 interface TableShellPaginationProps {
-  pagination: TableShellPaginationState;
+  pagination: PaginationState;
   pageSizeOptions: number[];
   startIndex: number;
 }

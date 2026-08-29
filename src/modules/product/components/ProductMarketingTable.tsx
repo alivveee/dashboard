@@ -1,10 +1,9 @@
-import TableShell, {
-  TableShellPaginationState,
-  TableShellSearch,
-} from "../../../shared/components/TableShell";
+import TableShell from "../../../shared/components/TableShell";
+import { PaginationState } from "../../../shared/types/Pagination.types";
 import { IconFilter } from "../../../shared/components/icons/Icons";
 import { ProductVariantMarketing } from "../types/Product.types";
 import TableRowProductMarketing from "./TableRowProductMarketing";
+import { TableShellSearch } from "../../../shared/components/TableShell/types";
 
 interface ProductMarketingTableFilter {
   activeCount: number;
@@ -18,7 +17,7 @@ interface ProductMarketingTableProps {
   isLoading: boolean;
   search: TableShellSearch;
   filter: ProductMarketingTableFilter;
-  pagination: TableShellPaginationState;
+  pagination: PaginationState;
 }
 
 const ProductMarketingTable = ({

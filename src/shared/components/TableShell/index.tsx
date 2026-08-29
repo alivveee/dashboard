@@ -1,11 +1,7 @@
 import { ReactNode } from "react";
 import { PAGE_SIZE_OPTIONS } from "../../constants/table";
-import {
-  TableShellHeader,
-  TableShellPaginationState,
-  TableShellRow,
-  TableShellSearch,
-} from "./types";
+import { PaginationState } from "../../types/Pagination.types";
+import { TableShellHeader, TableShellRow, TableShellSearch } from "./types";
 import { useTableShellState } from "./useTableShellState";
 import TableSearchBox from "./TableSearchBox";
 import TableShellHead from "./TableShellHead";
@@ -22,7 +18,7 @@ interface TableShellProps<T = TableShellRow> {
 
   pageSizeOptions?: number[];
   defaultPageSize?: number;
-  pagination?: TableShellPaginationState;
+  pagination?: PaginationState;
 
   searchPlaceholder?: string;
   search?: TableShellSearch;
@@ -124,5 +120,4 @@ function TableShell<T = TableShellRow>({
   );
 }
 
-export type { TableShellSearch, TableShellPaginationState };
 export default TableShell;

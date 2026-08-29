@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import { PaginationState } from "../../types/Pagination.types";
 import {
   TableShellHeader,
-  TableShellPaginationState,
   TableShellSearch,
   TableShellSortState,
 } from "./types";
@@ -98,7 +98,7 @@ export function useTableShellState<T>({
     });
   };
 
-  const clientPagination: TableShellPaginationState = {
+  const clientPagination: PaginationState = {
     page: currentPage,
     pageSize,
     totalItems,

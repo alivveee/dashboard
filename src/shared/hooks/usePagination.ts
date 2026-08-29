@@ -1,28 +1,41 @@
 import { useState } from "react";
-import type { TableShellPaginationState } from "../components/TableShell/types";
-import { DEFAULT_PAGE_SIZE } from "../constants/table";
+import { DEFAULT_PAGE_SIZE, PAGE_SIZE_OPTIONS } from "../constants/table";
 import { ApiPagination } from "../types/Api.types";
+import { PaginationState } from "../types/Pagination.types";
+import useQueryParams, { QueryParamsPatch } from "./useQueryParams";
+
+const PAGE_PARAM = "page";
+const PAGE_SIZE_PARAM = "limit";
 
 const usePagination = (defaultPageSize = DEFAULT_PAGE_SIZE) => {
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(defaultPageSize);
+  const { __getNumberParam, __setParams } = useQueryParams();
   const [meta, setMeta] = useState<ApiPagination | null>(null);
 
+  const page = __getNumberParam(PAGE_PARAM, 1);
+  const pageSizeParam = __getNumberParam(PAGE_SIZE_PARAM, defaultPageSize);
+  const pageSize = PAGE_SIZE_OPTIONS.includes(pageSizeParam)
+    ? pageSizeParam
+    : defaultPageSize;
+
+  const _pageParam = (nextPage: number) => (nextPage > 1 ? nextPage : null);
+
+  const _handleChangePage = (nextPage: number) => {
+    __setParams({ [PAGE_PARAM]: _pageParam(nextPage) });
+  };
+
   const _handleChangePageSize = (size: number) => {
-    setPage(1);
-    setPageSize(size);
+    __setParams({
+      [PAGE_PARAM]: null,
+      [PAGE_SIZE_PARAM]: size === defaultPageSize ? null : size,
+    });
   };
 
-  const _resetPage = () => {
-    setPage(1);
-  };
-
-  const pagination: TableShellPaginationState = {
+  const pagination: PaginationState = {
     page,
     pageSize,
     totalItems: meta?.total ?? 0,
     totalPages: meta?.totalPage ?? 1,
-    onPageChange: setPage,
+    onPageChange: _handleChangePage,
     onPageSizeChange: _handleChangePageSize,
   };
 
@@ -32,7 +45,8 @@ const usePagination = (defaultPageSize = DEFAULT_PAGE_SIZE) => {
 
     __pagination: pagination,
     __setPaginationMeta: setMeta,
-    __resetPage: _resetPage,
+
+    __resetPageParams: { [PAGE_PARAM]: null } as QueryParamsPatch,
   };
 };
 
