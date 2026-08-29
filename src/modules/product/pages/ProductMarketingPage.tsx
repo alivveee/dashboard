@@ -28,6 +28,7 @@ const ProductMarketingPage = () => {
 
     __pagination,
   } = useProductMarketing();
+
   const { __close } = useSidebar();
 
   useEffect(() => {

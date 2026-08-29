@@ -3,53 +3,24 @@ import type { ModalHandle } from "../../../shared/components/Modal";
 import { createModalControls } from "../../../shared/helpers/modal";
 import useForm from "../../../shared/hooks/useForm";
 import usePagination from "../../../shared/hooks/usePagination";
-import useQueryParams from "../../../shared/hooks/useQueryParams";
-import {
-  BILLING_CYCLE_OPTIONS,
-  EMPTY_PRODUCT_MARKETING_FILTER,
-  PRODUCT_OPTIONS,
-  PUBLISH_OPTIONS,
-} from "../constants/productMarketingFilter";
+import { EMPTY_PRODUCT_MARKETING_FILTER } from "../constants/productMarketingFilter.constants";
 import { fetchProductVariantMarketings } from "../services/productMarketing.service";
 import {
   ProductMarketingFilter,
   ProductVariantMarketing,
 } from "../types/Product.types";
 
-type FilterOption = { value: string; label: string };
-
-const keepKnownValues = (values: string[], options: FilterOption[]) =>
-  values.filter((value) => options.some((option) => option.value === value));
-
 const useProductMarketing = () => {
   const [items, setItems] = useState<ProductVariantMarketing[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [appliedFilters, setAppliedFilters] = useState<ProductMarketingFilter>(
+    EMPTY_PRODUCT_MARKETING_FILTER,
+  );
 
-  const controller = new AbortController();
-
-  const { __queryString, __getParam, __getListParam, __setParams } =
-    useQueryParams();
-
-  const {
-    __page,
-    __pageSize,
-    __pagination,
-    __setPaginationMeta,
-    __resetPageParams,
-  } = usePagination();
-
-  const appliedFilters: ProductMarketingFilter = {
-    search: __getParam("search"),
-    productIds: keepKnownValues(__getListParam("productIds"), PRODUCT_OPTIONS),
-    billingCycleIds: keepKnownValues(
-      __getListParam("billingCycleIds"),
-      BILLING_CYCLE_OPTIONS,
-    ),
-    publish: keepKnownValues([__getParam("publish")], PUBLISH_OPTIONS)[0] ?? "",
-  };
-
-  const [searchQuery, setSearchQuery] = useState(appliedFilters.search);
+  const { __page, __pageSize, __pagination, __setPaginationMeta, __resetPage } =
+    usePagination();
 
   const {
     __values: filterDraft,
@@ -60,44 +31,9 @@ const useProductMarketing = () => {
 
   const filterModal = createModalControls(useRef<ModalHandle>(null));
 
-  const _handleSubmitSearch = () => {
-    __setParams({ search: searchQuery.trim(), ...__resetPageParams });
-  };
-
-  const _handleOpenFilter = () => {
-    _setFilterDraft({ ...appliedFilters, search: searchQuery });
-    filterModal.open();
-  };
-
-  const _handleSubmitFilter = () => {
-    __setParams({
-      ...filterDraft,
-      search: filterDraft.search.trim(),
-      ...__resetPageParams,
-    });
-    filterModal.close();
-  };
-
-  const _handleResetFilter = () => {
-    __setParams({ ...EMPTY_PRODUCT_MARKETING_FILTER, ...__resetPageParams });
-    _resetFilterDraft();
-  };
-
-  const _handleCloseFilter = () => {
-    filterModal.close();
-  };
-
-  const activeFilterCount = [
-    appliedFilters.productIds.length > 0,
-    appliedFilters.billingCycleIds.length > 0,
-    appliedFilters.publish !== "",
-  ].filter(Boolean).length;
-
   useEffect(() => {
-    setSearchQuery(appliedFilters.search);
-  }, [appliedFilters.search]);
+    const controller = new AbortController();
 
-  useEffect(() => {
     setIsLoading(true);
     setErrorMessage(null);
 
@@ -125,7 +61,43 @@ const useProductMarketing = () => {
       });
 
     return () => controller.abort();
-  }, [__queryString]);
+  }, [appliedFilters, __page, __pageSize]);
+
+  const _handleSubmitSearch = () => {
+    __resetPage();
+    setAppliedFilters({ ...appliedFilters, search: searchQuery.trim() });
+  };
+
+  const _handleOpenFilter = () => {
+    _setFilterDraft({ ...appliedFilters, search: searchQuery });
+    filterModal.open();
+  };
+
+  const _handleSubmitFilter = () => {
+    const search = filterDraft.search.trim();
+
+    __resetPage();
+    setSearchQuery(search);
+    setAppliedFilters({ ...filterDraft, search });
+    filterModal.close();
+  };
+
+  const _handleResetFilter = () => {
+    __resetPage();
+    setSearchQuery("");
+    setAppliedFilters(EMPTY_PRODUCT_MARKETING_FILTER);
+    _resetFilterDraft();
+  };
+
+  const _handleCloseFilter = () => {
+    filterModal.close();
+  };
+
+  const activeFilterCount = [
+    appliedFilters.productIds.length > 0,
+    appliedFilters.billingCycleIds.length > 0,
+    appliedFilters.publish !== "",
+  ].filter(Boolean).length;
 
   return {
     // Data

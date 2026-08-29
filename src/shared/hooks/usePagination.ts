@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DEFAULT_PAGE_SIZE, PAGE_SIZE_OPTIONS } from "../constants/table";
 import { ApiPagination } from "../types/Api.types";
 import { PaginationState } from "../types/Pagination.types";
-import useQueryParams, { QueryParamsPatch } from "./useQueryParams";
+import useQueryParams from "./useQueryParams";
 
 const PAGE_PARAM = "page";
 const PAGE_SIZE_PARAM = "limit";
@@ -18,6 +18,10 @@ const usePagination = (defaultPageSize = DEFAULT_PAGE_SIZE) => {
     : defaultPageSize;
 
   const _pageParam = (nextPage: number) => (nextPage > 1 ? nextPage : null);
+
+  const _resetPage = () => {
+    __setParams({ [PAGE_PARAM]: null });
+  };
 
   const _handleChangePage = (nextPage: number) => {
     __setParams({ [PAGE_PARAM]: _pageParam(nextPage) });
@@ -46,7 +50,7 @@ const usePagination = (defaultPageSize = DEFAULT_PAGE_SIZE) => {
     __pagination: pagination,
     __setPaginationMeta: setMeta,
 
-    __resetPageParams: { [PAGE_PARAM]: null } as QueryParamsPatch,
+    __resetPage: _resetPage,
   };
 };
 

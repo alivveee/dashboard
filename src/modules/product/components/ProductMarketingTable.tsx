@@ -30,7 +30,6 @@ const ProductMarketingTable = ({
   <TableShell
     emptyMessage="No product marketing data yet."
     isLoading={isLoading}
-    rows={items}
     pagination={pagination}
     search={search}
     searchPlaceholder="Search product marketing..."
@@ -62,10 +61,8 @@ const ProductMarketingTable = ({
         ) : null}
       </div>
     }
-    headers={["Variant", "Product", "Pricing", "Branches"].map((content) => ({
-      content,
-      className: "py-3",
-    }))}
+    headers={["Variant", "Product", "Pricing", "Branches"]}
+    rows={items}
   >
     {(pagedItems) =>
       pagedItems.map((item) => (

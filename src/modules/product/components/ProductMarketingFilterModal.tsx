@@ -8,7 +8,7 @@ import {
   BILLING_CYCLE_OPTIONS,
   PRODUCT_OPTIONS,
   PUBLISH_OPTIONS,
-} from "../constants/productMarketingFilter";
+} from "../constants/productMarketingFilter.constants";
 import { ProductMarketingFilter } from "../types/Product.types";
 
 interface ProductMarketingFilterModalActions {

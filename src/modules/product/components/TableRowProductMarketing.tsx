@@ -151,9 +151,9 @@ const TableRowProductMarketing = ({ item }: TableRowProductMarketingProps) => {
             / {item.billingCycle.name}
           </span>
         </div>
-        <div className="small text-muted">Final Fee</div>
-
-        <hr className="my-2" />
+  
+          {/* <div className="small text-muted">Final Fee</div> */}
+          <hr className="my-2" />
 
         <FeeGrid
           rows={[
