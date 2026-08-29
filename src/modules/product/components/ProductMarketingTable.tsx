@@ -38,7 +38,7 @@ const ProductMarketingTable = ({
       <div className="d-flex">
         <button
           type="button"
-          className="btn btn-sm btn-light d-flex align-items-center gap-1"
+          className="btn btn-sm btn-ghost d-flex align-items-center gap-1"
           onClick={filter.onOpen}
           aria-label="Advanced search"
         >
@@ -54,7 +54,7 @@ const ProductMarketingTable = ({
         {filter.hasActive ? (
           <button
             type="button"
-            className="btn btn-sm btn-light p-1"
+            className="btn btn-sm btn-ghost p-1"
             onClick={filter.onReset}
           >
             Reset

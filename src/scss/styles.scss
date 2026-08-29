@@ -1,15 +1,15 @@
 //Themes
 
-//Brand v
+//Brand
 $primary: #eab308;
 $primary-light: #fac93e;
 
-//Component v
+//Component
 $component-active-color: #1a1a1a;
 $border-radius: 0.5rem;
 $offcanvas-horizontal-width: 520px;
 
-//Font v
+//Font 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 $font-family-sans-serif: "Inter", sans-serif;
 
@@ -129,4 +129,16 @@ $font-family-sans-serif: "Inter", sans-serif;
 
 .contact-link:hover {
   text-decoration: underline;
+}
+
+.btn-ghost {
+  --bs-btn-color: var(--bs-body-color);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: transparent;
+  --bs-btn-hover-color: var(--bs-body-color);
+  --bs-btn-hover-bg: var(--bs-secondary-bg);
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-color: var(--bs-body-color);
+  --bs-btn-active-bg: var(--bs-secondary-bg);
+  --bs-btn-active-border-color: transparent;
 }
